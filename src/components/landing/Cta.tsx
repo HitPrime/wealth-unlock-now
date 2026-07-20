@@ -15,7 +15,7 @@ export const CtaButton = forwardRef<HTMLButtonElement, CtaButtonProps>(
     <button
       ref={ref}
       type="button"
-      className={`group relative inline-flex items-center gap-2.5 overflow-hidden rounded-none bg-purple-gradient px-12 py-5 text-base font-medium uppercase tracking-[0.16em] text-white border border-[color:var(--color-gold)]/30 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[color:var(--color-gold)]/70 hover:shadow-glow active:translate-y-0 ${className}`}
+      className={`group relative inline-flex items-center gap-2.5 overflow-hidden rounded-none bg-purple-gradient px-6 py-3.5 text-sm md:px-12 md:py-5 md:text-base font-medium uppercase tracking-[0.16em] text-white border border-[color:var(--color-gold)]/30 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[color:var(--color-gold)]/70 hover:shadow-glow active:translate-y-0 ${className}`}
       {...props}
     >
       {/* light sweep on hover */}

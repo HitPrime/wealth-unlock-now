@@ -17,7 +17,7 @@ export function Hero() {
         transition={{ duration: 1.4, ease: "easeOut" }}
         src={heroImage}
         alt="Silhouette of a trader in front of a rising chart"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%] md:object-center"
         loading="eager"
       />
       {/* Gradient overlays for legibility */}
