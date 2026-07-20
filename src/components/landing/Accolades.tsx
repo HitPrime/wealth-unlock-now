@@ -3,12 +3,10 @@ import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
 import wsjImg from "@/assets/press/appearances/wsj.png";
 import cnbcImg from "@/assets/press/appearances/cnbc.png";
-import squawkImg from "@/assets/press/appearances/squawk.png";
 
 const APPEARANCE_IMAGES: Record<string, string> = {
   WSJ: wsjImg,
   CNBC: cnbcImg,
-  "Squawk on the Street": squawkImg,
 };
 
 export function Accolades() {
@@ -25,18 +23,31 @@ export function Accolades() {
               key={p.name}
               className="group overflow-hidden rounded-2xl border border-[color:var(--color-border)] bg-[oklch(0.14_0.06_300/0.7)] transition hover:border-[color:var(--color-gold)]/60"
             >
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <img
-                  src={APPEARANCE_IMAGES[p.short]}
-                  alt={`${p.name} appearance`}
-                  loading="lazy"
-                  className="h-full w-full object-cover object-center"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[oklch(0.14_0.06_300)] to-transparent"
-                />
-              </div>
+              {p.short === "Squawk on the Street" ? (
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/dUv_GldZFns?start=29&end=38&autoplay=0&rel=0&modestbranding=1"
+                    title="Squawk on the Street"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="h-full w-full"
+                    style={{ border: "none" }}
+                  />
+                </div>
+              ) : (
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={APPEARANCE_IMAGES[p.short]}
+                    alt={`${p.name} appearance`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[oklch(0.14_0.06_300)] to-transparent"
+                  />
+                </div>
+              )}
               <div className="p-8">
                 <p className="mb-3 font-mono text-[10px] tracking-[0.2em] text-[color:var(--color-gold)] uppercase">
                   {p.context}
