@@ -18,7 +18,7 @@ export function Nav() {
         </nav>
         <StarterKitDialog
           trigger={
-            <button className="inline-flex items-center rounded-full bg-purple-gradient px-7 py-3 text-base font-semibold text-white shadow-glow hover:brightness-110 transition">
+            <button className="inline-flex items-center rounded-full bg-purple-gradient px-4 py-2 text-sm font-semibold text-white shadow-glow hover:brightness-110 transition">
               Get the Free Kit
             </button>
           }

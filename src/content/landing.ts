@@ -59,7 +59,7 @@ export const PRESS = [
     name: "Squawk on the Street",
     short: "Squawk on the Street",
     context: "Discussed by Jim Cramer & David Faber",
-    description: "His philosophy on beginner-first trading education was brought up by Jim Cramer and David Faber.",
+    description: "\"He knows his stuff.\"",
   },
 ];
 
