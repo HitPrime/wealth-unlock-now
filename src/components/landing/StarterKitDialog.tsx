@@ -73,11 +73,11 @@ export function StarterKitDialog({ trigger }: { trigger: ReactNode }) {
             data-activation-value=""
             data-deactivation-type="neverDeactivate"
             data-deactivation-value=""
-            data-form-name="Form 0"
+            data-form-name="Website Form"
             data-height="400"
             data-layout-iframe-id="inline-2efo3PHbySqemxHI4h2x"
             data-form-id="2efo3PHbySqemxHI4h2x"
-            title="Form 0"
+            title="Website Form"
           />
         </div>
 
