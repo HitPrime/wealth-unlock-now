@@ -30,7 +30,7 @@ export function StarterKitDialog({ trigger }: { trigger: ReactNode }) {
       }}
     >
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-md border border-[color:var(--color-purple-400)]/40 bg-[oklch(0.10_0.04_300)] rounded-none max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-md border border-[color:var(--color-purple-400)]/40 bg-[oklch(0.10_0.04_300)] rounded-none max-h-[90vh] overflow-y-auto scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* Bundle image, bled to the top edges */}
         <div className="-mx-6 -mt-6 mb-1 overflow-hidden bg-[oklch(0.06_0.03_300)]">
           <img
