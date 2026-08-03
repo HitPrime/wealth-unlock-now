@@ -1,19 +1,19 @@
 {
   "redirects": [
     {
-      "source": "/",
-      "destination": "/coming-soon",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
       "source": "/K10US",
-      "destination": "https://kast-page.vercel.app"
+      "destination": "https://kast-page.vercel.app",
+      "permanent": false
     },
     {
       "source": "/K10US/:path*",
-      "destination": "https://kast-page.vercel.app/:path*"
+      "destination": "https://kast-page.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/coming-soon",
+      "permanent": false
     }
   ]
 }
