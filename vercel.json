@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/K10US",
+      "destination": "https://kast-page.vercel.app"
+    },
+    {
+      "source": "/K10US/:path*",
+      "destination": "https://kast-page.vercel.app/:path*"
+    }
+  ]
+}
