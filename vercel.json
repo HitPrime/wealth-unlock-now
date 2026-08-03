@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/coming-soon",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/K10US",
