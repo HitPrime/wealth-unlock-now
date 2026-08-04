@@ -1,28 +1,28 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { BarChart2, ShieldCheck, Zap } from "lucide-react";
+import { BarChart2, ShieldCheck, Layers } from "lucide-react";
 import logo from "@/assets/CassiusLogo.png";
 
 export const Route = createFileRoute("/klein")({
   component: KleinPage,
   head: () => ({
     meta: [
-      { title: "Trade 750+ Assets with Klein Funding | Cassius Cuvée" },
+      { title: "Learn About Klein Funding | Cassius Cuvée" },
       {
         name: "description",
         content:
-          "Trade 750+ assets with Klein Funding. Get up to 30% off using code CASSIUS. Fair rules, instant funding option — powered by Cassius Cuvée.",
+          "An overview of Klein Funding's markets, evaluation process, and funding options. Informational page by Cassius Cuvée.",
       },
-      { name: "keywords", content: "Klein Funding, prop trading, 750 assets, Cassius Cuvée, discount, CASSIUS code, instant funding" },
+      { name: "keywords", content: "Klein Funding, prop trading, markets, evaluation, funding options, Cassius Cuvée" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Trade 750+ Assets with Klein Funding | Cassius Cuvée" },
-      { property: "og:description", content: "Get up to 30% off Klein Funding using code CASSIUS. Fair rules, 750+ assets, instant funding." },
+      { property: "og:title", content: "Learn About Klein Funding | Cassius Cuvée" },
+      { property: "og:description", content: "An overview of Klein Funding's markets, evaluation process, and funding options." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cassiuscuvee.com/klein" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Trade 750+ Assets with Klein Funding | Cassius Cuvée" },
-      { name: "twitter:description", content: "Get up to 30% off Klein Funding using code CASSIUS." },
+      { name: "twitter:title", content: "Learn About Klein Funding | Cassius Cuvée" },
+      { name: "twitter:description", content: "An overview of Klein Funding's markets, evaluation process, and funding options." },
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/klein" },
@@ -35,25 +35,25 @@ function KleinPage() {
   const features = [
     {
       number: "01",
-      title: "750+ Assets",
-      description: "Trade across a wide range of markets and instruments",
+      title: "Wide Market Access",
+      description: "Trade across 750+ assets and instruments",
       icon: BarChart2,
     },
     {
       number: "02",
-      title: "Fair Rules",
-      description: "Transparent evaluation rules with no hidden restrictions",
+      title: "Transparent Rules",
+      description: "Clear evaluation guidelines with no hidden terms",
       icon: ShieldCheck,
     },
     {
       number: "03",
-      title: "Instant Funding Option",
-      description: "Get funded quickly without long evaluation delays",
-      icon: Zap,
+      title: "Funding Options",
+      description: "Learn about the available funding paths",
+      icon: Layers,
     },
   ];
 
-  const handleGetStarted = () => {
+  const handleLearnMore = () => {
     window.open("https://kleinfunding.com/ref/13054", "_blank", "noopener,noreferrer");
   };
 
@@ -77,7 +77,6 @@ function KleinPage() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col items-center gap-0.5"
         >
           <img src={logo} alt="Cassius Cuvée Logo" className="h-9 md:h-11 w-auto object-contain" />
         </motion.div>
@@ -93,8 +92,8 @@ function KleinPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/40 border border-purple-500/25 text-purple-200 text-xs font-medium tracking-wide shadow-inner backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-            Prop Trading Partner
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400/60" />
+            Trading Partner Overview
           </span>
         </motion.div>
 
@@ -106,15 +105,11 @@ function KleinPage() {
           className="space-y-3 max-w-2xl mx-auto"
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white uppercase leading-tight">
-            Trade 750+ Assets with Klein Funding
+            Learn About Klein Funding
           </h1>
-          <div className="flex items-center justify-center gap-2 text-slate-400 text-xs sm:text-sm font-normal flex-wrap">
-            <span>750+ Assets</span>
-            <span className="text-purple-700">|</span>
-            <span>Fair Rules</span>
-            <span className="text-purple-700">|</span>
-            <span>Instant Funding Option</span>
-          </div>
+          <p className="text-slate-400 text-sm sm:text-base font-normal leading-relaxed max-w-xl mx-auto">
+            An overview of the platform's markets, evaluation process, and funding options.
+          </p>
         </motion.div>
 
         {/* Feature Cards */}
@@ -148,22 +143,17 @@ function KleinPage() {
           })}
         </div>
 
-        {/* Discount + CTA */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex flex-col items-center gap-3"
         >
-          <p className="text-purple-400 text-sm font-medium tracking-wide">
-            Get up to 30% off using code{" "}
-            <span className="text-purple-300 font-bold tracking-widest">CASSIUS</span>
-          </p>
           <button
-            onClick={handleGetStarted}
-            className="bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wider text-sm sm:text-base py-4 px-10 rounded-full shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_32px_rgba(139,92,246,0.5)] transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 group"
+            onClick={handleLearnMore}
+            className="bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wider text-sm sm:text-base py-4 px-10 rounded-full shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_32px_rgba(139,92,246,0.5)] transition-all duration-300 transform active:scale-95 cursor-pointer"
           >
-            GET STARTED WITH KLEIN FUNDING
+            VIEW DETAILS
           </button>
         </motion.div>
 
@@ -173,7 +163,7 @@ function KleinPage() {
       <footer className="relative z-10 w-full bg-[#0b0a14] border-t border-purple-900/20 px-6 py-4 flex flex-col items-center justify-center gap-1 flex-shrink-0">
         <img src={logo} alt="Cassius Cuvée Logo" className="h-8 md:h-9 w-auto object-contain opacity-70" />
         <p className="text-xs text-slate-500 leading-relaxed font-normal text-center max-w-md mt-1">
-          Trading involves risk. Terms and eligibility apply per Klein Funding's official terms.
+          This page is for informational purposes only. Trading involves risk. Terms and eligibility apply per the platform's official terms.
         </p>
         <p className="text-xs text-slate-600 font-medium">© 2026 Cassius Cuvée</p>
       </footer>
