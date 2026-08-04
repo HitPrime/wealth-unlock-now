@@ -137,13 +137,27 @@ function KleinPage() {
               borderRadius: "16px", overflow: "hidden",
               boxShadow: "0 20px 40px rgba(139,92,246,0.3)",
               border: "2px solid rgba(139,92,246,0.25)",
-              width: "220px"
+              width: "220px", position: "relative"
             }}>
               <img
                 src={kleinLogo}
                 alt="Klein Funding"
                 style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
               />
+              {/* Center overlay button */}
+              <div style={{
+                position: "absolute", inset: 0,
+                display: "flex", alignItems: "center", justifyContent: "center"
+              }}>
+                <span style={{
+                  backgroundColor: "rgba(124,58,237,0.9)",
+                  color: "#ffffff", fontWeight: 700, fontSize: "13px",
+                  padding: "8px 20px", borderRadius: "9999px",
+                  boxShadow: "0 4px 12px rgba(139,92,246,0.4)"
+                }}>
+                  View Details →
+                </span>
+              </div>
             </div>
           </button>
         </motion.div>
