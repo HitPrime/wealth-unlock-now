@@ -91,18 +91,7 @@ function KleinPage() {
         padding: "32px 16px", gap: "20px"
       }}>
 
-        {/* Badge */}
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
-          <span style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            padding: "6px 16px", borderRadius: "9999px",
-            background: "rgba(59,7,100,0.4)", border: "1px solid rgba(139,92,246,0.25)",
-            color: "#e9d5ff", fontSize: "12px", fontWeight: 500, letterSpacing: "0.05em"
-          }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "9999px", backgroundColor: "rgba(192,132,252,0.6)", display: "inline-block" }} />
-            Trading Partner Overview
-          </span>
-        </motion.div>
+
 
         {/* Headline */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} style={{ maxWidth: "672px" }}>
