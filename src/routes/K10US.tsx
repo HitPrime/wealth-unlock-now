@@ -6,6 +6,37 @@ import card from "@/assets/KastCard.png";
 
 export const Route = createFileRoute("/K10US")({
   component: KastPage,
+  head: () => ({
+    meta: [
+      { title: "Get 10 USD Welcome Bonus on Kast Visa Card | Cassius Cuvée" },
+      {
+        name: "description",
+        content:
+          "Sign up on Kast using Cassius referral code and get a 10 USD welcome bonus on your Kast Visa Platinum card. Follow 3 simple steps to get started.",
+      },
+      { name: "keywords", content: "Kast, Kast Visa Card, 10 USD bonus, Cassius Cuvée, referral, crypto card, welcome bonus" },
+      { name: "robots", content: "index, follow" },
+      // Open Graph
+      { property: "og:title", content: "Get 10 USD Welcome Bonus on Kast Visa Card" },
+      {
+        property: "og:description",
+        content: "Sign up on Kast using Cassius referral code and get a 10 USD welcome bonus. 3 simple steps.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://cassiuscuvee.com/K10US" },
+      { property: "og:site_name", content: "Cassius Cuvée" },
+      // Twitter
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Get 10 USD Welcome Bonus on Kast Visa Card | Cassius Cuvée" },
+      {
+        name: "twitter:description",
+        content: "Sign up on Kast using Cassius referral code and get a 10 USD welcome bonus.",
+      },
+    ],
+    links: [
+      { rel: "canonical", href: "https://cassiuscuvee.com/K10US" },
+    ],
+  }),
 });
 
 function KastPage() {
