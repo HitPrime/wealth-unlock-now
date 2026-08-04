@@ -121,7 +121,7 @@ function KleinPage() {
               animation: "pulse 2s infinite"
             }}
           >
-            🔗 View Details — Click Here
+            🎁 Get up to 30% off using code CASSIUS
           </p>
           <button
             onClick={handleLearnMore}
@@ -155,7 +155,7 @@ function KleinPage() {
                   padding: "8px 20px", borderRadius: "9999px",
                   boxShadow: "0 4px 12px rgba(139,92,246,0.4)"
                 }}>
-                  View Details →
+                  Claim 30% off →
                 </span>
               </div>
             </div>
