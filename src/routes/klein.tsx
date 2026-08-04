@@ -8,17 +8,22 @@ export const Route = createFileRoute("/klein")({
   component: KleinPage,
   head: () => ({
     meta: [
-      { title: "Learn About Klein Funding | Cassius Cuvée" },
+      { title: "Get 30% Off Klein Funding | Cassius Cuvée" },
       {
         name: "description",
         content:
-          "An overview of Klein Funding's markets, evaluation process, and funding options. Informational page by Cassius Cuvée.",
+          "Use code CASSIUS to get up to 30% off Klein Funding. Trade 750+ assets with transparent rules and flexible funding options. Informational page by Cassius Cuvée.",
       },
+      { name: "keywords", content: "Klein Funding, prop trading, 30% off, CASSIUS code, 750 assets, transparent rules, funding options, Cassius Cuvée" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Learn About Klein Funding | Cassius Cuvée" },
-      { property: "og:description", content: "An overview of Klein Funding's markets, evaluation process, and funding options." },
+      { property: "og:title", content: "Get 30% Off Klein Funding | Cassius Cuvée" },
+      { property: "og:description", content: "Use code CASSIUS to get up to 30% off Klein Funding. Trade 750+ assets with transparent rules and flexible funding options." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cassiuscuvee.com/klein" },
+      { property: "og:site_name", content: "Cassius Cuvée" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Get 30% Off Klein Funding | Cassius Cuvée" },
+      { name: "twitter:description", content: "Use code CASSIUS to get up to 30% off Klein Funding. Trade 750+ assets with transparent rules and flexible funding options." },
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/klein" },
