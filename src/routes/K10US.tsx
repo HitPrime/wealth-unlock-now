@@ -35,6 +35,8 @@ export const Route = createFileRoute("/K10US")({
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/K10US" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
   }),
 });
