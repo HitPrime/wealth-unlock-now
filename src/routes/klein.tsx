@@ -80,11 +80,11 @@ function KleinPage() {
       {/* Header */}
       <header style={{
         position: "relative", zIndex: 10, width: "100%", backgroundColor: "#0b0a14",
-        borderBottom: "1px solid rgba(88,28,135,0.2)", padding: "10px 24px",
+        borderBottom: "1px solid rgba(88,28,135,0.2)", padding: "10px 40px",
         display: "flex", alignItems: "center", flexShrink: 0
       }}>
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "44px", width: "auto", objectFit: "contain" }} />
+          <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "36px", width: "auto", objectFit: "contain" }} />
         </motion.div>
       </header>
 
@@ -216,11 +216,11 @@ function KleinPage() {
       {/* Footer */}
       <footer style={{
         position: "relative", zIndex: 10, width: "100%", backgroundColor: "#0b0a14",
-        borderTop: "1px solid rgba(88,28,135,0.2)", padding: "12px 24px",
+        borderTop: "1px solid rgba(88,28,135,0.2)", padding: "12px 40px",
         display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", flexShrink: 0
       }}>
-        <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "32px", width: "auto", objectFit: "contain", opacity: 0.7 }} />
-        <p style={{ fontSize: "11px", color: "#64748b", textAlign: "center", maxWidth: "480px", marginTop: "4px", lineHeight: 1.6 }}>
+        <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "36px", width: "auto", objectFit: "contain", opacity: 0.8 }} />
+        <p style={{ fontSize: "11px", color: "#64748b", textAlign: "center", maxWidth: "480px", marginTop: "2px", lineHeight: 1.6 }}>
           This page is for informational purposes only. Trading involves risk. Terms and eligibility apply per the platform's official terms.
         </p>
         <p style={{ fontSize: "11px", color: "#475569", fontWeight: 500 }}>© 2026 Cassius Cuvée</p>
