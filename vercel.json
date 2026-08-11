@@ -1,8 +1,8 @@
 {
   "redirects": [
     {
-      "source": "/coming-soon",
-      "destination": "/",
+      "source": "/",
+      "destination": "/coming-soon",
       "permanent": false
     }
   ]
