@@ -15,7 +15,10 @@ import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as SwellPointRouteImport } from './routes/swell-point'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as MerchRouteImport } from './routes/merch'
+import { Route as KleinRouteImport } from './routes/klein'
+import { Route as ComingSoonRouteImport } from './routes/coming-soon'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as K10USRouteImport } from './routes/K10US'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VipRoute = VipRouteImport.update({
@@ -48,9 +51,24 @@ const MerchRoute = MerchRouteImport.update({
   path: '/merch',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KleinRoute = KleinRouteImport.update({
+  id: '/klein',
+  path: '/klein',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComingSoonRoute = ComingSoonRouteImport.update({
+  id: '/coming-soon',
+  path: '/coming-soon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const K10USRoute = K10USRouteImport.update({
+  id: '/K10US',
+  path: '/K10US',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,7 +79,10 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/swell-point': typeof SwellPointRoute
@@ -71,7 +92,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/swell-point': typeof SwellPointRoute
@@ -82,7 +106,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/swell-point': typeof SwellPointRoute
@@ -94,7 +121,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/K10US'
     | '/admin'
+    | '/coming-soon'
+    | '/klein'
     | '/merch'
     | '/offers'
     | '/swell-point'
@@ -104,7 +134,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/K10US'
     | '/admin'
+    | '/coming-soon'
+    | '/klein'
     | '/merch'
     | '/offers'
     | '/swell-point'
@@ -114,7 +147,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/K10US'
     | '/admin'
+    | '/coming-soon'
+    | '/klein'
     | '/merch'
     | '/offers'
     | '/swell-point'
@@ -125,7 +161,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  K10USRoute: typeof K10USRoute
   AdminRoute: typeof AdminRoute
+  ComingSoonRoute: typeof ComingSoonRoute
+  KleinRoute: typeof KleinRoute
   MerchRoute: typeof MerchRoute
   OffersRoute: typeof OffersRoute
   SwellPointRoute: typeof SwellPointRoute
@@ -178,11 +217,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MerchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/klein': {
+      id: '/klein'
+      path: '/klein'
+      fullPath: '/klein'
+      preLoaderRoute: typeof KleinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coming-soon': {
+      id: '/coming-soon'
+      path: '/coming-soon'
+      fullPath: '/coming-soon'
+      preLoaderRoute: typeof ComingSoonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/K10US': {
+      id: '/K10US'
+      path: '/K10US'
+      fullPath: '/K10US'
+      preLoaderRoute: typeof K10USRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -197,7 +257,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  K10USRoute: K10USRoute,
   AdminRoute: AdminRoute,
+  ComingSoonRoute: ComingSoonRoute,
+  KleinRoute: KleinRoute,
   MerchRoute: MerchRoute,
   OffersRoute: OffersRoute,
   SwellPointRoute: SwellPointRoute,

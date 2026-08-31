@@ -43,7 +43,7 @@ function KleinPage() {
     {
       number: "02",
       title: "Transparent Rules",
-      description: "Clear evaluation guidelines with no hidden terms",
+      description: "Straightforward evaluation guidelines",
       icon: ShieldCheck,
     },
     {
@@ -106,8 +106,11 @@ function KleinPage() {
           }}>
             Learn About Klein Funding
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "clamp(0.8rem, 2vw, 0.95rem)", lineHeight: 1.6 }}>
+          <p style={{ color: "#94a3b8", fontSize: "clamp(0.8rem, 2vw, 0.95rem)", lineHeight: 1.6, marginBottom: "10px" }}>
             An overview of the platform's markets, evaluation process, and funding options.
+          </p>
+          <p style={{ color: "#cbd5e1", fontSize: "clamp(0.75rem, 1.8vw, 0.875rem)", lineHeight: 1.7 }}>
+            Code <strong style={{ color: "#ffffff" }}>CASSIUS</strong> gives you an extra 15% off at checkout, automatically stacking with Klein Funding's current site promotion for up to 30% total discount.
           </p>
         </motion.div>
 
@@ -126,7 +129,7 @@ function KleinPage() {
               animation: "pulse 2s infinite"
             }}
           >
-            🎁 Get up to 30% off using code CASSIUS
+            🎁 Get 15% to 30% off using code CASSIUS
           </p>
           <button
             onClick={handleLearnMore}
@@ -160,11 +163,14 @@ function KleinPage() {
                   padding: "8px 20px", borderRadius: "9999px",
                   boxShadow: "0 4px 12px rgba(139,92,246,0.4)"
                 }}>
-                  Claim 30% off →
+                  Claim your discount →
                 </span>
               </div>
             </div>
           </button>
+          <p style={{ color: "#64748b", fontSize: "11px", marginTop: "4px", maxWidth: "220px", lineHeight: 1.5 }}>
+            Discount varies based on Klein Funding's active site-wide promotion at time of purchase.
+          </p>
         </motion.div>
 
         {/* Feature Cards */}
