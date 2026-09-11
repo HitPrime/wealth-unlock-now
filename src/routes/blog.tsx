@@ -452,6 +452,18 @@ function BlogPage() {
                           <span style={{ color: "rgba(167,139,250,0.5)", fontSize: "8px" }}>●</span>
                           <span className="font-mono uppercase" style={{ fontSize: "11px", letterSpacing: "0.12em", color: "rgba(167,139,250,0.7)" }}>Blog</span>
                         </div>
+
+                        <span
+                          className="md:hidden inline-flex items-center gap-2 self-start rounded-full font-medium mt-2 transition-all duration-200 group-hover:brightness-110"
+                          style={{
+                            background: "linear-gradient(135deg, oklch(0.60 0.24 290), oklch(0.42 0.24 290))",
+                            color: "#fff",
+                            fontSize: "12px",
+                            padding: "8px 16px",
+                          }}
+                        >
+                          Continue Reading →
+                        </span>
                       </div>
                     </a>
                   ))}
