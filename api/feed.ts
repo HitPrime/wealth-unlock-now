@@ -1,6 +1,4 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: Request, res: Response) {
   try {
     const response = await fetch("https://cassiuscuvee.substack.com/feed", {
       headers: {
@@ -10,16 +8,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (!response.ok) {
-      return res.status(502).json({ error: "Feed fetch failed" });
+      return new Response(JSON.stringify({ error: "Feed fetch failed" }), { status: 502 });
     }
 
     const xml = await response.text();
 
-    res.setHeader("Content-Type", "application/xml");
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    return res.status(200).send(xml);
-  } catch (err) {
-    return res.status(500).json({ error: "Internal error" });
+    return new Response(xml, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/xml",
+        "Cache-Control": "s-maxage=300, stale-while-revalidate=600",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: "Internal error" }), { status: 500 });
   }
 }
+
+export const config = { runtime: "edge" };
