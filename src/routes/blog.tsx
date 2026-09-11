@@ -55,6 +55,29 @@ const CORS_PROXIES = [
   `https://corsproxy.io/?${encodeURIComponent(FEED_URL)}`,
 ];
 
+const CACHE_KEY = "blog_posts_cache";
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+
+function getCached(): BlogPost[] | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { posts, ts } = JSON.parse(raw);
+    if (Date.now() - ts > CACHE_TTL) return null;
+    return posts;
+  } catch {
+    return null;
+  }
+}
+
+function setCache(posts: BlogPost[]) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, ts: Date.now() }));
+  } catch {
+    // storage full or unavailable — ignore
+  }
+}
+
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]+>/g, " ")
@@ -167,13 +190,24 @@ function BlogPage() {
     let cancelled = false;
     setStatus("loading");
 
+    // show cached posts instantly if available
+    const cached = getCached();
+    if (cached) {
+      setPosts(cached);
+      setStatus("ok");
+      // still refresh in background silently
+      fetchPosts().then((fresh) => {
+        if (!cancelled) { setPosts(fresh); setCache(fresh); }
+      }).catch(() => {/* keep showing cached */});
+      return () => { cancelled = true; };
+    }
+
     const attempt = async () => {
       try {
         const data = await fetchPosts();
-        if (!cancelled) { setPosts(data); setStatus("ok"); }
+        if (!cancelled) { setPosts(data); setStatus("ok"); setCache(data); }
       } catch {
         if (!cancelled) {
-          // auto-retry up to 3 times with 1.5s delay
           if (retryCount < 3) {
             setTimeout(() => {
               if (!cancelled) setRetryCount((c) => c + 1);
