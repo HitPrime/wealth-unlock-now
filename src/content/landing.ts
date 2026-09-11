@@ -40,6 +40,7 @@ export const NAV_LINKS = [
   { label: "Mentorship", href: "#mindset" },
   { label: "Press", href: "#press" },
   { label: "FAQ", href: "#faq" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const PRESS = [
