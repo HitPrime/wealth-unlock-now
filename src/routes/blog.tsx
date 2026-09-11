@@ -221,13 +221,13 @@ function BlogPage() {
       </header>
 
       {/* ── Page header ── */}
-      <div className="pt-28 pb-10 border-b border-[color:var(--color-border)]">
-        <div className="mx-auto max-w-6xl px-6">
-          <img src={cassiusLogo} alt="Cassius Cuvée" className="h-10 w-auto mb-4" />
-          <h1 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight">
+      <div className="pt-24 md:pt-28 pb-10 border-b border-[color:var(--color-border)]">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <img src={cassiusLogo} alt="Cassius Cuvée" className="h-8 md:h-10 w-auto mb-3 md:mb-4" />
+          <h1 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight">
             Blog
           </h1>
-          <p className="mt-3 text-[color:var(--color-muted-foreground)] text-base leading-relaxed">
+          <p className="mt-2 md:mt-3 text-[color:var(--color-muted-foreground)] text-sm md:text-base leading-relaxed">
             Blog posts and trade breakdowns. Full posts on{" "}
             <a
               href="https://cassiuscuvee.substack.com"
@@ -243,7 +243,7 @@ function BlogPage() {
       </div>
 
       {/* ── Post list ── */}
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main className="mx-auto max-w-6xl px-4 md:px-6 py-8 md:py-12">
 
         {/* Loading */}
         {status === "loading" && (
@@ -333,7 +333,7 @@ function BlogPage() {
                 </div>
 
                 {/* Right — content */}
-                <div className="flex flex-col gap-4 p-8">
+                <div className="flex flex-col gap-3 md:gap-4 p-5 md:p-8">
                   <div className="flex items-center gap-2">
                     <time className="font-mono uppercase" style={{ fontSize: "12px", letterSpacing: "0.12em", color: "rgba(203,213,225,0.5)" }}>
                       {formatDate(featured.pubDate)}
@@ -343,8 +343,8 @@ function BlogPage() {
                   </div>
 
                   <h2
-                    className="font-display font-bold uppercase leading-tight tracking-tight"
-                    style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", color: "#ffffff", lineHeight: 1.15 }}
+                    className="font-sans font-bold leading-tight tracking-tight"
+                    style={{ fontSize: "clamp(1.2rem, 4vw, 2.2rem)", color: "#ffffff", lineHeight: 1.2 }}
                   >
                     {featured.title}
                   </h2>
@@ -402,9 +402,9 @@ function BlogPage() {
                       </div>
 
                       {/* Content */}
-                      <div className="flex flex-col gap-3 p-5">
+                      <div className="flex flex-col gap-2 p-4 md:p-5">
                         <h2
-                          className="font-display font-bold uppercase leading-snug tracking-tight group-hover:text-purple-300 transition-colors"
+                          className="font-sans font-bold leading-snug tracking-tight group-hover:text-purple-300 transition-colors"
                           style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)", color: "#ffffff" }}
                         >
                           {post.title}
