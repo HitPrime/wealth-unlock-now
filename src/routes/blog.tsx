@@ -49,7 +49,8 @@ export const Route = createFileRoute("/blog")({
 const FEED_URL = "https://cassiuscuvee.substack.com/feed";
 const IS_DEV = import.meta.env.DEV;
 const CORS_PROXIES = [
-  ...(IS_DEV ? ["/feed-proxy"] : []), // only in local dev
+  ...(IS_DEV ? ["/feed-proxy"] : []),
+  "/api/feed", // Vercel serverless function — most reliable
   `https://api.allorigins.win/get?url=${encodeURIComponent(FEED_URL)}`,
   `https://api.allorigins.win/raw?url=${encodeURIComponent(FEED_URL)}`,
   `https://corsproxy.io/?${encodeURIComponent(FEED_URL)}`,
