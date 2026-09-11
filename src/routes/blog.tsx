@@ -47,8 +47,9 @@ export const Route = createFileRoute("/blog")({
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 const FEED_URL = "https://cassiuscuvee.substack.com/feed";
+const IS_DEV = import.meta.env.DEV;
 const CORS_PROXIES = [
-  "/feed-proxy", // Vite dev proxy — no CORS issues locally
+  ...(IS_DEV ? ["/feed-proxy"] : []), // only in local dev
   `https://api.allorigins.win/get?url=${encodeURIComponent(FEED_URL)}`,
   `https://api.allorigins.win/raw?url=${encodeURIComponent(FEED_URL)}`,
   `https://corsproxy.io/?${encodeURIComponent(FEED_URL)}`,
@@ -99,7 +100,7 @@ async function fetchPosts(): Promise<BlogPost[]> {
   for (const proxy of CORS_PROXIES) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 12000);
+      const timer = setTimeout(() => controller.abort(), 5000);
       const res = await fetch(proxy, { signal: controller.signal });
       clearTimeout(timer);
       if (res.ok) {
@@ -176,7 +177,7 @@ function BlogPage() {
           if (retryCount < 3) {
             setTimeout(() => {
               if (!cancelled) setRetryCount((c) => c + 1);
-            }, 1500);
+            }, 800);
           } else {
             setStatus("error");
           }
