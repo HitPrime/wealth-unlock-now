@@ -3,8 +3,8 @@ import cassiusLogo from "@/assets/cassius-cuvee-logo.png";
 
 export function Footer() {
   return (
-    <footer className="border-t border-[color:var(--color-border)] bg-[oklch(0.08_0.04_300)] py-12">
-      <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-10">
+    <footer className="border-t border-[color:var(--color-border)] bg-[oklch(0.08_0.04_300)] pt-12 pb-16">
+      <div className="mx-auto max-w-7xl px-6 grid md:grid-cols-3 gap-8">
         <div>
           <img src={cassiusLogo} alt="Cassius Cuvée" className="h-8 w-auto" />
           <p className="mt-4 text-sm text-[color:var(--color-muted-foreground)] max-w-xs">
