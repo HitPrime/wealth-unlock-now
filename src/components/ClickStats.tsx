@@ -147,8 +147,18 @@ export function ClickStats() {
   const load = () => {
     setStatus("loading");
     fetch("/api/stats")
-      .then((r) => r.json())
-      .then((data) => { setStats(data); setStatus("ok"); })
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((data) => {
+        if (data && typeof data === "object") {
+          setStats(data);
+          setStatus("ok");
+        } else {
+          setStatus("error");
+        }
+      })
       .catch(() => setStatus("error"));
   };
 
@@ -191,6 +201,9 @@ export function ClickStats() {
     views: { breakout: {}, klein: {}, kast: {} },
   };
 
+  const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {} };
+  const safeViews = safeStats.views ?? { breakout: {}, klein: {}, kast: {} };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
@@ -210,21 +223,21 @@ export function ClickStats() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
         <PageCard
           name="Breakout"
-          views={process(safeStats.views.breakout)}
-          clicks={process(safeStats.clicks.breakout)}
+          views={process(safeViews.breakout ?? {})}
+          clicks={process(safeClicks.breakout ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
         />
         <PageCard
           name="Klein"
-          views={process(safeStats.views.klein)}
-          clicks={process(safeStats.clicks.klein)}
+          views={process(safeViews.klein ?? {})}
+          clicks={process(safeClicks.klein ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
         />
         <PageCard
           name="Kast"
-          views={process(safeStats.views.kast)}
+          views={process(safeViews.kast ?? {})}
           viewColor="rgba(139,92,246,0.8)"
         />
       </div>
