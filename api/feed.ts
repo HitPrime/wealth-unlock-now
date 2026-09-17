@@ -1,4 +1,6 @@
-export default async function handler(req: Request, res: Response) {
+export const config = { runtime: "edge" };
+
+export default async function handler() {
   try {
     const response = await fetch("https://cassiuscuvee.substack.com/feed", {
       headers: {
@@ -25,5 +27,3 @@ export default async function handler(req: Request, res: Response) {
     return new Response(JSON.stringify({ error: "Internal error" }), { status: 500 });
   }
 }
-
-export const config = { runtime: "edge" };

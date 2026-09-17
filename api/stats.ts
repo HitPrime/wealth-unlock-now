@@ -3,33 +3,49 @@ export const config = { runtime: "edge" };
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL!;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 
-async function redisCommand(...args: string[]) {
-  const res = await fetch(`${UPSTASH_URL}/${args.join("/")}`, {
-    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
-  });
-  return res.json();
-}
-
-export default async function handler(req: Request) {
-  const links = ["breakout", "klein"];
-  const stats: Record<string, Record<string, number>> = {};
-
-  for (const link of links) {
-    const data = await redisCommand("HGETALL", `clicks:${link}`);
+async function getHash(key: string): Promise<Record<string, number>> {
+  try {
+    const res = await fetch(`${UPSTASH_URL}/hgetall/${key}`, {
+      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    });
+    const data = await res.json();
     const entries: Record<string, number> = {};
     if (Array.isArray(data.result)) {
       for (let i = 0; i < data.result.length; i += 2) {
         entries[data.result[i]] = parseInt(data.result[i + 1], 10);
       }
     }
-    stats[link] = entries;
+    return entries;
+  } catch {
+    return {};
   }
+}
 
-  return new Response(JSON.stringify(stats), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+export default async function handler() {
+  const [
+    breakoutClicks, kleinClicks, kastClicks,
+    breakoutViews, kleinViews, kastViews,
+  ] = await Promise.all([
+    getHash("clicks:breakout"),
+    getHash("clicks:klein"),
+    getHash("clicks:kast"),
+    getHash("views:breakout"),
+    getHash("views:klein"),
+    getHash("views:kast"),
+  ]);
+
+  return new Response(
+    JSON.stringify({
+      clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks },
+      views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews },
+    }),
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
 }
