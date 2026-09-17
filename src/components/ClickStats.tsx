@@ -184,7 +184,12 @@ export function ClickStats() {
     );
   }
 
-  if (!stats) return null;
+  if (status === "ok" && !stats) return null;
+
+  const safeStats = stats ?? {
+    clicks: { breakout: {}, klein: {} },
+    views: { breakout: {}, klein: {}, kast: {} },
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -205,21 +210,21 @@ export function ClickStats() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
         <PageCard
           name="Breakout"
-          views={process(stats.views.breakout)}
-          clicks={process(stats.clicks.breakout)}
+          views={process(safeStats.views.breakout)}
+          clicks={process(safeStats.clicks.breakout)}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
         />
         <PageCard
           name="Klein"
-          views={process(stats.views.klein)}
-          clicks={process(stats.clicks.klein)}
+          views={process(safeStats.views.klein)}
+          clicks={process(safeStats.clicks.klein)}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
         />
         <PageCard
           name="Kast"
-          views={process(stats.views.kast)}
+          views={process(safeStats.views.kast)}
           viewColor="rgba(139,92,246,0.8)"
         />
       </div>
