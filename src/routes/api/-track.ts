@@ -6,6 +6,7 @@ const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 const DESTINATIONS: Record<string, string> = {
   breakout: "https://www.breakoutprop.com/join/ggrf7w",
   klein: "https://kleinfunding.com/ref/13054",
+  kast: "https://app.kast.xyz/referral/CASSIUS",
 };
 
 async function redisIncr(link: string) {

@@ -20,11 +20,12 @@ async function getHash(key: string) {
 export const ServerRoute = createServerFileRoute("/api/stats").methods({
   GET: async () => {
     const [
-      breakoutClicks, kleinClicks,
+      breakoutClicks, kleinClicks, kastClicks,
       breakoutViews, kleinViews, kastViews,
     ] = await Promise.all([
       getHash("clicks:breakout"),
       getHash("clicks:klein"),
+      getHash("clicks:kast"),
       getHash("views:breakout"),
       getHash("views:klein"),
       getHash("views:kast"),
@@ -32,7 +33,7 @@ export const ServerRoute = createServerFileRoute("/api/stats").methods({
 
     return new Response(
       JSON.stringify({
-        clicks: { breakout: breakoutClicks, klein: kleinClicks },
+        clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks },
         views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews },
       }),
       {

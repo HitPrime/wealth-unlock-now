@@ -201,7 +201,7 @@ export function ClickStats() {
     views: { breakout: {}, klein: {}, kast: {} },
   };
 
-  const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {} };
+  const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {}, kast: {} };
   const safeViews = safeStats.views ?? { breakout: {}, klein: {}, kast: {} };
 
   return (
@@ -238,7 +238,9 @@ export function ClickStats() {
         <PageCard
           name="Kast"
           views={process(safeViews.kast ?? {})}
+          clicks={process(safeClicks.kast ?? {})}
           viewColor="rgba(139,92,246,0.8)"
+          clickColor="rgba(59,130,246,0.8)"
         />
       </div>
     </div>

@@ -68,7 +68,7 @@ function KastPage() {
   ];
 
   const handleGetStarted = () => {
-    window.open("https://app.kast.xyz/referral/CASSIUS", "_blank", "noopener,noreferrer");
+    window.open("/api/track?link=kast", "_blank", "noopener,noreferrer");
   };
 
   return (
