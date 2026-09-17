@@ -17,6 +17,7 @@ import { Route as OffersRouteImport } from './routes/offers'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as KleinRouteImport } from './routes/klein'
 import { Route as ComingSoonRouteImport } from './routes/coming-soon'
+import { Route as BreakoutRouteImport } from './routes/breakout'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as K10USRouteImport } from './routes/K10US'
@@ -62,6 +63,11 @@ const ComingSoonRoute = ComingSoonRouteImport.update({
   path: '/coming-soon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreakoutRoute = BreakoutRouteImport.update({
+  id: '/breakout',
+  path: '/breakout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
+  '/breakout': typeof BreakoutRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
+  '/breakout': typeof BreakoutRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/K10US': typeof K10USRoute
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
+  '/breakout': typeof BreakoutRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/K10US'
     | '/admin'
     | '/blog'
+    | '/breakout'
     | '/coming-soon'
     | '/klein'
     | '/merch'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/K10US'
     | '/admin'
     | '/blog'
+    | '/breakout'
     | '/coming-soon'
     | '/klein'
     | '/merch'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/K10US'
     | '/admin'
     | '/blog'
+    | '/breakout'
     | '/coming-soon'
     | '/klein'
     | '/merch'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   K10USRoute: typeof K10USRoute
   AdminRoute: typeof AdminRoute
   BlogRoute: typeof BlogRoute
+  BreakoutRoute: typeof BreakoutRoute
   ComingSoonRoute: typeof ComingSoonRoute
   KleinRoute: typeof KleinRoute
   MerchRoute: typeof MerchRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComingSoonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/breakout': {
+      id: '/breakout'
+      path: '/breakout'
+      fullPath: '/breakout'
+      preLoaderRoute: typeof BreakoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -280,6 +300,7 @@ const rootRouteChildren: RootRouteChildren = {
   K10USRoute: K10USRoute,
   AdminRoute: AdminRoute,
   BlogRoute: BlogRoute,
+  BreakoutRoute: BreakoutRoute,
   ComingSoonRoute: ComingSoonRoute,
   KleinRoute: KleinRoute,
   MerchRoute: MerchRoute,

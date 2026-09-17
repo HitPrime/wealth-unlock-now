@@ -2,28 +2,28 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { BarChart2, ShieldCheck, Layers } from "lucide-react";
 import logo from "@/assets/CassiusLogo.png";
-import breakoutLogo from "@/assets/breakout-prop.png";
+import breakoutLogo from "@/assets/breakout-prop.webp";
 
 export const Route = createFileRoute("/breakout")({
   component: BreakoutPage,
   head: () => ({
     meta: [
-      { title: "Breakout Funding | Cassius Cuvée" },
+      { title: "Learn About Breakout | Cassius Cuvée" },
       {
         name: "description",
         content:
-          "Learn about Breakout — a prop trading platform with transparent rules and flexible funding options. Informational page by Cassius Cuvée.",
+          "An overview of Breakout — transparent rules, wide market access, and flexible evaluation paths. Informational page by Cassius Cuvée.",
       },
-      { name: "keywords", content: "Breakout, prop trading, ggrf7w, funding options, Cassius Cuvée" },
+      { name: "keywords", content: "Breakout, trading platform, ggrf7w, evaluation, Cassius Cuvée" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Breakout Funding | Cassius Cuvée" },
-      { property: "og:description", content: "Learn about Breakout — a prop trading platform with transparent rules and flexible funding options." },
+      { property: "og:title", content: "Learn About Breakout | Cassius Cuvée" },
+      { property: "og:description", content: "An overview of Breakout — transparent rules, wide market access, and flexible evaluation paths." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cassiuscuvee.com/breakout" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Breakout Funding | Cassius Cuvée" },
-      { name: "twitter:description", content: "Learn about Breakout — a prop trading platform with transparent rules and flexible funding options." },
+      { name: "twitter:title", content: "Learn About Breakout | Cassius Cuvée" },
+      { name: "twitter:description", content: "An overview of Breakout — transparent rules, wide market access, and flexible evaluation paths." },
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/breakout" },
@@ -48,8 +48,8 @@ function BreakoutPage() {
     },
     {
       number: "03",
-      title: "Funding Options",
-      description: "Learn about the available funding paths",
+      title: "Evaluation Paths",
+      description: "Learn about the available evaluation options",
       icon: Layers,
     },
   ];
@@ -105,10 +105,10 @@ function BreakoutPage() {
             Learn About Breakout
           </h1>
           <p style={{ color: "#94a3b8", fontSize: "clamp(0.8rem, 2vw, 0.95rem)", lineHeight: 1.6, marginBottom: "10px" }}>
-            An overview of the platform's markets, evaluation process, and funding options.
+            An overview of the platform's markets, evaluation process, and account options.
           </p>
           <p style={{ color: "#cbd5e1", fontSize: "clamp(0.75rem, 1.8vw, 0.875rem)", lineHeight: 1.7 }}>
-            Use code <strong style={{ color: "#ffffff" }}>ggrf7w</strong> at checkout to get your discount on Breakout.
+            Use code <strong style={{ color: "#ffffff" }}>ggrf7w</strong> at checkout for a discount on Breakout.
           </p>
         </motion.div>
 
@@ -150,7 +150,6 @@ function BreakoutPage() {
                 alt="Breakout"
                 style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
               />
-              {/* Center overlay button */}
               <div style={{
                 position: "absolute", inset: 0,
                 display: "flex", alignItems: "center", justifyContent: "center"
@@ -166,8 +165,13 @@ function BreakoutPage() {
               </div>
             </div>
           </button>
-          <p style={{ color: "#64748b", fontSize: "11px", marginTop: "4px", maxWidth: "220px", lineHeight: 1.5 }}>
-            Discount varies based on Breakout's active site-wide promotion at time of purchase.
+
+          {/* Disclaimer — directly below button */}
+          <p style={{
+            color: "#64748b", fontSize: "11px", marginTop: "6px",
+            maxWidth: "320px", lineHeight: 1.6, textAlign: "center"
+          }}>
+            This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
           </p>
         </motion.div>
 
@@ -224,9 +228,6 @@ function BreakoutPage() {
         display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", flexShrink: 0
       }}>
         <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "36px", width: "auto", objectFit: "contain", opacity: 0.8 }} />
-        <p style={{ fontSize: "11px", color: "#64748b", textAlign: "center", maxWidth: "480px", marginTop: "2px", lineHeight: 1.6 }}>
-          This page is for informational purposes only. Trading involves risk. Terms and eligibility apply per the platform's official terms.
-        </p>
         <p style={{ fontSize: "11px", color: "#475569", fontWeight: 500 }}>© 2026 Cassius Cuvée</p>
       </footer>
 
