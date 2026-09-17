@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { BarChart2, ShieldCheck, Layers } from "lucide-react";
 import logo from "@/assets/CassiusLogo.png";
-import breakoutLogo from "@/assets/breakout-prop.webp";
+import breakoutLogo from "@/assets/bo.webp";
 
 export const Route = createFileRoute("/breakout")({
   component: BreakoutPage,
