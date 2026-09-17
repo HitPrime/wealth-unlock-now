@@ -55,7 +55,7 @@ function KleinPage() {
   ];
 
   const handleLearnMore = () => {
-    window.open("https://kleinfunding.com/ref/13054", "_blank", "noopener,noreferrer");
+    window.open("/api/track?link=klein", "_blank", "noopener,noreferrer");
   };
 
   return (

@@ -55,7 +55,7 @@ function BreakoutPage() {
   ];
 
   const handleLearnMore = () => {
-    window.open("https://www.breakoutprop.com/join/ggrf7w", "_blank", "noopener,noreferrer");
+    window.open("/api/track?link=breakout", "_blank", "noopener,noreferrer");
   };
 
   return (
