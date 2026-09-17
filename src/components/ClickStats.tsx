@@ -1,109 +1,140 @@
 import { useEffect, useState } from "react";
 
-interface LinkStats {
+interface StatData {
   total: number;
   today: number;
   days: { date: string; count: number }[];
 }
 
 interface Stats {
-  breakout: Record<string, number>;
-  klein: Record<string, number>;
+  clicks: {
+    breakout: Record<string, number>;
+    klein: Record<string, number>;
+  };
+  views: {
+    breakout: Record<string, number>;
+    klein: Record<string, number>;
+    kast: Record<string, number>;
+  };
 }
 
-function processStats(raw: Record<string, number>): LinkStats {
+function process(raw: Record<string, number>): StatData {
   const today = new Date().toISOString().split("T")[0];
-  const total = raw["total"] ?? 0;
-  const todayCount = raw[today] ?? 0;
-
-  // Last 7 days
   const days = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString().split("T")[0];
-    days.push({ date: dateStr, count: raw[dateStr] ?? 0 });
+    const ds = d.toISOString().split("T")[0];
+    days.push({ date: ds, count: raw[ds] ?? 0 });
   }
-
-  return { total, today: todayCount, days };
+  return { total: raw["total"] ?? 0, today: raw[today] ?? 0, days };
 }
 
-function StatCard({ name, stats, color }: { name: string; stats: LinkStats; color: string }) {
-  const maxCount = Math.max(...stats.days.map((d) => d.count), 1);
+function MiniBar({ days, color }: { days: { date: string; count: number }[]; color: string }) {
+  const max = Math.max(...days.map((d) => d.count), 1);
+  return (
+    <div style={{ display: "flex", alignItems: "flex-end", gap: "4px", height: "40px" }}>
+      {days.map((d) => (
+        <div key={d.date} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "2px", height: "100%" }}>
+          <div style={{ flex: 1, width: "100%", display: "flex", alignItems: "flex-end" }}>
+            <div
+              title={`${d.date}: ${d.count}`}
+              style={{
+                width: "100%",
+                height: `${Math.max((d.count / max) * 100, 5)}%`,
+                background: d.count > 0 ? color : "rgba(88,28,135,0.15)",
+                borderRadius: "3px 3px 0 0",
+              }}
+            />
+          </div>
+          <span style={{ color: "#475569", fontSize: "8px", fontFamily: "var(--font-mono)" }}>
+            {d.date.slice(5)}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
+function PageCard({
+  name, views, clicks, viewColor, clickColor,
+}: {
+  name: string;
+  views: StatData;
+  clicks?: StatData;
+  viewColor: string;
+  clickColor?: string;
+}) {
   return (
     <div style={{
-      background: "rgba(14,12,24,0.8)",
+      background: "rgba(14,12,24,0.9)",
       border: "1px solid rgba(88,28,135,0.3)",
       borderRadius: "16px",
-      padding: "24px",
+      padding: "20px",
       display: "flex",
       flexDirection: "column",
-      gap: "16px",
+      gap: "14px",
     }}>
-      {/* Header */}
+      {/* Title */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "#fff", textTransform: "uppercase" }}>
+        <h3 style={{
+          fontFamily: "var(--font-display)", fontSize: "1rem",
+          fontWeight: 700, color: "#fff", textTransform: "uppercase", letterSpacing: "0.05em"
+        }}>
           {name}
         </h3>
         <span style={{
-          background: color, color: "#fff", fontSize: "11px",
-          fontWeight: 700, padding: "3px 10px", borderRadius: "999px",
+          background: viewColor, color: "#fff", fontSize: "10px",
+          fontWeight: 700, padding: "2px 10px", borderRadius: "999px",
           fontFamily: "var(--font-mono)", letterSpacing: "0.1em"
         }}>
           LIVE
         </span>
       </div>
 
-      {/* Numbers */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-        <div style={{
-          background: "rgba(88,28,135,0.15)", borderRadius: "12px",
-          padding: "16px", textAlign: "center"
-        }}>
-          <p style={{ color: "#94a3b8", fontSize: "11px", fontFamily: "var(--font-mono)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "6px" }}>
-            Total Clicks
-          </p>
-          <p style={{ color: "#fff", fontSize: "2rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>
-            {stats.total}
-          </p>
+      {/* Stats grid */}
+      <div style={{ display: "grid", gridTemplateColumns: clicks ? "repeat(4, 1fr)" : "repeat(2, 1fr)", gap: "8px" }}>
+        {/* Views */}
+        <div style={{ background: "rgba(88,28,135,0.12)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+          <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Visitors</p>
+          <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{views.total}</p>
         </div>
-        <div style={{
-          background: "rgba(88,28,135,0.15)", borderRadius: "12px",
-          padding: "16px", textAlign: "center"
-        }}>
-          <p style={{ color: "#94a3b8", fontSize: "11px", fontFamily: "var(--font-mono)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "6px" }}>
-            Today
-          </p>
-          <p style={{ color: "#fff", fontSize: "2rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>
-            {stats.today}
-          </p>
+        <div style={{ background: "rgba(88,28,135,0.12)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+          <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Today</p>
+          <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{views.today}</p>
         </div>
+
+        {/* Clicks (if available) */}
+        {clicks && (
+          <>
+            <div style={{ background: "rgba(59,130,246,0.1)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+              <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Clicks</p>
+              <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{clicks.total}</p>
+            </div>
+            <div style={{ background: "rgba(59,130,246,0.1)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+              <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Click Today</p>
+              <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{clicks.today}</p>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* 7-day bar chart */}
-      <div>
-        <p style={{ color: "#94a3b8", fontSize: "11px", fontFamily: "var(--font-mono)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "10px" }}>
-          Last 7 Days
-        </p>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "60px" }}>
-          {stats.days.map((d) => (
-            <div key={d.date} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", height: "100%" }}>
-              <div style={{ flex: 1, width: "100%", display: "flex", alignItems: "flex-end" }}>
-                <div style={{
-                  width: "100%",
-                  height: `${Math.max((d.count / maxCount) * 100, 4)}%`,
-                  background: d.count > 0 ? color : "rgba(88,28,135,0.2)",
-                  borderRadius: "4px 4px 0 0",
-                  transition: "height 0.3s ease",
-                }} title={`${d.date}: ${d.count} clicks`} />
-              </div>
-              <span style={{ color: "#64748b", fontSize: "9px", fontFamily: "var(--font-mono)" }}>
-                {d.date.slice(5)} {/* MM-DD */}
-              </span>
-            </div>
-          ))}
+      {/* Bar charts */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div>
+          <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "6px" }}>
+            Visitors — Last 7 Days
+          </p>
+          <MiniBar days={views.days} color={viewColor} />
         </div>
+        {clicks && (
+          <div>
+            <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "6px" }}>
+              Clicks — Last 7 Days
+            </p>
+            <MiniBar days={clicks.days} color={clickColor ?? viewColor} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -157,9 +188,9 @@ export function ClickStats() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <p style={{ color: "#94a3b8", fontSize: "13px" }}>
-          Tracks button clicks on /breakout and /klein pages.
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+        <p style={{ color: "#64748b", fontSize: "13px" }}>
+          Visitors = page views. Clicks = referral button clicks.
         </p>
         <button onClick={load} style={{
           background: "none", border: "1px solid rgba(139,92,246,0.4)",
@@ -170,16 +201,26 @@ export function ClickStats() {
           Refresh
         </button>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
-        <StatCard
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
+        <PageCard
           name="Breakout"
-          stats={processStats(stats.breakout)}
-          color="rgba(59, 130, 246, 0.8)"
+          views={process(stats.views.breakout)}
+          clicks={process(stats.clicks.breakout)}
+          viewColor="rgba(139,92,246,0.8)"
+          clickColor="rgba(59,130,246,0.8)"
         />
-        <StatCard
+        <PageCard
           name="Klein"
-          stats={processStats(stats.klein)}
-          color="rgba(139, 92, 246, 0.8)"
+          views={process(stats.views.klein)}
+          clicks={process(stats.clicks.klein)}
+          viewColor="rgba(139,92,246,0.8)"
+          clickColor="rgba(59,130,246,0.8)"
+        />
+        <PageCard
+          name="Kast"
+          views={process(stats.views.kast)}
+          viewColor="rgba(139,92,246,0.8)"
         />
       </div>
     </div>

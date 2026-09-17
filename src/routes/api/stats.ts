@@ -3,8 +3,8 @@ import { createServerFileRoute } from "@tanstack/react-start/server";
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL!;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 
-async function getStats(link: string) {
-  const res = await fetch(`${UPSTASH_URL}/hgetall/clicks:${link}`, {
+async function getHash(key: string) {
+  const res = await fetch(`${UPSTASH_URL}/hgetall/${key}`, {
     headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
   });
   const data = await res.json();
@@ -19,17 +19,29 @@ async function getStats(link: string) {
 
 export const ServerRoute = createServerFileRoute("/api/stats").methods({
   GET: async () => {
-    const [breakout, klein] = await Promise.all([
-      getStats("breakout"),
-      getStats("klein"),
+    const [
+      breakoutClicks, kleinClicks,
+      breakoutViews, kleinViews, kastViews,
+    ] = await Promise.all([
+      getHash("clicks:breakout"),
+      getHash("clicks:klein"),
+      getHash("views:breakout"),
+      getHash("views:klein"),
+      getHash("views:kast"),
     ]);
 
-    return new Response(JSON.stringify({ breakout, klein }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        clicks: { breakout: breakoutClicks, klein: kleinClicks },
+        views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews },
+      }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+      }
+    );
   },
 });

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { UserPlus, Tag, ShieldCheck } from "lucide-react";
 import logo from "@/assets/CassiusLogo.png";
@@ -42,6 +43,9 @@ export const Route = createFileRoute("/K10US")({
 });
 
 function KastPage() {
+  useEffect(() => {
+    fetch("/api/pageview?page=kast").catch(() => {});
+  }, []);
   const steps = [
     {
       number: "01",

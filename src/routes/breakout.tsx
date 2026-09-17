@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { BarChart2, ShieldCheck, Layers } from "lucide-react";
 import logo from "@/assets/CassiusLogo.png";
@@ -33,6 +34,9 @@ export const Route = createFileRoute("/breakout")({
 });
 
 function BreakoutPage() {
+  useEffect(() => {
+    fetch("/api/pageview?page=breakout").catch(() => {});
+  }, []);
   const features = [
     {
       number: "01",
