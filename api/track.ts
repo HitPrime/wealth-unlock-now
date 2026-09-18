@@ -30,7 +30,8 @@ export default async function handler(req: Request) {
     return new Response("Not found", { status: 404 });
   }
 
-  redisIncr(link).catch(() => {});
+  // await before responding — guarantees Redis write completes on Vercel Edge
+  await redisIncr(link).catch(() => {});
 
   return new Response(null, {
     status: 302,

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/landing/Footer";
 import cassiusLogo from "@/assets/cassius-cuvee-logo.png";
 import cassiusNavLogo from "@/assets/CassiusLogo.png";
@@ -196,38 +196,47 @@ function BlogPage() {
     if (cached) {
       setPosts(cached);
       setStatus("ok");
-      // still refresh in background silently
       fetchPosts().then((fresh) => {
         if (!cancelled) { setPosts(fresh); setCache(fresh); }
-      }).catch(() => {/* keep showing cached */});
+      }).catch(() => {});
       return () => { cancelled = true; };
     }
 
-    const attempt = async () => {
-      try {
-        const data = await fetchPosts();
-        if (!cancelled) { setPosts(data); setStatus("ok"); setCache(data); }
-      } catch {
-        if (!cancelled) {
-          if (retryCount < 3) {
-            setTimeout(() => {
-              if (!cancelled) setRetryCount((c) => c + 1);
-            }, 800);
-          } else {
-            setStatus("error");
+    // useRef-based retry counter — avoids stale closure issues on route transitions
+    const attempt = (n: number) => {
+      fetchPosts()
+        .then((data) => {
+          if (!cancelled) { setPosts(data); setStatus("ok"); setCache(data); }
+        })
+        .catch(() => {
+          if (!cancelled) {
+            if (n < 3) {
+              setRetryCount(n + 1);
+              setTimeout(() => { if (!cancelled) attempt(n + 1); }, 800);
+            } else {
+              setStatus("error");
+            }
           }
-        }
-      }
+        });
     };
 
-    attempt();
+    attempt(0);
     return () => { cancelled = true; };
-  }, [retryCount]);
+  }, []); // single effect — no retryCount dependency
 
   const handleRetry = () => {
     setRetryCount(0);
     setStatus("loading");
     setPosts([]);
+    const attempt = (n: number) => {
+      fetchPosts()
+        .then((data) => { setPosts(data); setStatus("ok"); setCache(data); })
+        .catch(() => {
+          if (n < 3) setTimeout(() => attempt(n + 1), 800);
+          else setStatus("error");
+        });
+    };
+    attempt(0);
   };
 
   return (

@@ -24,7 +24,34 @@ interface Stats {
   };
 }
 
-function process(raw: Record<string, number>): StatData {
+const FLAG_EMOJI: Record<string, string> = {
+  US: "🇺🇸", GB: "🇬🇧", PK: "🇵🇰", CA: "🇨🇦", AU: "🇦🇺",
+  AE: "🇦🇪", IN: "🇮🇳", DE: "🇩🇪", FR: "🇫🇷", NL: "🇳🇱",
+  SG: "🇸🇬", NG: "🇳🇬", ZA: "🇿🇦", BR: "🇧🇷", MX: "🇲🇽",
+  JP: "🇯🇵", KR: "🇰🇷", SA: "🇸🇦", QA: "🇶🇦", TR: "🇹🇷",
+  IT: "🇮🇹", ES: "🇪🇸", PT: "🇵🇹", SE: "🇸🇪", NO: "🇳🇴",
+  DK: "🇩🇰", FI: "🇫🇮", CH: "🇨🇭", PL: "🇵🇱", RU: "🇷🇺",
+  CN: "🇨🇳", HK: "🇭🇰", MY: "🇲🇾", ID: "🇮🇩", TH: "🇹🇭",
+  PH: "🇵🇭", XX: "🌍",
+};
+
+// Decode stored country keys like "US%7CUSA" → "🇺🇸 USA"
+function decodeCountries(raw: Record<string, number>): Record<string, number> {
+  const decoded: Record<string, number> = {};
+  for (const [key, count] of Object.entries(raw)) {
+    try {
+      const parts = decodeURIComponent(key).split("|");
+      const code = parts[0] ?? "XX";
+      const name = parts[1] ?? code;
+      const flag = FLAG_EMOJI[code] ?? "🌍";
+      const label = `${flag} ${name}`;
+      decoded[label] = (decoded[label] ?? 0) + count;
+    } catch {
+      decoded[key] = count;
+    }
+  }
+  return decoded;
+}
   const today = new Date().toISOString().split("T")[0];
   const days = [];
   for (let i = 6; i >= 0; i--) {
@@ -262,7 +289,7 @@ export function ClickStats() {
           clicks={process(safeClicks.breakout ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
-          countries={safeStats.countries?.breakout ?? {}}
+          countries={decodeCountries(safeStats.countries?.breakout ?? {})}
         />
         <PageCard
           name="Klein"
@@ -270,7 +297,7 @@ export function ClickStats() {
           clicks={process(safeClicks.klein ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
-          countries={safeStats.countries?.klein ?? {}}
+          countries={decodeCountries(safeStats.countries?.klein ?? {})}
         />
         <PageCard
           name="Kast"
@@ -278,7 +305,7 @@ export function ClickStats() {
           clicks={process(safeClicks.kast ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
-          countries={safeStats.countries?.kast ?? {}}
+          countries={decodeCountries(safeStats.countries?.kast ?? {})}
         />
       </div>
     </div>
