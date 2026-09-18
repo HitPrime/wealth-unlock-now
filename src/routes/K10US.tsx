@@ -44,7 +44,11 @@ export const Route = createFileRoute("/K10US")({
 
 function KastPage() {
   useEffect(() => {
-    fetch("/api/pageview?page=kast").catch(() => {});
+    const key = "visited_kast";
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, "1");
+      fetch("/api/pageview?page=kast").catch(() => {});
+    }
   }, []);
   const steps = [
     {

@@ -35,7 +35,11 @@ export const Route = createFileRoute("/klein")({
 
 function KleinPage() {
   useEffect(() => {
-    fetch("/api/pageview?page=klein").catch(() => {});
+    const key = "visited_klein";
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, "1");
+      fetch("/api/pageview?page=klein").catch(() => {});
+    }
   }, []);
   const features = [
     {

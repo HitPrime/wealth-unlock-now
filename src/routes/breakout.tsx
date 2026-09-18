@@ -35,7 +35,11 @@ export const Route = createFileRoute("/breakout")({
 
 function BreakoutPage() {
   useEffect(() => {
-    fetch("/api/pageview?page=breakout").catch(() => {});
+    const key = "visited_breakout";
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, "1");
+      fetch("/api/pageview?page=breakout").catch(() => {});
+    }
   }, []);
   const features = [
     {
