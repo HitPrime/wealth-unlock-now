@@ -52,6 +52,8 @@ function decodeCountries(raw: Record<string, number>): Record<string, number> {
   }
   return decoded;
 }
+
+function process(raw: Record<string, number>): StatData {
   const today = new Date().toISOString().split("T")[0];
   const days = [];
   for (let i = 6; i >= 0; i--) {
