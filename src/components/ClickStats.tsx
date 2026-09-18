@@ -35,7 +35,6 @@ const FLAG_EMOJI: Record<string, string> = {
   PH: "🇵🇭", XX: "🌍",
 };
 
-// Decode stored country keys like "US%7CUSA" → "🇺🇸 USA"
 function decodeCountries(raw: Record<string, number>): Record<string, number> {
   const decoded: Record<string, number> = {};
   for (const [key, count] of Object.entries(raw)) {
@@ -53,7 +52,7 @@ function decodeCountries(raw: Record<string, number>): Record<string, number> {
   return decoded;
 }
 
-function process(raw: Record<string, number>): StatData {
+function toStatData(raw: Record<string, number>): StatData {
   const today = new Date().toISOString().split("T")[0];
   const days = [];
   for (let i = 6; i >= 0; i--) {
@@ -111,7 +110,6 @@ function PageCard({
       flexDirection: "column",
       gap: "14px",
     }}>
-      {/* Title */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h3 style={{
           fontFamily: "var(--font-display)", fontSize: "1rem",
@@ -128,9 +126,7 @@ function PageCard({
         </span>
       </div>
 
-      {/* Stats grid */}
       <div style={{ display: "grid", gridTemplateColumns: clicks ? "repeat(4, 1fr)" : "repeat(2, 1fr)", gap: "8px" }}>
-        {/* Views */}
         <div style={{ background: "rgba(88,28,135,0.12)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Visitors</p>
           <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{views.total}</p>
@@ -139,8 +135,6 @@ function PageCard({
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>Today</p>
           <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{views.today}</p>
         </div>
-
-        {/* Clicks (if available) */}
         {clicks && (
           <>
             <div style={{ background: "rgba(59,130,246,0.1)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
@@ -155,7 +149,6 @@ function PageCard({
         )}
       </div>
 
-      {/* Bar charts */}
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <div>
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "6px" }}>
@@ -173,7 +166,6 @@ function PageCard({
         )}
       </div>
 
-      {/* Countries */}
       {countries && Object.keys(countries).length > 0 && (
         <div>
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "8px" }}>
@@ -184,8 +176,8 @@ function PageCard({
               .sort((a, b) => b[1] - a[1])
               .slice(0, 8)
               .map(([country, count]) => {
-                const max = Math.max(...Object.values(countries));
-                const pct = Math.round((count / max) * 100);
+                const maxVal = Math.max(...Object.values(countries));
+                const pct = Math.round((count / maxVal) * 100);
                 return (
                   <div key={country} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <span style={{ fontSize: "12px", minWidth: "130px", color: "#cbd5e1" }}>{country}</span>
@@ -233,7 +225,7 @@ export function ClickStats() {
         <div style={{
           width: "16px", height: "16px", borderRadius: "50%",
           border: "2px solid rgba(139,92,246,0.6)", borderTopColor: "transparent",
-          animation: "spin 0.8s linear infinite"
+          animation: "spin 0.8s linear infinite",
         }} />
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase" }}>
           Loading stats…
@@ -249,7 +241,7 @@ export function ClickStats() {
         <button onClick={load} style={{
           background: "linear-gradient(135deg, oklch(0.60 0.24 290), oklch(0.42 0.24 290))",
           color: "#fff", border: "none", borderRadius: "999px",
-          padding: "8px 20px", cursor: "pointer", fontSize: "13px", fontWeight: 600
+          padding: "8px 20px", cursor: "pointer", fontSize: "13px", fontWeight: 600,
         }}>
           Try again
         </button>
@@ -278,7 +270,7 @@ export function ClickStats() {
           background: "none", border: "1px solid rgba(139,92,246,0.4)",
           color: "#c084fc", borderRadius: "999px", padding: "6px 16px",
           cursor: "pointer", fontSize: "12px", fontFamily: "var(--font-mono)",
-          letterSpacing: "0.1em", textTransform: "uppercase"
+          letterSpacing: "0.1em", textTransform: "uppercase",
         }}>
           Refresh
         </button>
@@ -287,24 +279,24 @@ export function ClickStats() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
         <PageCard
           name="Breakout"
-          views={process(safeViews.breakout ?? {})}
-          clicks={process(safeClicks.breakout ?? {})}
+          views={toStatData(safeViews.breakout ?? {})}
+          clicks={toStatData(safeClicks.breakout ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
           countries={decodeCountries(safeStats.countries?.breakout ?? {})}
         />
         <PageCard
           name="Klein"
-          views={process(safeViews.klein ?? {})}
-          clicks={process(safeClicks.klein ?? {})}
+          views={toStatData(safeViews.klein ?? {})}
+          clicks={toStatData(safeClicks.klein ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
           countries={decodeCountries(safeStats.countries?.klein ?? {})}
         />
         <PageCard
           name="Kast"
-          views={process(safeViews.kast ?? {})}
-          clicks={process(safeClicks.kast ?? {})}
+          views={toStatData(safeViews.kast ?? {})}
+          clicks={toStatData(safeClicks.kast ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
           countries={decodeCountries(safeStats.countries?.kast ?? {})}
