@@ -10,8 +10,14 @@ interface Stats {
   clicks: {
     breakout: Record<string, number>;
     klein: Record<string, number>;
+    kast: Record<string, number>;
   };
   views: {
+    breakout: Record<string, number>;
+    klein: Record<string, number>;
+    kast: Record<string, number>;
+  };
+  countries: {
     breakout: Record<string, number>;
     klein: Record<string, number>;
     kast: Record<string, number>;
@@ -57,13 +63,14 @@ function MiniBar({ days, color }: { days: { date: string; count: number }[]; col
 }
 
 function PageCard({
-  name, views, clicks, viewColor, clickColor,
+  name, views, clicks, viewColor, clickColor, countries,
 }: {
   name: string;
   views: StatData;
   clicks?: StatData;
   viewColor: string;
   clickColor?: string;
+  countries?: Record<string, number>;
 }) {
   return (
     <div style={{
@@ -136,6 +143,33 @@ function PageCard({
           </div>
         )}
       </div>
+
+      {/* Countries */}
+      {countries && Object.keys(countries).length > 0 && (
+        <div>
+          <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "8px" }}>
+            Visitors by Country
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            {Object.entries(countries)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 8)
+              .map(([country, count]) => {
+                const max = Math.max(...Object.values(countries));
+                const pct = Math.round((count / max) * 100);
+                return (
+                  <div key={country} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ fontSize: "12px", minWidth: "130px", color: "#cbd5e1" }}>{country}</span>
+                    <div style={{ flex: 1, height: "6px", background: "rgba(88,28,135,0.2)", borderRadius: "3px", overflow: "hidden" }}>
+                      <div style={{ width: `${pct}%`, height: "100%", background: viewColor, borderRadius: "3px" }} />
+                    </div>
+                    <span style={{ fontSize: "11px", color: "#94a3b8", minWidth: "24px", textAlign: "right" }}>{count}</span>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -197,8 +231,9 @@ export function ClickStats() {
   if (status === "ok" && !stats) return null;
 
   const safeStats = stats ?? {
-    clicks: { breakout: {}, klein: {} },
+    clicks: { breakout: {}, klein: {}, kast: {} },
     views: { breakout: {}, klein: {}, kast: {} },
+    countries: { breakout: {}, klein: {}, kast: {} },
   };
 
   const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {}, kast: {} };
@@ -227,6 +262,7 @@ export function ClickStats() {
           clicks={process(safeClicks.breakout ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
+          countries={safeStats.countries?.breakout ?? {}}
         />
         <PageCard
           name="Klein"
@@ -234,6 +270,7 @@ export function ClickStats() {
           clicks={process(safeClicks.klein ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
+          countries={safeStats.countries?.klein ?? {}}
         />
         <PageCard
           name="Kast"
@@ -241,6 +278,7 @@ export function ClickStats() {
           clicks={process(safeClicks.kast ?? {})}
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
+          countries={safeStats.countries?.kast ?? {}}
         />
       </div>
     </div>

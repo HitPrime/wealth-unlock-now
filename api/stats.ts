@@ -25,6 +25,7 @@ export default async function handler() {
   const [
     breakoutClicks, kleinClicks, kastClicks,
     breakoutViews, kleinViews, kastViews,
+    breakoutCountries, kleinCountries, kastCountries,
   ] = await Promise.all([
     getHash("clicks:breakout"),
     getHash("clicks:klein"),
@@ -32,12 +33,16 @@ export default async function handler() {
     getHash("views:breakout"),
     getHash("views:klein"),
     getHash("views:kast"),
+    getHash("countries:breakout"),
+    getHash("countries:klein"),
+    getHash("countries:kast"),
   ]);
 
   return new Response(
     JSON.stringify({
       clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks },
       views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews },
+      countries: { breakout: breakoutCountries, klein: kleinCountries, kast: kastCountries },
     }),
     {
       status: 200,
