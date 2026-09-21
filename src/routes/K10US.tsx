@@ -127,6 +127,27 @@ function KastPage() {
           </button>
         </motion.div>
 
+        {/* Video */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="w-full max-w-2xl mx-auto"
+        >
+          <video
+            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bacff484614db7ccc8f.mp4"
+            controls
+            playsInline
+            className="w-full block"
+            style={{
+              borderRadius: "16px",
+              border: "1px solid rgba(139,92,246,0.3)",
+              boxShadow: "0 20px 40px rgba(88,28,135,0.3)",
+              background: "#000",
+            }}
+          />
+        </motion.div>
+
         {/* Steps */}
         <div className="grid grid-cols-3 gap-3 md:gap-4 w-full">
           {steps.map((step, index) => {
@@ -148,28 +169,6 @@ function KastPage() {
             );
           })}
         </div>
-
-        {/* Video */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="w-full max-w-2xl mx-auto"
-        >
-          <video
-            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bacff484614db7ccc8f.mp4"
-            controls
-            playsInline
-            className="w-full block"
-            style={{
-              borderRadius: "16px",
-              border: "1px solid rgba(139,92,246,0.3)",
-              boxShadow: "0 20px 40px rgba(88,28,135,0.3)",
-              background: "#000",
-            }}
-          />
-        </motion.div>
-
       </main>
 
       {/* Footer */}

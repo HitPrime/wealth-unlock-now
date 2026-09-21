@@ -182,6 +182,28 @@ function KleinPage() {
           </p>
         </motion.div>
 
+        {/* Video */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          style={{ width: "100%", maxWidth: "720px" }}
+        >
+          <video
+            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bac825a8484f2d5a1c1.mp4"
+            controls
+            playsInline
+            style={{
+              width: "100%",
+              borderRadius: "16px",
+              border: "1px solid rgba(139,92,246,0.3)",
+              boxShadow: "0 20px 40px rgba(88,28,135,0.3)",
+              background: "#000",
+              display: "block",
+            }}
+          />
+        </motion.div>
+
         {/* Feature Cards */}
         <div style={{
           display: "grid",
@@ -225,28 +247,6 @@ function KleinPage() {
             );
           })}
         </div>
-
-        {/* Video */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          style={{ width: "100%", maxWidth: "720px" }}
-        >
-          <video
-            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bac825a8484f2d5a1c1.mp4"
-            controls
-            playsInline
-            style={{
-              width: "100%",
-              borderRadius: "16px",
-              border: "1px solid rgba(139,92,246,0.3)",
-              boxShadow: "0 20px 40px rgba(88,28,135,0.3)",
-              background: "#000",
-              display: "block",
-            }}
-          />
-        </motion.div>
 
       </main>
 
