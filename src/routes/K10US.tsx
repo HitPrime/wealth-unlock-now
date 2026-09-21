@@ -77,7 +77,7 @@ function KastPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-[#07070c] text-slate-100 relative overflow-hidden flex flex-col selection:bg-purple-900 selection:text-purple-100">
+    <div className="min-h-screen w-full bg-[#07070c] text-slate-100 relative flex flex-col selection:bg-purple-900 selection:text-purple-100">
       {/* Background glows */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-80 z-0"
         style={{ background: "radial-gradient(circle at 50% -10%, rgba(139,92,246,0.25) 0%, rgba(88,28,135,0.12) 35%, rgba(7,7,12,0) 70%)" }}
@@ -93,7 +93,7 @@ function KastPage() {
       </header>
 
       {/* Main */}
-      <main className="relative z-10 flex-1 w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 py-2 gap-2.5">
+      <main className="relative z-10 flex-1 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-4 py-8 gap-4">
 
         {/* Headline */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
