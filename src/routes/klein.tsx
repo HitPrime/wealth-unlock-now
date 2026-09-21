@@ -180,12 +180,6 @@ function KleinPage() {
           <p style={{ color: "#64748b", fontSize: "11px", marginTop: "4px", maxWidth: "220px", lineHeight: 1.5 }}>
             Discount varies based on Klein Funding's active site-wide promotion at time of purchase.
           </p>
-          <p style={{
-            color: "#64748b", fontSize: "11px", marginTop: "6px",
-            maxWidth: "320px", lineHeight: 1.6, textAlign: "center"
-          }}>
-            This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
-          </p>
         </motion.div>
 
         {/* Video */}
@@ -284,7 +278,7 @@ function KleinPage() {
       }}>
         <img src={logo} alt="Cassius Cuvée Logo" style={{ height: "36px", width: "auto", objectFit: "contain", opacity: 0.8 }} />
         <p style={{ fontSize: "11px", color: "#64748b", textAlign: "center", maxWidth: "480px", marginTop: "2px", lineHeight: 1.6 }}>
-          This page is for informational purposes only. Trading involves risk. Terms and eligibility apply per the platform's official terms.
+          This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
         </p>
         <p style={{ fontSize: "11px", color: "#475569", fontWeight: 500 }}>© 2026 Cassius Cuvée</p>
       </footer>
