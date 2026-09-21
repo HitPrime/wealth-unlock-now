@@ -180,6 +180,12 @@ function KleinPage() {
           <p style={{ color: "#64748b", fontSize: "11px", marginTop: "4px", maxWidth: "220px", lineHeight: 1.5 }}>
             Discount varies based on Klein Funding's active site-wide promotion at time of purchase.
           </p>
+          <p style={{
+            color: "#64748b", fontSize: "11px", marginTop: "6px",
+            maxWidth: "320px", lineHeight: 1.6, textAlign: "center"
+          }}>
+            This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
+          </p>
         </motion.div>
 
         {/* Video */}
