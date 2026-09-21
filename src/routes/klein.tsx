@@ -187,10 +187,13 @@ function KleinPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          style={{ width: "100%", maxWidth: "720px" }}
+          style={{ width: "100%", maxWidth: "720px", position: "relative" }}
         >
           <video
+            id="klein-video"
             src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bac825a8484f2d5a1c1.mp4"
+            autoPlay
+            muted
             controls
             playsInline
             style={{
@@ -202,6 +205,23 @@ function KleinPage() {
               display: "block",
             }}
           />
+          <button
+            onClick={() => {
+              const v = document.getElementById("klein-video") as HTMLVideoElement;
+              if (v) { v.muted = !v.muted; (document.getElementById("klein-unmute") as HTMLElement).innerText = v.muted ? "🔇 Tap for sound" : "🔊 Sound on"; }
+            }}
+            id="klein-unmute"
+            style={{
+              position: "absolute", bottom: "14px", left: "14px",
+              background: "rgba(0,0,0,0.7)", color: "#fff",
+              border: "1px solid rgba(255,255,255,0.2)", borderRadius: "999px",
+              padding: "5px 14px", fontSize: "12px", cursor: "pointer",
+              fontFamily: "var(--font-mono)", letterSpacing: "0.05em",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            🔇 Tap for sound
+          </button>
         </motion.div>
 
         {/* Feature Cards */}

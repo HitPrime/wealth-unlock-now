@@ -133,9 +133,13 @@ function KastPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           className="w-full max-w-2xl mx-auto"
+          style={{ position: "relative" }}
         >
           <video
+            id="kast-video"
             src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bacff484614db7ccc8f.mp4"
+            autoPlay
+            muted
             controls
             playsInline
             className="w-full block"
@@ -146,6 +150,23 @@ function KastPage() {
               background: "#000",
             }}
           />
+          <button
+            onClick={() => {
+              const v = document.getElementById("kast-video") as HTMLVideoElement;
+              if (v) { v.muted = !v.muted; (document.getElementById("kast-unmute") as HTMLElement).innerText = v.muted ? "🔇 Tap for sound" : "🔊 Sound on"; }
+            }}
+            id="kast-unmute"
+            style={{
+              position: "absolute", bottom: "14px", left: "14px",
+              background: "rgba(0,0,0,0.7)", color: "#fff",
+              border: "1px solid rgba(255,255,255,0.2)", borderRadius: "999px",
+              padding: "5px 14px", fontSize: "12px", cursor: "pointer",
+              fontFamily: "var(--font-mono)", letterSpacing: "0.05em",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            🔇 Tap for sound
+          </button>
         </motion.div>
 
         {/* Steps */}
