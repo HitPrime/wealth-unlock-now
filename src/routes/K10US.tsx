@@ -193,8 +193,11 @@ function KastPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full bg-[#0b0a14] border-t border-purple-900/20 px-6 py-3 flex flex-col items-center justify-center gap-1 flex-shrink-0">
+      <footer className="relative z-10 w-full bg-[#0b0a14] border-t border-purple-900/20 px-6 py-4 flex flex-col items-center justify-center gap-2 flex-shrink-0">
         <img src={logo} alt="Cassius Cuvée Logo" className="h-8 md:h-9 w-auto object-contain opacity-80" />
+        <p className="text-xs text-slate-600 text-center max-w-md leading-relaxed">
+          This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
+        </p>
         <p className="text-xs text-slate-600 font-medium">© 2026 Cassius Cuvée</p>
       </footer>
     </div>
