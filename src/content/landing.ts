@@ -72,7 +72,7 @@ export const PILLARS = [
   },
   {
     title: "The First Trade Walkthrough",
-    body: "Cassius on video, walking you through it all out loud, so a real person explains it instead of a faceless slide deck. He shows you exactly what to do next.",
+    body: "Cassius walks you through every step out loud a real person guiding you through exactly what to do next, in his own words",
     tag: "02 · THE WALKTHROUGH",
   },
   {
