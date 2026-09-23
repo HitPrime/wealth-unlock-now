@@ -7,7 +7,10 @@ const LOGOS = [
 ];
 
 export function PressBar() {
-  const items = [...LOGOS, ...LOGOS, ...LOGOS];
+  // One "half" must be wider than the container so the strip never shows a gap;
+  // the track holds two identical halves and slides by exactly one half.
+  const half = Array.from({ length: 5 }, () => LOGOS).flat();
+  const items = [...half, ...half];
   return (
     <section
       id="press"
@@ -18,20 +21,21 @@ export function PressBar() {
           As Featured In
         </p>
         <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-          <div className="flex items-center gap-14 animate-[marquee_35s_linear_infinite] whitespace-nowrap w-max">
+          <div className="flex items-center animate-[marquee_60s_linear_infinite] whitespace-nowrap w-max">
             {items.map((logo, i) => (
               <img
                 key={i}
                 src={logo.src}
-                alt={logo.name}
-                className={`${logo.h} w-auto object-contain opacity-80 hover:opacity-100 transition ${logo.invert ? "[filter:brightness(0)_invert(1)]" : ""}`}
+                alt={i < half.length ? logo.name : ""}
+                aria-hidden={i >= half.length}
+                className={`${logo.h} w-auto mr-14 object-contain opacity-80 hover:opacity-100 transition ${logo.invert ? "[filter:brightness(0)_invert(1)]" : ""}`}
                 loading="lazy"
               />
             ))}
           </div>
         </div>
       </div>
-      <style>{`@keyframes marquee { from { transform: translateX(0)} to { transform: translateX(-33.333%)} }`}</style>
+      <style>{`@keyframes marquee { from { transform: translateX(0)} to { transform: translateX(-50%)} }`}</style>
     </section>
   );
 }

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import heroImage from "@/assets/cassius-hero.png";
+import heroImage from "@/assets/new-cassius-hero.png";
 import { Particles } from "./Particles";
 import { StarterKitDialog } from "./StarterKitDialog";
 import { CtaButton } from "./Cta";
+import { WelcomeVideo } from "./WelcomeVideo";
 
 export function Hero() {
   return (
@@ -16,7 +17,7 @@ export function Hero() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.4, ease: "easeOut" }}
         src={heroImage}
-        alt="Silhouette of a trader in front of a rising chart"
+        alt="Rising candlestick chart on a purple background"
         className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%] md:object-center"
         loading="eager"
       />
@@ -38,8 +39,9 @@ export function Hero() {
         aria-hidden
         className="absolute inset-0 -z-10 opacity-[0.07] bg-[linear-gradient(oklch(0.85_0.15_300)_1px,transparent_1px),linear-gradient(90deg,oklch(0.85_0.15_300)_1px,transparent_1px)] bg-[size:64px_64px]"
       />
-      <div className="relative mx-auto max-w-7xl px-6 w-full pt-28 pb-20 lg:pt-32">
-        <div className="max-w-2xl">
+      <div className="relative mx-auto max-w-7xl px-6 w-full pt-28 pb-20 lg:pt-32 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-0 lg:items-center">
+        {/* Mobile order: copy → video → CTA. Desktop: copy + CTA left, video right. */}
+        <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-1 lg:self-end">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,18 +64,29 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-6 max-w-xl text-lg text-[color:var(--color-muted-foreground)] leading-relaxed"
+            className="mt-6 max-w-xl mx-auto lg:mx-0 text-lg text-[color:var(--color-muted-foreground)] leading-relaxed"
           >
             Get the free Starter Kit that walks you through trading from step
             one, in plain English. If you've watched fifty videos and still feel
             lost, that's not on you. Nobody is born knowing this stuff.
           </motion.p>
+        </div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="w-full max-w-2xl mx-auto lg:mx-0 lg:max-w-none lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+        >
+          <WelcomeVideo />
+        </motion.div>
+
+        <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-2 lg:self-start">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-10"
+            className="lg:mt-10"
           >
             <StarterKitDialog trigger={<CtaButton />} />
             <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-[color:var(--color-muted-foreground)]">
@@ -85,7 +98,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono tracking-widest uppercase text-[color:var(--color-muted-foreground)]"
+            className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono tracking-widest uppercase text-[color:var(--color-muted-foreground)]"
           >
             <span className="text-[color:var(--color-purple-200)]">As seen on</span>
             <span>WSJ</span>

@@ -74,47 +74,7 @@ export function PainPoints() {
             That's not a you problem. That's a foundation problem.
           </p>
 
-          {/* Welcome video */}
-          <div className="mt-10 mx-auto max-w-2xl relative">
-            <video
-              id="cc-welcome-video"
-              src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab3d8ce8d8128ee4ca80bbf.mp4"
-              autoPlay
-              muted
-              controls
-              playsInline
-              className="w-full block"
-              style={{
-                borderRadius: "16px",
-                border: "1px solid rgba(139,92,246,0.3)",
-                boxShadow: "0 20px 40px rgba(88,28,135,0.3)",
-                background: "#000",
-              }}
-            />
-            <button
-              onClick={() => {
-                const v = document.getElementById("cc-welcome-video") as HTMLVideoElement;
-                const btn = document.getElementById("cc-unmute-btn") as HTMLElement;
-                if (v && btn) {
-                  v.muted = !v.muted;
-                  btn.innerText = v.muted ? "🔇 Tap for sound" : "🔊 Sound on";
-                }
-              }}
-              id="cc-unmute-btn"
-              style={{
-                position: "absolute", bottom: "14px", left: "14px",
-                background: "rgba(0,0,0,0.7)", color: "#fff",
-                border: "1px solid rgba(255,255,255,0.2)", borderRadius: "999px",
-                padding: "5px 14px", fontSize: "12px", cursor: "pointer",
-                fontFamily: "var(--font-mono)", letterSpacing: "0.05em",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              🔇 Tap for sound
-            </button>
-          </div>
-
-          <div className="mt-8 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <StarterKitDialog trigger={<CtaButton />} />
           </div>
         </div>
