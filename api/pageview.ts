@@ -3,7 +3,12 @@ export const config = { runtime: "edge" };
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL!;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 
-const COUNTRY_NAMES: Record<string, string> = {
+// PDT = UTC-7 — day resets at 12 AM PDT (= 07:00 UTC)
+function getPDTDate(): string {
+  const now = new Date();
+  const pdt = new Date(now.getTime() - 7 * 60 * 60 * 1000);
+  return pdt.toISOString().split("T")[0];
+}
   US: "USA", GB: "UK", PK: "Pakistan", CA: "Canada",
   AU: "Australia", AE: "UAE", IN: "India", DE: "Germany",
   FR: "France", NL: "Netherlands", SG: "Singapore",
@@ -17,7 +22,7 @@ const COUNTRY_NAMES: Record<string, string> = {
 };
 
 async function redisIncrView(page: string, countryKey: string) {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getPDTDate();
   // encodeURIComponent ensures emoji/spaces don't break the URL path
   const encodedCountry = encodeURIComponent(countryKey);
   await Promise.all([

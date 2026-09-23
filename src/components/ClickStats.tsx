@@ -53,7 +53,10 @@ function decodeCountries(raw: Record<string, number>): Record<string, number> {
 }
 
 function toStatData(raw: Record<string, number>): StatData {
-  const today = new Date().toISOString().split("T")[0];
+  // PDT = UTC-7
+  const now = new Date();
+  const pdt = new Date(now.getTime() - 7 * 60 * 60 * 1000);
+  const today = pdt.toISOString().split("T")[0];
   const days = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
