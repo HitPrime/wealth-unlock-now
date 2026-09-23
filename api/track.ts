@@ -9,15 +9,13 @@ const DESTINATIONS: Record<string, string> = {
   kast: "https://app.kast.xyz/referral/CASSIUS",
 };
 
-// PDT = UTC-7 — day resets at 12 AM PDT (= 07:00 UTC)
-function getPDTDate(): string {
-  const now = new Date();
-  const pdt = new Date(now.getTime() - 7 * 60 * 60 * 1000);
-  return pdt.toISOString().split("T")[0];
+// Pacific Time — automatically handles PDT (UTC-7, summer) and PST (UTC-8, winter)
+function getPacificDate(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
 }
 
 async function redisIncr(link: string) {
-  const today = getPDTDate();
+  const today = getPacificDate();
   await Promise.all([
     fetch(`${UPSTASH_URL}/hincrby/clicks:${link}/total/1`, {
       headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },

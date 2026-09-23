@@ -3,11 +3,9 @@ export const config = { runtime: "edge" };
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL!;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 
-// PDT = UTC-7 — day resets at 12 AM PDT (= 07:00 UTC)
-function getPDTDate(): string {
-  const now = new Date();
-  const pdt = new Date(now.getTime() - 7 * 60 * 60 * 1000);
-  return pdt.toISOString().split("T")[0];
+// Pacific Time — automatically handles PDT (UTC-7, summer) and PST (UTC-8, winter)
+function getPacificDate(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
 }
   US: "USA", GB: "UK", PK: "Pakistan", CA: "Canada",
   AU: "Australia", AE: "UAE", IN: "India", DE: "Germany",
@@ -22,7 +20,7 @@ function getPDTDate(): string {
 };
 
 async function redisIncrView(page: string, countryKey: string) {
-  const today = getPDTDate();
+  const today = getPacificDate();
   // encodeURIComponent ensures emoji/spaces don't break the URL path
   const encodedCountry = encodeURIComponent(countryKey);
   await Promise.all([

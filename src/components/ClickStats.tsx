@@ -53,10 +53,8 @@ function decodeCountries(raw: Record<string, number>): Record<string, number> {
 }
 
 function toStatData(raw: Record<string, number>): StatData {
-  // PDT = UTC-7
-  const now = new Date();
-  const pdt = new Date(now.getTime() - 7 * 60 * 60 * 1000);
-  const today = pdt.toISOString().split("T")[0];
+  // Pacific Time — auto PDT/PST
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
   const days = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
