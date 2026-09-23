@@ -99,7 +99,6 @@ export const TRADER_PROFILE: ProfileQuestion[] = [
       { value: "tradingview", label: "I have a TradingView account", tag: "setup-tradingview" },
       { value: "coinbase", label: "I have a Coinbase account", tag: "setup-coinbase" },
       { value: "kraken", label: "I have a Kraken account", tag: "setup-kraken" },
-      { value: "phemex", label: "I trade on Phemex", tag: "setup-phemex" },
       { value: "prop", label: "I use a prop firm", tag: "setup-prop-firm" },
       { value: "leverage", label: "I have a leverage trading platform", tag: "setup-leverage" },
       { value: "none", label: "None of the above", tag: "setup-none" },

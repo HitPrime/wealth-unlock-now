@@ -1,13 +1,9 @@
 import wsj from "@/assets/press/wsj.png";
 import cnbc from "@/assets/press/cnbc.svg";
-import phemex from "@/assets/press/phemex.png";
-import breakout from "@/assets/press/breakout.png";
 
 const LOGOS = [
   { name: "The Wall Street Journal", src: wsj, invert: true, h: "h-16 md:h-20" },
   { name: "CNBC", src: cnbc, invert: true, h: "h-8 md:h-10" },
-  { name: "Phemex", src: phemex, invert: false, h: "h-6 md:h-8" },
-  { name: "Breakout", src: breakout, invert: true, h: "h-6 md:h-8" },
 ];
 
 export function PressBar() {
