@@ -3,7 +3,7 @@ import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
 import blueprint from "@/assets/kit/blueprint.png";
 import commandments from "@/assets/kit/commandments.png";
-import trainingTape from "@/assets/kit/training-tape.png";
+import trainingTape from "@/assets/kit/first-trade-laptop.png";
 
 // Order matches PILLARS: Blueprint, First Trade Walkthrough (laptop, middle), Commandments.
 const PILLAR_IMAGES = [blueprint, trainingTape, commandments];
