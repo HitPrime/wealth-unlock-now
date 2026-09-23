@@ -7,6 +7,8 @@ const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!;
 function getPacificDate(): string {
   return new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
 }
+
+const COUNTRY_NAMES: Record<string, string> = {
   US: "USA", GB: "UK", PK: "Pakistan", CA: "Canada",
   AU: "Australia", AE: "UAE", IN: "India", DE: "Germany",
   FR: "France", NL: "Netherlands", SG: "Singapore",
