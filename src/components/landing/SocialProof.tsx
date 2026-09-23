@@ -5,11 +5,10 @@ import { SectionCta } from "./Cta";
 
 import t1 from "@/assets/testimonials/t1.png";
 import t3 from "@/assets/testimonials/t3.png";
-import t4 from "@/assets/testimonials/t4.png";
 import t5 from "@/assets/testimonials/t5.jpg";
 import t6 from "@/assets/testimonials/t6.png";
 
-const SCREENSHOTS = [t1, t3, t4, t5, t6];
+const SCREENSHOTS = [t1, t3, t5, t6];
 
 function Screenshot({ src, index }: { src: string; index: number }) {
   const ref = useRef(null);
