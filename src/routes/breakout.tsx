@@ -193,7 +193,7 @@ function BreakoutPage() {
         >
           <video
             id="breakout-video"
-            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab13bacff484614db7ccc85.mp4"
+            src="https://assets.cdn.filesafe.space/5HWy6bgOsEC3bfBTO15d/media/6ab3e695b2c147832f65a6fd.mp4"
             autoPlay
             muted
             controls
