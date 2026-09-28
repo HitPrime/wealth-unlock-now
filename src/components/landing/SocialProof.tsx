@@ -12,14 +12,15 @@ const SCREENSHOTS = [t1, t3, t5, t6];
 
 function Screenshot({ src, index }: { src: string; index: number }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  // Start the reveal ~300px before the card scrolls into view so it never shows as a blank gap.
+  const inView = useInView(ref, { once: true, margin: "0px 0px 300px 0px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+      transition={{ duration: 0.35, delay: index * 0.05, ease: "easeOut" }}
       className="group mb-4 break-inside-avoid"
     >
       {/* Uniform frame so tall and square screenshots read as one set */}
@@ -29,6 +30,7 @@ function Screenshot({ src, index }: { src: string; index: number }) {
           alt="Member testimonial"
           className="w-full h-auto block rounded-lg"
           loading="lazy"
+          decoding="async"
         />
       </div>
     </motion.div>
