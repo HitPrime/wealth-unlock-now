@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import cassiusHeadshot from "@/assets/cassius-headshot.png";
+import cassiusHeadshot from "@/assets/cassius-headshot.jpg";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
 

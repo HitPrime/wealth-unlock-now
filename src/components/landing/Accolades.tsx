@@ -1,8 +1,8 @@
 import { PRESS } from "@/content/landing";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
-import wsjImg from "@/assets/press/appearances/wsj.png";
-import cnbcImg from "@/assets/press/appearances/cnbc.png";
+import wsjImg from "@/assets/press/appearances/wsj.jpg";
+import cnbcImg from "@/assets/press/appearances/cnbc.jpg";
 
 const APPEARANCE_IMAGES: Record<string, string> = {
   WSJ: wsjImg,

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroImage from "@/assets/new-cassius-hero.png";
+import heroImage from "@/assets/new-cassius-hero.jpg";
 import { Particles } from "./Particles";
 import { StarterKitDialog } from "./StarterKitDialog";
 import { CtaButton } from "./Cta";

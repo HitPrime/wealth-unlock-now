@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
 
-import t1 from "@/assets/testimonials/t1.png";
-import t3 from "@/assets/testimonials/t3.png";
+import t1 from "@/assets/testimonials/t1.jpg";
+import t3 from "@/assets/testimonials/t3.jpg";
 import t5 from "@/assets/testimonials/t5.jpg";
-import t6 from "@/assets/testimonials/t6.png";
+import t6 from "@/assets/testimonials/t6.jpg";
 
 const SCREENSHOTS = [t1, t3, t5, t6];
 
