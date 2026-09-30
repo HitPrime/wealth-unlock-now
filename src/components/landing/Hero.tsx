@@ -39,6 +39,27 @@ export function Hero() {
         aria-hidden
         className="absolute inset-0 -z-10 opacity-[0.07] bg-[linear-gradient(oklch(0.85_0.15_300)_1px,transparent_1px),linear-gradient(90deg,oklch(0.85_0.15_300)_1px,transparent_1px)] bg-[size:64px_64px]"
       />
+      {/* Member portal login, pinned top-right */}
+      <motion.a
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        href="https://clientclub.cassiuscuvee.com/login"
+        className="group absolute right-4 top-5 z-10 inline-flex items-center gap-2 overflow-hidden rounded-none bg-purple-gradient px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-white border border-[color:var(--color-gold)]/30 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[color:var(--color-gold)]/70 hover:shadow-glow active:translate-y-0 sm:right-8 sm:top-8 sm:px-6 sm:py-3 sm:text-sm"
+      >
+        {/* light sweep on hover, same as CtaButton */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -translate-x-[130%] skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[130%]"
+        />
+        <span className="relative">Login to Your Portal</span>
+        <span
+          aria-hidden
+          className="relative text-[color:var(--color-gold)] transition-transform duration-300 ease-out group-hover:translate-x-1.5"
+        >
+          →
+        </span>
+      </motion.a>
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-28 pb-20 lg:pt-32 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-0 lg:items-center">
         {/* Mobile order: copy → video → CTA. Desktop: copy + CTA left, video right. */}
         <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-1 lg:self-end">
