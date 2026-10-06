@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Footer } from "@/components/landing/Footer";
 import cassiusLogo from "@/assets/CassiusLogo.png";
@@ -7,17 +7,17 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms and Conditions | CassiusCuvÃ©e" },
+      { title: "Terms and Conditions | CassiusCuvee" },
       {
         name: "description",
         content:
-          "Read the CassiusCuvÃ©e Terms and Conditions governing your use of our website, products, courses, community, and services.",
+          "Read the CassiusCuvee Terms and Conditions governing your use of our website, products, courses, community, and services.",
       },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Terms and Conditions | CassiusCuvÃ©e" },
+      { property: "og:title", content: "Terms and Conditions | CassiusCuvee" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cassiuscuvee.com/terms" },
-      { property: "og:site_name", content: "Cassius CuvÃ©e" },
+      { property: "og:site_name", content: "Cassius Cuvee" },
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/terms" },
@@ -51,7 +51,6 @@ const TOC = [
   { id: "section-22", label: "22. Contact Us" },
 ];
 
-const tableBase = "w-full text-[15px] text-foreground/75 border-collapse";
 const thBase = "text-left py-2.5 px-3 font-semibold text-foreground/90 bg-[oklch(0.14_0.06_300/0.6)] border border-[color:var(--color-border)] text-sm";
 const tdBase = "py-2.5 px-3 border border-[color:var(--color-border)] align-top leading-relaxed";
 
@@ -62,10 +61,7 @@ function TocSidebar() {
       <ul className="space-y-1">
         {TOC.map(({ id, label }) => (
           <li key={id}>
-            <a
-              href={`#${id}`}
-              className="block py-1 text-[color:var(--color-muted-foreground)] hover:text-foreground transition-colors leading-snug"
-            >
+            <a href={`#${id}`} className="block py-1 text-[color:var(--color-muted-foreground)] hover:text-foreground transition-colors leading-snug">
               {label}
             </a>
           </li>
@@ -73,7 +69,7 @@ function TocSidebar() {
       </ul>
       <div className="mt-4 pt-4 border-t border-[color:var(--color-border)]">
         <a href="#top" className="text-xs text-[color:var(--color-purple-400)] hover:text-foreground transition-colors">
-          â†‘ Back to top
+          Back to top
         </a>
       </div>
     </nav>
@@ -90,24 +86,20 @@ function TocMobile() {
         aria-expanded={open}
       >
         <span>On this page</span>
-        <span aria-hidden>{open ? "â–²" : "â–¼"}</span>
+        <span aria-hidden>{open ? "(hide)" : "(show)"}</span>
       </button>
       {open && (
         <ul className="px-4 py-3 space-y-1.5 bg-[oklch(0.10_0.04_300)]">
           {TOC.map(({ id, label }) => (
             <li key={id}>
-              <a
-                href={`#${id}`}
-                onClick={() => setOpen(false)}
-                className="block py-0.5 text-sm text-[color:var(--color-muted-foreground)] hover:text-foreground transition-colors"
-              >
+              <a href={`#${id}`} onClick={() => setOpen(false)} className="block py-0.5 text-sm text-[color:var(--color-muted-foreground)] hover:text-foreground transition-colors">
                 {label}
               </a>
             </li>
           ))}
           <li className="pt-2 border-t border-[color:var(--color-border)]">
             <a href="#top" className="text-xs text-[color:var(--color-purple-400)] hover:text-foreground transition-colors">
-              â†‘ Back to top
+              Back to top
             </a>
           </li>
         </ul>
@@ -124,14 +116,6 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
   );
 }
 
-function H3({ children }: { children: React.ReactNode }) {
-  return (
-    <h3 className="font-sans text-base font-semibold text-foreground/90 mt-6 mb-3">
-      {children}
-    </h3>
-  );
-}
-
 function P({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <p className={`text-foreground/75 leading-[1.75] mb-4 ${className}`}>{children}</p>;
 }
@@ -143,54 +127,44 @@ function UL({ children }: { children: React.ReactNode }) {
 function TermsPage() {
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
-      {/* Skip to content */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-background focus:px-4 focus:py-2 focus:rounded focus:text-foreground focus:border focus:border-[color:var(--color-purple-400)] focus:outline-none"
-      >
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-background focus:px-4 focus:py-2 focus:rounded focus:text-foreground focus:border focus:border-[color:var(--color-purple-400)] focus:outline-none">
         Skip to main content
       </a>
 
-      {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[oklch(0.10_0.04_300/0.6)] border-b border-[oklch(0.30_0.10_290/0.4)]">
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center">
-          <a href="/" aria-label="Cassius CuvÃ©e â€” Home">
-            <img src={cassiusLogo} alt="Cassius CuvÃ©e" className="h-9 w-auto" style={{ mixBlendMode: "lighten" }} />
+          <a href="/" aria-label="Cassius Cuvee - Home">
+            <img src={cassiusLogo} alt="Cassius Cuvee" className="h-9 w-auto" style={{ mixBlendMode: "lighten" }} />
           </a>
         </div>
       </header>
 
-      {/* Layout */}
       <div className="mx-auto max-w-6xl px-6 pt-28 pb-24 flex gap-12 items-start">
-
         <TocSidebar />
 
         <main id="main-content" className="flex-1 min-w-0 max-w-3xl">
-
-          {/* Page header */}
           <header className="mb-8">
             <p className="font-mono text-[11px] tracking-[0.2em] text-[color:var(--color-purple-200)] uppercase mb-3">
-              Legal Â· cassiuscuvee.com
+              Legal &middot; cassiuscuvee.com
             </p>
             <h1 className="font-sans text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-3">
               Terms and Conditions
             </h1>
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
-              {" Â· "}
+              {" \u00b7 "}
               <strong className="text-foreground/75">Last Updated:</strong> October 6, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
-              Operated by Bottle Poppin Productions LLC Â· Brands: Cassius CuvÃ©e and Swell Point
+              Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvee and Swell Point
             </p>
             <div className="mt-5 h-px w-full bg-gradient-to-r from-[color:var(--color-purple-400)]/40 via-[color:var(--color-purple-400)]/15 to-transparent" />
           </header>
 
           <TocMobile />
 
-          {/* Intro */}
           <P>
-            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius CuvÃ©e</strong> and <strong>Swell Point</strong> brands. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
+            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius Cuvee</strong> and <strong>Swell Point</strong> brands. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
           </P>
 
           <H2 id="section-1">1. Acceptance of These Terms</H2>
@@ -226,22 +200,13 @@ function TermsPage() {
           <UL>
             <li>you authorize us to charge your payment method automatically at the interval and price shown at checkout, until you cancel;</li>
             <li>your subscription renews automatically at the end of each billing period;</li>
-            <li>
-              you may cancel at any time before your next renewal date through your account or by emailing{" "}
-              <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-                Cassiuscuvee@gmail.com
-              </a>, and you will keep access until the end of the paid period; and
-            </li>
+            <li>you may cancel at any time before your next renewal date through your account or by emailing <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a>, and you will keep access until the end of the paid period; and</li>
             <li>we will not refund charges for a billing period that has already started, except as stated in Section 7.</li>
           </UL>
 
           <H2 id="section-7">7. Refunds</H2>
           <P>
-            Because our products are digital and delivered immediately, all sales are final unless a different refund policy is stated on the product page or at checkout. Nothing in these Terms limits any refund right you have under applicable law. To ask about a refund, contact us at{" "}
-            <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Cassiuscuvee@gmail.com
-            </a>{" "}
-            with your order details.
+            Because our products are digital and delivered immediately, all sales are final unless a different refund policy is stated on the product page or at checkout. Nothing in these Terms limits any refund right you have under applicable law. To ask about a refund, contact us at <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a> with your order details.
           </P>
 
           <H2 id="section-8">8. Free Resources, Email and SMS Communications</H2>
@@ -250,16 +215,10 @@ function TermsPage() {
             <li><strong>Email.</strong> By signing up you agree to receive emails from us, including marketing emails. Every marketing email contains an unsubscribe link, and we honor opt-outs promptly. We may still send transactional messages about your orders or account.</li>
             <li><strong>SMS.</strong> We send text messages only if you give separate, express consent. Consent is not a condition of any purchase. Message and data rates may apply, and message frequency may vary. Reply STOP at any time to opt out, or HELP for assistance.</li>
           </UL>
-          <P>
-            See our{" "}
-            <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Privacy Policy
-            </a>{" "}
-            for how we collect and use your information for these purposes.
-          </P>
+          <P>See our <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Privacy Policy</a> for how we collect and use your information for these purposes.</P>
 
           <H2 id="section-9">9. Intellectual Property and License</H2>
-          <P>All content in the Services, including courses, videos, text, templates, graphics, logos, trademarks and the Cassius CuvÃ©e and Swell Point names, is owned by the Company or its licensors and is protected by intellectual property laws.</P>
+          <P>All content in the Services, including courses, videos, text, templates, graphics, logos, trademarks and the Cassius Cuvee and Swell Point names, is owned by the Company or its licensors and is protected by intellectual property laws.</P>
           <P>When you buy a product or access a member area, we give you a limited, personal, non-exclusive, non-transferable, revocable license to view and use that content for your own non-commercial purposes. You may <strong>not</strong>:</P>
           <UL>
             <li>copy, record, reproduce, distribute, resell, rent, sublicense or publicly display our content;</li>
@@ -306,20 +265,11 @@ function TermsPage() {
 
           <H2 id="section-18">18. Governing Law and Disputes</H2>
           <P>
-            These Terms are governed by the laws of the State of California, without regard to its conflict-of-law rules. Before filing a claim, you agree to contact us at{" "}
-            <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Cassiuscuvee@gmail.com
-            </a>{" "}
-            and try in good faith to resolve the dispute informally for at least 30 days. Any dispute that is not resolved will be brought exclusively in the state or federal courts located in California, and you consent to their jurisdiction.
+            These Terms are governed by the laws of the State of California, without regard to its conflict-of-law rules. Before filing a claim, you agree to contact us at <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a> and try in good faith to resolve the dispute informally for at least 30 days. Any dispute that is not resolved will be brought exclusively in the state or federal courts located in California, and you consent to their jurisdiction.
           </P>
 
           <H2 id="section-19">19. Privacy</H2>
-          <P>
-            Your use of the Services is also governed by our{" "}
-            <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Privacy Policy
-            </a>, which explains what personal information we collect, how we use it, and your privacy choices. It is available at cassiuscuvee.com/privacy.
-          </P>
+          <P>Your use of the Services is also governed by our <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Privacy Policy</a>, which explains what personal information we collect, how we use it, and your privacy choices. It is available at cassiuscuvee.com/privacy.</P>
 
           <H2 id="section-20">20. Changes to These Terms</H2>
           <P>We may update these Terms from time to time. The effective date of the current version is shown at the top of this page. If we make material changes, we will notify you, for example by email or by a notice on the Services. By continuing to use the Services after the changes take effect, you accept the updated Terms.</P>
@@ -335,22 +285,12 @@ function TermsPage() {
           <H2 id="section-22">22. Contact Us</H2>
           <P>If you have questions about these Terms, please contact:</P>
           <p className="text-foreground/75 leading-[1.75] mb-1"><strong>Bottle Poppin Productions LLC</strong></p>
-          <P>
-            Email:{" "}
-            <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Cassiuscuvee@gmail.com
-            </a>
-          </P>
-          <P>
-            For privacy requests:{" "}
-            <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">
-              Cassiuscuvee@gmail.com
-            </a>
-          </P>
+          <P>Email: <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a></P>
+          <P>For privacy requests: <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a></P>
 
           <div className="mt-10 pt-6 border-t border-[color:var(--color-border)]">
             <a href="#top" className="text-sm text-[color:var(--color-purple-400)] hover:text-foreground transition-colors">
-              â†‘ Back to top
+              Back to top
             </a>
           </div>
 
@@ -361,4 +301,3 @@ function TermsPage() {
     </div>
   );
 }
-
