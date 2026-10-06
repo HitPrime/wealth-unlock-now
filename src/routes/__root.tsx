@@ -12,6 +12,12 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+// GPC: block advertising tags when Global Privacy Control is on
+if (typeof window !== "undefined" && (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true) {
+  // Set a flag that ad tag scripts can check before loading
+  (window as Window & { GPC_OPT_OUT?: boolean }).GPC_OPT_OUT = true;
+}
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">

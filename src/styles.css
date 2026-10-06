@@ -215,3 +215,19 @@
 .grayscale-hover:hover {
   filter: grayscale(0%) contrast(1);
 }
+
+/* Print styles for legal pages */
+@media print {
+  header, nav, footer, [aria-label="Table of contents"] {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+  h2 { page-break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 10pt; color: #555; }
+  a[href^="mailto"]::after { content: " (" attr(href) ")"; }
+}

@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VipRouteImport } from './routes/vip'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SwellPointRouteImport } from './routes/swell-point'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as KleinRouteImport } from './routes/klein'
@@ -38,9 +40,19 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwellPointRoute = SwellPointRouteImport.update({
   id: '/swell-point',
   path: '/swell-point',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OffersRoute = OffersRouteImport.update({
@@ -99,7 +111,9 @@ export interface FileRoutesByFullPath {
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
+  '/privacy': typeof PrivacyRoute
   '/swell-point': typeof SwellPointRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -114,7 +128,9 @@ export interface FileRoutesByTo {
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
+  '/privacy': typeof PrivacyRoute
   '/swell-point': typeof SwellPointRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -130,7 +146,9 @@ export interface FileRoutesById {
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
+  '/privacy': typeof PrivacyRoute
   '/swell-point': typeof SwellPointRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -147,7 +165,9 @@ export interface FileRouteTypes {
     | '/klein'
     | '/merch'
     | '/offers'
+    | '/privacy'
     | '/swell-point'
+    | '/terms'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -162,7 +182,9 @@ export interface FileRouteTypes {
     | '/klein'
     | '/merch'
     | '/offers'
+    | '/privacy'
     | '/swell-point'
+    | '/terms'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -177,7 +199,9 @@ export interface FileRouteTypes {
     | '/klein'
     | '/merch'
     | '/offers'
+    | '/privacy'
     | '/swell-point'
+    | '/terms'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -193,7 +217,9 @@ export interface RootRouteChildren {
   KleinRoute: typeof KleinRoute
   MerchRoute: typeof MerchRoute
   OffersRoute: typeof OffersRoute
+  PrivacyRoute: typeof PrivacyRoute
   SwellPointRoute: typeof SwellPointRoute
+  TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
   UnlockRoute: typeof UnlockRoute
   VipRoute: typeof VipRoute
@@ -222,11 +248,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/swell-point': {
       id: '/swell-point'
       path: '/swell-point'
       fullPath: '/swell-point'
       preLoaderRoute: typeof SwellPointRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offers': {
@@ -305,7 +345,9 @@ const rootRouteChildren: RootRouteChildren = {
   KleinRoute: KleinRoute,
   MerchRoute: MerchRoute,
   OffersRoute: OffersRoute,
+  PrivacyRoute: PrivacyRoute,
   SwellPointRoute: SwellPointRoute,
+  TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
   UnlockRoute: UnlockRoute,
   VipRoute: VipRoute,
