@@ -171,7 +171,7 @@ function PrivacyPage() {
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
               {" · "}
-              <strong className="text-foreground/75">Last Updated:</strong> October 6, 2026
+              <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
               Operated by Bottle Poppin Productions LLC · Brands: Cassius Cuvée and Swell Point
@@ -210,6 +210,7 @@ function PrivacyPage() {
             <li><strong>Payment information</strong> – when you purchase a product, your card or payment details are entered with our payment processors, such as Stripe or Whop. We do not store your full card number on our own servers.</li>
             <li><strong>Billing name and billing address</strong> – collected at checkout.</li>
             <li><strong>Messages you send us</strong> – including anything you submit through our contact form.</li>
+            <li><strong>Testimonial content</strong> – if you submit a testimonial through our testimonial form, the statement you write or record, your name, and any photo, video or voice recording you choose to include, together with a record of your consent (including the date and time you agreed).</li>
           </UL>
 
           <H3>B. Information collected automatically</H3>
@@ -242,6 +243,7 @@ function PrivacyPage() {
                   ["Payment and billing data", "To process your purchases and subscriptions. Payments are handled by our payment processor(s)."],
                   ["Age range", "To confirm that users are 18 years of age or older."],
                   ["Messages, course and member activity", "To respond to you, provide support, and run our courses and community."],
+                  ["Testimonial content and consent record", "To publish and promote our products on our websites, social media, advertising, emails and other marketing materials, with your consent, and to keep proof of that consent."],
                 ].map(([info, use]) => (
                   <tr key={info} className="even:bg-[oklch(0.12_0.04_300/0.3)]">
                     <td className={`${tdBase} font-medium text-foreground/85 w-1/3`}>{info}</td>
@@ -299,6 +301,7 @@ function PrivacyPage() {
               </tbody>
             </table>
           </div>
+          <P><strong>Testimonials are public.</strong> If you consent, your testimonial and the name, image, voice or video you provide may be displayed publicly on our Sites, social media pages, advertisements and emails, and may be seen, copied or shared by anyone. They may also pass through the social media and advertising platforms we use to publish them. Please do not include anything in your testimonial that you do not want to be made public.</P>
           <P>We may also disclose information (a) if required by law, court order or government request; (b) to protect our rights, safety or property, or that of others; and (c) in connection with a merger, sale or transfer of all or part of our business, in which case your information may be transferred to the new owner.</P>
 
           {/* ── Section 5 ── */}
@@ -368,6 +371,7 @@ function PrivacyPage() {
                   ["Purchase records", "7 years, for tax and accounting purposes"],
                   ["Contact form messages", "2 years"],
                   ["Server and IP logs", "90 days"],
+                  ["Testimonials and consent records", "Testimonial: until you withdraw your consent. Record of your consent: 4 years."],
                 ].map(([type, period]) => (
                   <tr key={type} className="even:bg-[oklch(0.12_0.04_300/0.3)]">
                     <td className={`${tdBase} font-medium text-foreground/85`}>{type}</td>
@@ -387,6 +391,7 @@ function PrivacyPage() {
             <li><strong>Delete</strong> – ask us to delete your personal information, subject to legal exceptions (for example, purchase records we must keep for tax purposes).</li>
             <li><strong>Opt out</strong> – ask us to stop sharing your personal information with advertisers (see Section 8).</li>
             <li><strong>Not be treated unfairly</strong> – we will not discriminate against you for exercising your rights.</li>
+            <li><strong>Withdraw consent</strong> – withdraw your permission for us to use your testimonial, name, image or video at any time by emailing <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a>. We will stop using it in new materials and remove it from our websites and social media pages within 30 days. We cannot recall materials already distributed or printed, or copies shared by third parties.</li>
           </UL>
 
           <H3>How to make a request</H3>

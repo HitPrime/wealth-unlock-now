@@ -37,7 +37,7 @@ const TOC = [
   { id: "section-8",  label: "8. Free Resources, Email and SMS" },
   { id: "section-9",  label: "9. Intellectual Property and License" },
   { id: "section-10", label: "10. Community Guidelines" },
-  { id: "section-11", label: "11. Content You Submit" },
+  { id: "section-11", label: "11. Content You Submit and Testimonials" },
   { id: "section-12", label: "12. Educational Purpose; No Guarantees" },
   { id: "section-13", label: "13. Third-Party Services and Links" },
   { id: "section-14", label: "14. Disclaimer of Warranties" },
@@ -153,7 +153,7 @@ function TermsPage() {
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
               {" \u00b7 "}
-              <strong className="text-foreground/75">Last Updated:</strong> October 6, 2026
+              <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
               Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvee and Swell Point
@@ -238,8 +238,21 @@ function TermsPage() {
           </UL>
           <P>We may remove content and suspend or end access for anyone who breaks these rules. Third-party platforms we use, such as Discord, also have their own rules that you must follow.</P>
 
-          <H2 id="section-11">11. Content You Submit</H2>
+          <H2 id="section-11">11. Content You Submit and Testimonials</H2>
           <P>You keep ownership of messages, comments and other content you submit. By submitting it, you give us a non-exclusive, worldwide, royalty-free license to use, display and reproduce it as needed to operate and promote the Services. You confirm that you have the right to submit it and that it does not violate any law or anyone else's rights.</P>
+
+          <h3 className="font-sans text-base font-semibold text-foreground/90 mt-6 mb-3">Testimonial Consent and Release</h3>
+          <P>If you submit a testimonial, review, photo, video or other statement about us or our products (a "Testimonial") and check the consent box on our testimonial form, you agree to the following:</P>
+          <UL>
+            <li><strong>Honest experience.</strong> Your Testimonial reflects your genuine and honest experience and opinion.</li>
+            <li><strong>Permission to use.</strong> You give Bottle Poppin Productions LLC, which operates Cassius Cuvee and Swell Point, a non-exclusive, worldwide, royalty-free license to use, reproduce, publish, display and distribute your Testimonial, and your name, image, likeness and voice as they appear in it, on our websites, social media, advertising, emails and other marketing materials, in any media. This permission lasts until you withdraw it as described below.</li>
+            <li><strong>Edits.</strong> We may edit your Testimonial for length, clarity or formatting, but we will not change its meaning.</li>
+            <li><strong>No payment.</strong> Unless we have agreed otherwise in writing, you will not be paid for your Testimonial. If you received a free product, discount or other benefit connected to it, we may disclose that where the law requires.</li>
+            <li><strong>Your confirmations.</strong> You are at least 18 years old; you have the right to give this permission, including the consent of anyone else who appears in your image or video; and your Testimonial is not unlawful, defamatory or in violation of anyone's rights.</li>
+            <li><strong>Individual results.</strong> Testimonials describe individual experiences. They are not a promise or guarantee that you or anyone else will achieve the same results.</li>
+            <li><strong>Voluntary.</strong> Submitting a Testimonial is voluntary and is not a condition of any purchase or of access to the Services.</li>
+            <li><strong>Withdrawing your consent.</strong> You may withdraw your permission at any time by emailing <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a>. After we receive your request, we will stop using your Testimonial in new materials and remove it from our websites and social media pages within 30 days. Withdrawal does not affect use that happened before we received your request, and we cannot recall materials already distributed or printed, or copies shared by third parties.</li>
+          </UL>
 
           <H2 id="section-12">12. Educational Purpose; No Guarantees</H2>
           <P>Our content is provided for educational and informational purposes only. It is not professional, legal, financial, medical or other advice. Any examples or results we share are not typical and are not a promise or guarantee of your outcome. Your results depend on many factors, including your effort, circumstances and decisions, and you are solely responsible for how you use what you learn.</P>
