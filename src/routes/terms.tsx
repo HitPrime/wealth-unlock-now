@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Footer } from "@/components/landing/Footer";
+import { SocialProof } from "@/components/landing/SocialProof";
 import cassiusLogo from "@/assets/CassiusLogo.png";
 
 export const Route = createFileRoute("/terms")({
@@ -296,6 +297,8 @@ function TermsPage() {
 
         </main>
       </div>
+
+      <SocialProof />
 
       <Footer />
     </div>
