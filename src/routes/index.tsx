@@ -4,7 +4,6 @@ import { PressBar } from "@/components/landing/PressBar";
 import { PainPoints } from "@/components/landing/PainPoints";
 import { Pillars } from "@/components/landing/Pillars";
 import { MeetCassius } from "@/components/landing/MeetCassius";
-import { SocialProof } from "@/components/landing/SocialProof";
 import { Accolades } from "@/components/landing/Accolades";
 import { Faq } from "@/components/landing/Faq";
 import { FinalCta } from "@/components/landing/FinalCta";
@@ -22,7 +21,6 @@ function Index() {
         <PressBar />
         <PainPoints />
         <Pillars />
-        <SocialProof />
         <MeetCassius />
         <Accolades />
         <Faq />
