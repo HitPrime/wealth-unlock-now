@@ -125,7 +125,89 @@ function UL({ children }: { children: React.ReactNode }) {
   return <ul className="list-disc list-outside ml-5 space-y-2 text-foreground/75 leading-[1.75] mb-4">{children}</ul>;
 }
 
-function TermsPage() {
+function TestimonialConsentForm() {
+  const [checked, setChecked] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!checked) return;
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="text-center py-4">
+        <p className="text-[color:var(--color-purple-200)] font-semibold text-lg mb-2">Thank you!</p>
+        <p className="text-foreground/70 text-sm leading-relaxed">
+          Your consent has been recorded. Cassius Cuvee may use your testimonial for marketing purposes.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label className="flex items-start gap-3 cursor-pointer group">
+        <div className="relative mt-0.5 shrink-0">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+            className="sr-only"
+            aria-label="I agree to the Testimonial Consent and Release"
+          />
+          <div
+            onClick={() => setChecked(!checked)}
+            className="w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200"
+            style={{
+              borderColor: checked ? "rgba(139,92,246,0.8)" : "rgba(139,92,246,0.4)",
+              background: checked ? "rgba(124,58,237,0.9)" : "transparent",
+              cursor: "pointer",
+            }}
+            role="checkbox"
+            aria-checked={checked}
+            tabIndex={0}
+            onKeyDown={(e) => e.key === " " && setChecked(!checked)}
+          >
+            {checked && (
+              <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+                <path d="M1 5L4.5 8.5L11 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </div>
+        </div>
+        <p className="text-foreground/85 leading-relaxed text-[15px]">
+          By checking this box, I agree to the{" "}
+          <a href="/terms" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors font-medium">
+            Terms &amp; Conditions
+          </a>{" "}
+          and{" "}
+          <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors font-medium">
+            Privacy Policy
+          </a>{" "}
+          and confirm that my testimonial reflects my honest experience. I give Cassius Cuvee permission to use and publish my testimonial, name, image, or video for marketing purposes, with edits that do not change its meaning.
+        </p>
+      </label>
+
+      <button
+        type="submit"
+        disabled={!checked}
+        className="mt-6 w-full py-3 rounded-xl font-medium text-base transition-all duration-200"
+        style={{
+          background: checked ? "linear-gradient(135deg, oklch(0.60 0.24 290), oklch(0.42 0.24 290))" : "transparent",
+          border: "1px solid rgba(139,92,246,0.5)",
+          color: checked ? "#fff" : "rgba(167,139,250,0.7)",
+          cursor: checked ? "pointer" : "not-allowed",
+        }}
+      >
+        Submit
+      </button>
+    </form>
+  );
+}
+
+
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-background focus:px-4 focus:py-2 focus:rounded focus:text-foreground focus:border focus:border-[color:var(--color-purple-400)] focus:outline-none">
@@ -297,6 +379,29 @@ function TermsPage() {
 
         </main>
       </div>
+
+      {/* Testimonial Consent & Release */}
+      <section className="bg-[oklch(0.08_0.04_300)] border-t border-[color:var(--color-border)] py-16">
+        <div className="mx-auto max-w-2xl px-6">
+          <h2 className="font-sans text-xl font-bold text-foreground mb-6">
+            Please Read Our{" "}
+            <a href="/terms" className="underline underline-offset-2 text-[color:var(--color-purple-400)] hover:text-foreground transition-colors">
+              Terms &amp; Conditions
+            </a>{" "}
+            Before Agreeing to the Testimonial Consent &amp; Release
+          </h2>
+
+          <div
+            className="rounded-2xl p-6 mb-6"
+            style={{
+              background: "#230540",
+              border: "1px solid rgba(139,92,246,0.35)",
+            }}
+          >
+            <TestimonialConsentForm />
+          </div>
+        </div>
+      </section>
 
       <SocialProof />
 
