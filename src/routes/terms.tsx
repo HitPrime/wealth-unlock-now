@@ -153,7 +153,7 @@ function TermsPage() {
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
               {" \u00b7 "}
-              <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
+              <strong className="text-foreground/75">Last Updated:</strong> October 15, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
               Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvee and Swell Point
@@ -168,7 +168,7 @@ function TermsPage() {
           </P>
 
           <H2 id="section-1">1. Acceptance of These Terms</H2>
-          <P>By accessing or using the Services, signing up for our email list, making a purchase, or joining our community, you agree to be bound by these Terms and by our Privacy Policy. If you do not agree, please do not use the Services.</P>
+          <P>By accessing or using the Services, signing up for our email list, making a purchase, or joining our community, you agree to be bound by these Terms and by our Privacy Policy. If you do not agree, do not use the Services.</P>
 
           <H2 id="section-2">2. Our Services</H2>
           <P>Through the Services we may offer:</P>

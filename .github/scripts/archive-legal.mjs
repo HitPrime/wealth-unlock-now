@@ -125,9 +125,8 @@ async function main() {
   const termsFile = "src/routes/terms.tsx";
   if (fs.existsSync(termsFile)) {
     termsDate = extractDate(termsFile);
-    if (termsDate) {
-      termsSlug = dateToSlug(termsDate);
-      console.log(`Terms date: ${termsDate} → slug: ${termsSlug}`);
+    termsSlug = dateToSlug(termsDate);
+    console.log(`Terms date: ${termsDate} → slug: ${termsSlug}`);
 
       if (termsSlug && !archiveExists(termsSlug, "terms")) {
         createArchive("terms", termsSlug, termsFile);
