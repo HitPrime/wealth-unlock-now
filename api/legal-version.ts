@@ -3,9 +3,9 @@ export const config = { runtime: "edge" };
 // ─── UPDATE THESE WHEN YOU PUBLISH A NEW VERSION ───────────────────────────
 // GitHub Action automatically updates this file when terms/privacy changes
 const CURRENT_VERSION = {
-  terms_version:       "October 15, 2026",
+  terms_version:       "October 12, 2026",
   terms_url:           "https://www.cassiuscuvee.com/terms",
-  terms_archive_url:   "https://www.cassiuscuvee.com/terms-v20261015",
+  terms_archive_url:   "https://www.cassiuscuvee.com/terms-v20261012",
   privacy_url:         "https://www.cassiuscuvee.com/privacy",
   privacy_archive_url: "https://www.cassiuscuvee.com/privacy-v20261012",
 };
