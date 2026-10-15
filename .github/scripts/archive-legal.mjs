@@ -128,16 +128,19 @@ async function main() {
     termsSlug = dateToSlug(termsDate);
     console.log(`Terms date: ${termsDate} → slug: ${termsSlug}`);
 
-      if (termsSlug && !archiveExists(termsSlug, "terms")) {
-        createArchive("terms", termsSlug, termsFile);
+      if (termsSlug) {
+        if (!archiveExists(termsSlug, "terms")) {
+          createArchive("terms", termsSlug, termsFile);
+        } else {
+          console.log(`Terms archive already exists for ${termsSlug} — skipping file creation`);
+        }
+        // Always update Supabase and legal-version.ts
         await updateSupabase(
           "terms",
           termsDate,
           `${SITE_URL}/terms-v${termsSlug}`,
           `${SITE_URL}/terms`
         );
-      } else {
-        console.log(`Terms archive already exists for ${termsSlug}`);
       }
     }
   }
@@ -150,16 +153,19 @@ async function main() {
       privacySlug = dateToSlug(privacyDate);
       console.log(`Privacy date: ${privacyDate} → slug: ${privacySlug}`);
 
-      if (privacySlug && !archiveExists(privacySlug, "privacy")) {
-        createArchive("privacy", privacySlug, privacyFile);
+      if (privacySlug) {
+        if (!archiveExists(privacySlug, "privacy")) {
+          createArchive("privacy", privacySlug, privacyFile);
+        } else {
+          console.log(`Privacy archive already exists for ${privacySlug} — skipping file creation`);
+        }
+        // Always update Supabase and legal-version.ts
         await updateSupabase(
           "privacy",
           privacyDate,
           `${SITE_URL}/privacy-v${privacySlug}`,
           `${SITE_URL}/privacy`
         );
-      } else {
-        console.log(`Privacy archive already exists for ${privacySlug}`);
       }
     }
   }
