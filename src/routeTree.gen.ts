@@ -19,8 +19,10 @@ import { Route as KleinRouteImport } from './routes/klein'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyV20261012RouteImport } from './routes/privacy-v20261012'
 import { Route as SwellPointRouteImport } from './routes/swell-point'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TermsV20261012RouteImport } from './routes/terms-v20261012'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as VipRouteImport } from './routes/vip'
@@ -75,6 +77,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyV20261012Route = PrivacyV20261012RouteImport.update({
+  id: '/privacy-v20261012',
+  path: '/privacy-v20261012',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwellPointRoute = SwellPointRouteImport.update({
   id: '/swell-point',
   path: '/swell-point',
@@ -83,6 +90,11 @@ const SwellPointRoute = SwellPointRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsV20261012Route = TermsV20261012RouteImport.update({
+  id: '/terms-v20261012',
+  path: '/terms-v20261012',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ThankYouRoute = ThankYouRouteImport.update({
@@ -112,8 +124,10 @@ export interface FileRoutesByFullPath {
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-v20261012': typeof PrivacyV20261012Route
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
+  '/terms-v20261012': typeof TermsV20261012Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -129,8 +143,10 @@ export interface FileRoutesByTo {
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-v20261012': typeof PrivacyV20261012Route
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
+  '/terms-v20261012': typeof TermsV20261012Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -147,8 +163,10 @@ export interface FileRoutesById {
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-v20261012': typeof PrivacyV20261012Route
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
+  '/terms-v20261012': typeof TermsV20261012Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -166,8 +184,10 @@ export interface FileRouteTypes {
     | '/merch'
     | '/offers'
     | '/privacy'
+    | '/privacy-v20261012'
     | '/swell-point'
     | '/terms'
+    | '/terms-v20261012'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -183,8 +203,10 @@ export interface FileRouteTypes {
     | '/merch'
     | '/offers'
     | '/privacy'
+    | '/privacy-v20261012'
     | '/swell-point'
     | '/terms'
+    | '/terms-v20261012'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -200,8 +222,10 @@ export interface FileRouteTypes {
     | '/merch'
     | '/offers'
     | '/privacy'
+    | '/privacy-v20261012'
     | '/swell-point'
     | '/terms'
+    | '/terms-v20261012'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -218,8 +242,10 @@ export interface RootRouteChildren {
   MerchRoute: typeof MerchRoute
   OffersRoute: typeof OffersRoute
   PrivacyRoute: typeof PrivacyRoute
+  PrivacyV20261012Route: typeof PrivacyV20261012Route
   SwellPointRoute: typeof SwellPointRoute
   TermsRoute: typeof TermsRoute
+  TermsV20261012Route: typeof TermsV20261012Route
   ThankYouRoute: typeof ThankYouRoute
   UnlockRoute: typeof UnlockRoute
   VipRoute: typeof VipRoute
@@ -297,6 +323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-v20261012': {
+      id: '/privacy-v20261012'
+      path: '/privacy-v20261012'
+      fullPath: '/privacy-v20261012'
+      preLoaderRoute: typeof PrivacyV20261012RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/swell-point': {
       id: '/swell-point'
       path: '/swell-point'
@@ -309,6 +342,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-v20261012': {
+      id: '/terms-v20261012'
+      path: '/terms-v20261012'
+      fullPath: '/terms-v20261012'
+      preLoaderRoute: typeof TermsV20261012RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/thank-you': {
@@ -346,8 +386,10 @@ const rootRouteChildren: RootRouteChildren = {
   MerchRoute: MerchRoute,
   OffersRoute: OffersRoute,
   PrivacyRoute: PrivacyRoute,
+  PrivacyV20261012Route: PrivacyV20261012Route,
   SwellPointRoute: SwellPointRoute,
   TermsRoute: TermsRoute,
+  TermsV20261012Route: TermsV20261012Route,
   ThankYouRoute: ThankYouRoute,
   UnlockRoute: UnlockRoute,
   VipRoute: VipRoute,
