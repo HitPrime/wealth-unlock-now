@@ -1,90 +1,83 @@
 export const config = { runtime: "edge" };
 
 const SUPABASE_URL = "https://vzzmcsjimncrssmkyimgz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6em1jc2ppbW5jcnNta3lpbWd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4OTM2MTAsImV4cCI6MjEwNzQ2OTYxMH0.0KzTZjeNKfinEMTxBpBKInjlyQJICCu9YMNdN99DL6o";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6em1jc2ppbW5jcnNta3lpbWd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4OTM2MTAsImV4cCI6MjEwNzQ2OTYxMH0.0KzTZjeNKfinEMTxBpBKInjlyQJICCu9YMNdN99DL6o";
+const BUCKET = "testimonial-videos";
 
-const CORS_HEADERS = {
+const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+
+function json(data: unknown, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { ...CORS, "Content-Type": "application/json" },
+  });
+}
 
 export default async function handler(req: Request) {
   if (req.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
+    return new Response(null, { status: 204, headers: CORS });
   }
 
   if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405, headers: CORS_HEADERS });
+    return json({ error: "Method not allowed" }, 405);
   }
 
   try {
-    // Get form data with file
     const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const fileName = formData.get("fileName") as string || file?.name || "video.mp4";
+    const file = formData.get("file");
 
-    if (!file) {
-      return new Response(JSON.stringify({ error: "No file provided" }), {
-        status: 400,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      });
+    if (!file || !(file instanceof File)) {
+      return json({ error: "No file provided" }, 400);
     }
 
-    // Check file type
+    // Validate video type
     if (!file.type.startsWith("video/")) {
-      return new Response(JSON.stringify({ error: "Only video files allowed" }), {
-        status: 400,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      });
+      return json({ error: "Only video files allowed" }, 400);
     }
 
-    // Check file size (50MB)
-    if (file.size > 50 * 1024 * 1024) {
-      return new Response(JSON.stringify({ error: "File too large. Max 50MB." }), {
-        status: 400,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      });
+    // Validate size (50MB)
+    const MAX = 50 * 1024 * 1024;
+    if (file.size > MAX) {
+      return json({ error: "File too large. Max 50MB." }, 400);
     }
 
     const timestamp = Date.now();
-    const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const storagePath = `${timestamp}_${safeName}`;
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${timestamp}_${safeName}`;
 
     // Upload to Supabase Storage
+    const fileBuffer = await file.arrayBuffer();
+
     const uploadRes = await fetch(
-      `${SUPABASE_URL}/storage/v1/object/testimonial-videos/${storagePath}`,
+      `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`,
       {
         method: "POST",
         headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
           "Content-Type": file.type,
-          "x-upsert": "false",
+          "Content-Length": String(file.size),
+          "x-upsert": "true",
         },
-        body: file,
+        body: fileBuffer,
       }
     );
 
+    const uploadText = await uploadRes.text();
+
     if (!uploadRes.ok) {
-      const err = await uploadRes.text();
-      return new Response(JSON.stringify({ error: `Upload failed: ${err}` }), {
-        status: 500,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      });
+      return json({ error: `Supabase upload failed: ${uploadText}` }, 500);
     }
 
-    const videoUrl = `${SUPABASE_URL}/storage/v1/object/public/testimonial-videos/${storagePath}`;
+    const url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
+    return json({ ok: true, url });
 
-    return new Response(JSON.stringify({ ok: true, url: videoUrl }), {
-      status: 200,
-      headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-    });
-
-  } catch (err) {
-    return new Response(JSON.stringify({ error: "Server error" }), {
-      status: 500,
-      headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-    });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return json({ error: `Server error: ${msg}` }, 500);
   }
 }
