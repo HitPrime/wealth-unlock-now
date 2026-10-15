@@ -153,7 +153,7 @@ function TermsPage() {
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
               {" \u00b7 "}
-              <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
+              <strong className="text-foreground/75">Last Updated:</strong> October 15, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
               Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvee and Swell Point
@@ -164,7 +164,7 @@ function TermsPage() {
           <TocMobile />
 
           <P>
-            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius Cuvee</strong> and <strong>Swell Point</strong> brands. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
+            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius Cuvee</strong> brand. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
           </P>
 
           <H2 id="section-1">1. Acceptance of These Terms</H2>
