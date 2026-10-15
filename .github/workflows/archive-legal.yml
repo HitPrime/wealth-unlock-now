@@ -1,0 +1,40 @@
+name: Auto Archive Legal Pages
+
+on:
+  push:
+    paths:
+      - 'src/routes/terms.tsx'
+      - 'src/routes/privacy.tsx'
+    branches:
+      - master
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run archive script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node .github/scripts/archive-legal.mjs
+
+      - name: Commit and push if changed
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add src/routes/terms-v*.tsx src/routes/privacy-v*.tsx api/legal-version.ts || true
+          git diff --staged --quiet || git commit -m "chore: auto-archive legal pages [skip ci]"
+          git push
