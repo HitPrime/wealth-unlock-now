@@ -105,7 +105,8 @@ export const NOT_FOR_YOU = [
 ];
 
 export const TESTIMONIALS = [
-  { name: "Marcus D.", handle: "@marcusd", text: "I'd watched so many YouTube videos and still couldn't explain what a stop loss actually was. After going through the Blueprint, I finally get what I'm doing." },
+  { name: "Alexander", handle: "", text: "Cassius is a great educator, you will learn a lot from him! He's such a genuine dude! And I'm sure you will get a lot of info from him!" },
+  { name: "Matthew", handle: "", text: "Cassius Cuvee's Swell Point indicator & training materials are a true game changer to anyone WITH or WITHOUT experience.. His dedication to continuously refining Swell Point into a powerful yet SIMPLE tool has been impressive.. #SPRT" },
   { name: "Priya S.", handle: "@priyas", text: "Cassius explains it the way a friend would. Not like he's showing off. The Commandments alone stopped me from making the emotional mistakes I kept repeating." },
   { name: "Devon R.", handle: "@devonr", text: "I downloaded this expecting another generic PDF. It's not that. The Blueprint explains the why behind every concept. Nobody had done that for me before." },
   { name: "Sam K.", handle: "@samk_", text: "I've had the Glossary open in a tab for months. I didn't even know half these terms existed. Now I sound like I know what I'm talking about. Because I actually do." },

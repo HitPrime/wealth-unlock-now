@@ -23,6 +23,7 @@ import { Route as PrivacyV20261012RouteImport } from './routes/privacy-v20261012
 import { Route as SwellPointRouteImport } from './routes/swell-point'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TermsV20261012RouteImport } from './routes/terms-v20261012'
+import { Route as TermsV20261015RouteImport } from './routes/terms-v20261015'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as VipRouteImport } from './routes/vip'
@@ -97,6 +98,11 @@ const TermsV20261012Route = TermsV20261012RouteImport.update({
   path: '/terms-v20261012',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsV20261015Route = TermsV20261015RouteImport.update({
+  id: '/terms-v20261015',
+  path: '/terms-v20261015',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
+  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
+  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
+  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/vip': typeof VipRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
+    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
+    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
+    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/vip'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   SwellPointRoute: typeof SwellPointRoute
   TermsRoute: typeof TermsRoute
   TermsV20261012Route: typeof TermsV20261012Route
+  TermsV20261015Route: typeof TermsV20261015Route
   ThankYouRoute: typeof ThankYouRoute
   UnlockRoute: typeof UnlockRoute
   VipRoute: typeof VipRoute
@@ -351,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsV20261012RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms-v20261015': {
+      id: '/terms-v20261015'
+      path: '/terms-v20261015'
+      fullPath: '/terms-v20261015'
+      preLoaderRoute: typeof TermsV20261015RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thank-you': {
       id: '/thank-you'
       path: '/thank-you'
@@ -390,6 +410,7 @@ const rootRouteChildren: RootRouteChildren = {
   SwellPointRoute: SwellPointRoute,
   TermsRoute: TermsRoute,
   TermsV20261012Route: TermsV20261012Route,
+  TermsV20261015Route: TermsV20261015Route,
   ThankYouRoute: ThankYouRoute,
   UnlockRoute: UnlockRoute,
   VipRoute: VipRoute,
