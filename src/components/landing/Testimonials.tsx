@@ -41,25 +41,13 @@ function TestimonialCard({
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color:var(--color-gold)]/60 to-transparent"
       />
 
-      {/* Quote mark + 5-star rating */}
-      <div className="relative flex items-start justify-between">
-        <span
-          aria-hidden
-          className="font-display text-5xl leading-[0.6] text-[color:var(--color-gold)]/90 select-none"
-        >
-          &ldquo;
-        </span>
-        <div role="img" aria-label="Rated 5 out of 5" className="flex gap-0.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg key={i} width="14" height="14" viewBox="0 0 14 14" aria-hidden>
-              <path
-                d="M7 1l1.545 3.13 3.455.502-2.5 2.437.59 3.44L7 8.885l-3.09 1.624.59-3.44L2 4.632l3.455-.502L7 1z"
-                fill="oklch(0.82 0.13 85)"
-              />
-            </svg>
-          ))}
-        </div>
-      </div>
+      {/* Large quote mark */}
+      <span
+        aria-hidden
+        className="relative font-display text-5xl leading-[0.6] text-[color:var(--color-gold)]/90 select-none"
+      >
+        &ldquo;
+      </span>
 
       {/* Quote */}
       <blockquote className="relative mt-4 flex-1 text-[15px] leading-relaxed text-foreground/85">
