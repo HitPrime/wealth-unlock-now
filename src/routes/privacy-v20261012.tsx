@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Footer } from "@/components/landing/Footer";
-import cassiusLogo from "@/assets/CassiusLogo.png";
+import cassiusLogo from "@/assets/CassiusLogo.webp";
 
 export const Route = createFileRoute("/privacy-v20261012")({
   component: PrivacyPageV20261012,

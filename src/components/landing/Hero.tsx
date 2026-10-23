@@ -1,9 +1,27 @@
+import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
-import heroImage from "@/assets/new-cassius-hero.jpg";
+import heroImage from "@/assets/new-cassius-hero.webp";
+import heroImageSmall from "@/assets/new-cassius-hero-828.webp";
 import { Particles } from "./Particles";
 import { StarterKitDialog } from "./StarterKitDialog";
 import { CtaButton } from "./Cta";
 import { WelcomeVideo } from "./WelcomeVideo";
+
+/**
+ * CSS entrance animation (keyframes in styles.css). Runs from first paint, so the
+ * hero copy, which holds the LCP element, doesn't wait for JS hydration to appear.
+ */
+function enter(
+  name: "hero-rise" | "hero-fade" | "hero-zoom",
+  duration: number,
+  delay = 0,
+  riseY?: number,
+): CSSProperties {
+  return {
+    animation: `${name} ${duration}s ease-out ${delay}s both`,
+    ...(riseY !== undefined ? { "--rise-y": `${riseY}px` } : {}),
+  } as CSSProperties;
+}
 
 export function Hero() {
   return (
@@ -12,13 +30,15 @@ export function Hero() {
       className="relative isolate overflow-hidden min-h-screen flex items-center"
     >
       {/* Full-bleed hero image */}
-      <motion.img
-        initial={{ scale: 1.08, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
+      <img
         src={heroImage}
+        srcSet={`${heroImageSmall} 828w, ${heroImage} 1671w`}
+        sizes="100vw"
+        width={1671}
+        height={941}
         alt="Rising candlestick chart on a purple background"
         className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%] md:object-center"
+        style={enter("hero-zoom", 1.4)}
         loading="eager"
       />
       {/* Gradient overlays for legibility */}
@@ -40,11 +60,9 @@ export function Hero() {
         className="absolute inset-0 -z-10 opacity-[0.07] bg-[linear-gradient(oklch(0.85_0.15_300)_1px,transparent_1px),linear-gradient(90deg,oklch(0.85_0.15_300)_1px,transparent_1px)] bg-[size:64px_64px]"
       />
       {/* Member portal login, pinned top-right */}
-      <motion.a
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+      <a
         href="https://clientclub.cassiuscuvee.com/login"
+        style={enter("hero-rise", 0.6, 0.3, -8)}
         className="group absolute right-4 top-5 z-10 inline-flex items-center gap-2 overflow-hidden rounded-none bg-purple-gradient px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-white border border-[color:var(--color-gold)]/30 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[color:var(--color-gold)]/70 hover:shadow-glow active:translate-y-0 sm:right-8 sm:top-8 sm:px-6 sm:py-3 sm:text-sm"
       >
         {/* light sweep on hover, same as CtaButton */}
@@ -59,40 +77,37 @@ export function Hero() {
         >
           →
         </span>
-      </motion.a>
+      </a>
       <div className="relative mx-auto max-w-7xl px-6 w-full pt-28 pb-20 lg:pt-32 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-0 lg:items-center">
         {/* Mobile order: copy → video → CTA. Desktop: copy + CTA left, video right. */}
         <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-1 lg:self-end">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <p
+            style={enter("hero-rise", 0.6, 0.1, 12)}
             className="font-mono text-xs tracking-[0.2em] text-[color:var(--color-purple-200)] uppercase mb-5"
           >
             Free Starter Kit · 600+ Beginners Started Here
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+          </p>
+          <h1
+            style={enter("hero-rise", 0.7, 0.2, 16)}
             className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-foreground uppercase drop-shadow-[0_4px_30px_oklch(0.10_0.04_300/0.9)]"
           >
             Trade with <span className="text-gradient-purple">structure.</span>
             <br />
             Finally <span className="text-gradient-purple">understand it.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
+          </h1>
+          <p
+            style={enter("hero-rise", 0.7, 0.35, 16)}
             className="mt-6 max-w-xl mx-auto lg:mx-0 text-lg text-[color:var(--color-muted-foreground)] leading-relaxed"
           >
             Get the free Starter Kit that walks you through trading from step
             one, in plain English. If you've watched fifty videos and still feel
             lost, that's not on you. Nobody is born knowing this stuff.
-          </motion.p>
+          </p>
         </div>
 
+        {/* The video keeps its JS-driven entrance (as before): revealing it only after
+            hydration keeps the large, slow-to-decode video from becoming the LCP element,
+            so LCP is the CSS-animated headline above. */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,22 +118,15 @@ export function Hero() {
         </motion.div>
 
         <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-2 lg:self-start">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="lg:mt-10"
-          >
+          <div style={enter("hero-rise", 0.6, 0.5, 12)} className="lg:mt-10">
             <StarterKitDialog trigger={<CtaButton />} />
             <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-[color:var(--color-muted-foreground)]">
               Free Trading Starter Kit · No card required
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+          <div
+            style={enter("hero-fade", 0.8, 0.7)}
             className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono tracking-widest uppercase text-[color:var(--color-muted-foreground)]"
           >
             <span className="text-[color:var(--color-purple-200)]">As seen on</span>
@@ -127,10 +135,9 @@ export function Hero() {
             <span>CNBC</span>
             <span className="opacity-40">/</span>
             <span>Squawk on the Street</span>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

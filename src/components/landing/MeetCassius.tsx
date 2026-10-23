@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import cassiusHeadshot from "@/assets/cassius-headshot.jpg";
+import cassiusHeadshot from "@/assets/cassius-headshot.webp";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
 
@@ -23,6 +23,9 @@ export function MeetCassius() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-[color:var(--color-border)] bg-[oklch(0.10_0.04_300)]">
             <img
               src={cassiusHeadshot}
+              width={900}
+              height={1350}
+              loading="lazy"
               alt="Cassius Cuvée"
               className="h-full w-full object-cover object-top grayscale-hover"
             />

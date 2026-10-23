@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { UserPlus, Tag, ShieldCheck } from "lucide-react";
-import logo from "@/assets/CassiusLogo.png";
+import logo from "@/assets/CassiusLogo.webp";
 import card from "@/assets/KastCard.png";
 
 export const Route = createFileRoute("/K10US")({

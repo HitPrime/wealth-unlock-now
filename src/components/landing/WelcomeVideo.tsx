@@ -23,6 +23,7 @@ export function WelcomeVideo({ className = "" }: { className?: string }) {
         onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
         className="w-full block"
         style={{
+          aspectRatio: "1686 / 1080",
           borderRadius: "16px",
           border: "1px solid rgba(139,92,246,0.3)",
           boxShadow: "0 20px 40px rgba(88,28,135,0.3)",

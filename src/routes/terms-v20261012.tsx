@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Footer } from "@/components/landing/Footer";
-import cassiusLogo from "@/assets/CassiusLogo.png";
+import cassiusLogo from "@/assets/CassiusLogo.webp";
 
 export const Route = createFileRoute("/terms-v20261012")({
   component: TermsPageV20261012,

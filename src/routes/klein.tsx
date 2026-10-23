@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { BarChart2, ShieldCheck, Layers } from "lucide-react";
-import logo from "@/assets/CassiusLogo.png";
+import logo from "@/assets/CassiusLogo.webp";
 import kleinLogo from "@/assets/klein.jpg";
 
 export const Route = createFileRoute("/klein")({

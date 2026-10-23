@@ -1,9 +1,9 @@
-import wsj from "@/assets/press/wsj.png";
+import wsj from "@/assets/press/wsj.webp";
 import cnbc from "@/assets/press/cnbc.svg";
 
 const LOGOS = [
-  { name: "The Wall Street Journal", src: wsj, invert: true, h: "h-16 md:h-20" },
-  { name: "CNBC", src: cnbc, invert: true, h: "h-8 md:h-10" },
+  { name: "The Wall Street Journal", src: wsj, width: 284, height: 160, invert: true, h: "h-16 md:h-20" },
+  { name: "CNBC", src: cnbc, width: 744, height: 568, invert: true, h: "h-8 md:h-10" },
 ];
 
 export function PressBar() {
@@ -26,6 +26,8 @@ export function PressBar() {
               <img
                 key={i}
                 src={logo.src}
+                width={logo.width}
+                height={logo.height}
                 alt={i < half.length ? logo.name : ""}
                 aria-hidden={i >= half.length}
                 className={`${logo.h} w-auto mr-14 object-contain opacity-80 hover:opacity-100 transition ${logo.invert ? "[filter:brightness(0)_invert(1)]" : ""}`}

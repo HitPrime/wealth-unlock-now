@@ -1,9 +1,9 @@
 import { PILLARS } from "@/content/landing";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
-import blueprint from "@/assets/kit/blueprint.png";
-import commandments from "@/assets/kit/commandments.png";
-import trainingTape from "@/assets/kit/first-trade-laptop.png";
+import blueprint from "@/assets/kit/blueprint.webp";
+import commandments from "@/assets/kit/commandments.webp";
+import trainingTape from "@/assets/kit/first-trade-laptop.webp";
 
 // Order matches PILLARS: Blueprint, First Trade Walkthrough (laptop, middle), Commandments.
 const PILLAR_IMAGES = [blueprint, trainingTape, commandments];
@@ -36,6 +36,8 @@ export function Pillars() {
               <div className="relative aspect-square w-full">
                 <img
                   src={PILLAR_IMAGES[i]}
+                  width={800}
+                  height={800}
                   alt=""
                   loading="lazy"
                   className={`h-full w-full origin-bottom object-contain object-top ${restScale} ${restShift} [filter:drop-shadow(0_0_0_oklch(0.60_0.24_290/0))] transition-[transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:-translate-y-8 ${hoverScale} group-hover:[filter:drop-shadow(0_0_28px_oklch(0.60_0.24_290/0.9))]`}

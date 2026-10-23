@@ -40,7 +40,7 @@ Recommended size: 80x80px minimum, square crop. Will render as a circle avatar.
 ## Press Appearance Photos
 `src/assets/press/appearances/`
 
-Photos or screenshots from the actual media appearances. These sit alongside the existing outlet logos (`src/assets/press/wsj.png`, `cnbc.svg`).
+Photos or screenshots from the actual media appearances. These sit alongside the existing outlet logos (`src/assets/press/wsj.webp`, `cnbc.svg`).
 
 | Filename | Outlet |
 |---|---|
@@ -58,5 +58,5 @@ Recommended size: 1200x800px or 3:2 ratio. Will be cropped to fill a wide card a
 |---|---|
 | `cassius-hero.png` | Hero background, MeetCassius photo |
 | `cassius-cuvee-logo.png` | Nav wordmark |
-| `press/wsj.png` | Press bar logo |
+| `press/wsj.webp` | Press bar logo |
 | `press/cnbc.svg` | Press bar logo |

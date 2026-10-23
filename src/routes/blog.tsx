@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/landing/Footer";
 import cassiusLogo from "@/assets/cassius-cuvee-logo.png";
-import cassiusNavLogo from "@/assets/CassiusLogo.png";
+import cassiusNavLogo from "@/assets/CassiusLogo.webp";
 import cassiusHero from "@/assets/cassius-hero-blog.png";
 import { NAV_LINKS } from "@/content/landing";
 import { StarterKitDialog } from "@/components/landing/StarterKitDialog";
