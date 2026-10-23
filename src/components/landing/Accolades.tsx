@@ -26,8 +26,10 @@ export function Accolades() {
               {p.short === "Squawk on the Street" ? (
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <iframe
-                    src="https://www.youtube.com/embed/dUv_GldZFns?start=29&end=40&autoplay=0&rel=0&modestbranding=1"
+                    src="https://www.youtube-nocookie.com/embed/dUv_GldZFns?start=29&end=40&autoplay=0&rel=0&modestbranding=1"
                     title="Squawk on the Street"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="h-full w-full"
