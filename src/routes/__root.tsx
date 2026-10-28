@@ -111,8 +111,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Cassius Cuvée helps everyday people build the mindset, discipline, and strategy of a serious trader. Join a community of 600+ committed members." },
       { property: "og:description", content: "Cassius Cuvée helps everyday people build the mindset, discipline, and strategy of a serious trader. Join a community of 600+ committed members." },
       { name: "twitter:description", content: "Cassius Cuvée helps everyday people build the mindset, discipline, and strategy of a serious trader. Join a community of 600+ committed members." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3826bdc6-5293-43f5-85b1-1e4d6d07203e/id-preview-7ddb39c1--1ed42099-91bc-40c9-b7a1-33bcc0cad265.lovable.app-1783128943927.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3826bdc6-5293-43f5-85b1-1e4d6d07203e/id-preview-7ddb39c1--1ed42099-91bc-40c9-b7a1-33bcc0cad265.lovable.app-1783128943927.png" },
+      { property: "og:image", content: "https://www.cassiuscuvee.com/og/og-home.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Cassius Cuvée: Trading Made Easy" },
+      { name: "twitter:image", content: "https://www.cassiuscuvee.com/og/og-home.jpg" },
     ],
     links: [
       {

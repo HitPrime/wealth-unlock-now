@@ -35,7 +35,7 @@ export const Route = createFileRoute("/blog")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://cassiuscuvee.com/blog" },
       { property: "og:site_name", content: "Cassius Cuvée" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "canonical", href: "https://cassiuscuvee.com/blog" },

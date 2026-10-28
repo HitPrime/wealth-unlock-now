@@ -27,7 +27,12 @@ export const Route = createFileRoute("/K10US")({
       { property: "og:url", content: "https://cassiuscuvee.com/K10US" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       // Twitter
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://www.cassiuscuvee.com/og/og-kast.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Get a 10 USD welcome bonus on the Kast Visa card" },
+      { name: "twitter:image", content: "https://www.cassiuscuvee.com/og/og-kast.jpg" },
       { name: "twitter:title", content: "Get 10 USD Welcome Bonus on Kast Visa Card | Cassius Cuvée" },
       {
         name: "twitter:description",
