@@ -95,10 +95,6 @@ export function Testimonials() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-xs font-mono uppercase tracking-[0.2em] text-[color:var(--color-muted-foreground)]">
-          Individual experiences. Not a guarantee of any outcome.
-        </p>
-
         <SectionCta note="Join them. Free." />
       </div>
     </section>
