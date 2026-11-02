@@ -14,18 +14,21 @@ import { Route as K10USRouteImport } from './routes/K10US'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BreakoutRouteImport } from './routes/breakout'
+import { Route as BreakoutPropReviewsRouteImport } from './routes/breakout-prop-reviews'
 import { Route as ComingSoonRouteImport } from './routes/coming-soon'
 import { Route as KleinRouteImport } from './routes/klein'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrivacyV20261012RouteImport } from './routes/privacy-v20261012'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SwellPointRouteImport } from './routes/swell-point'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TermsV20261012RouteImport } from './routes/terms-v20261012'
 import { Route as TermsV20261015RouteImport } from './routes/terms-v20261015'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as VideoSitemapDotxmlRouteImport } from './routes/video-sitemap[.]xml'
 import { Route as VipRouteImport } from './routes/vip'
 
 const IndexRoute = IndexRouteImport.update({
@@ -51,6 +54,11 @@ const BlogRoute = BlogRouteImport.update({
 const BreakoutRoute = BreakoutRouteImport.update({
   id: '/breakout',
   path: '/breakout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreakoutPropReviewsRoute = BreakoutPropReviewsRouteImport.update({
+  id: '/breakout-prop-reviews',
+  path: '/breakout-prop-reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComingSoonRoute = ComingSoonRouteImport.update({
@@ -83,6 +91,11 @@ const PrivacyV20261012Route = PrivacyV20261012RouteImport.update({
   path: '/privacy-v20261012',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwellPointRoute = SwellPointRouteImport.update({
   id: '/swell-point',
   path: '/swell-point',
@@ -113,6 +126,11 @@ const UnlockRoute = UnlockRouteImport.update({
   path: '/unlock',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VideoSitemapDotxmlRoute = VideoSitemapDotxmlRouteImport.update({
+  id: '/video-sitemap.xml',
+  path: '/video-sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VipRoute = VipRouteImport.update({
   id: '/vip',
   path: '/vip',
@@ -125,18 +143,21 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakout': typeof BreakoutRoute
+  '/breakout-prop-reviews': typeof BreakoutPropReviewsRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
   '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
+  '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
   '/vip': typeof VipRoute
 }
 export interface FileRoutesByTo {
@@ -145,18 +166,21 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakout': typeof BreakoutRoute
+  '/breakout-prop-reviews': typeof BreakoutPropReviewsRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
   '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
+  '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
   '/vip': typeof VipRoute
 }
 export interface FileRoutesById {
@@ -166,18 +190,21 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakout': typeof BreakoutRoute
+  '/breakout-prop-reviews': typeof BreakoutPropReviewsRoute
   '/coming-soon': typeof ComingSoonRoute
   '/klein': typeof KleinRoute
   '/merch': typeof MerchRoute
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
   '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
+  '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
   '/vip': typeof VipRoute
 }
 export interface FileRouteTypes {
@@ -188,18 +215,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/breakout'
+    | '/breakout-prop-reviews'
     | '/coming-soon'
     | '/klein'
     | '/merch'
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
     | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
+    | '/video-sitemap.xml'
     | '/vip'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -208,18 +238,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/breakout'
+    | '/breakout-prop-reviews'
     | '/coming-soon'
     | '/klein'
     | '/merch'
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
     | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
+    | '/video-sitemap.xml'
     | '/vip'
   id:
     | '__root__'
@@ -228,18 +261,21 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/breakout'
+    | '/breakout-prop-reviews'
     | '/coming-soon'
     | '/klein'
     | '/merch'
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
     | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
+    | '/video-sitemap.xml'
     | '/vip'
   fileRoutesById: FileRoutesById
 }
@@ -249,18 +285,21 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   BlogRoute: typeof BlogRoute
   BreakoutRoute: typeof BreakoutRoute
+  BreakoutPropReviewsRoute: typeof BreakoutPropReviewsRoute
   ComingSoonRoute: typeof ComingSoonRoute
   KleinRoute: typeof KleinRoute
   MerchRoute: typeof MerchRoute
   OffersRoute: typeof OffersRoute
   PrivacyRoute: typeof PrivacyRoute
   PrivacyV20261012Route: typeof PrivacyV20261012Route
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SwellPointRoute: typeof SwellPointRoute
   TermsRoute: typeof TermsRoute
   TermsV20261012Route: typeof TermsV20261012Route
   TermsV20261015Route: typeof TermsV20261015Route
   ThankYouRoute: typeof ThankYouRoute
   UnlockRoute: typeof UnlockRoute
+  VideoSitemapDotxmlRoute: typeof VideoSitemapDotxmlRoute
   VipRoute: typeof VipRoute
 }
 
@@ -299,6 +338,13 @@ declare module '@tanstack/react-router' {
       path: '/breakout'
       fullPath: '/breakout'
       preLoaderRoute: typeof BreakoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/breakout-prop-reviews': {
+      id: '/breakout-prop-reviews'
+      path: '/breakout-prop-reviews'
+      fullPath: '/breakout-prop-reviews'
+      preLoaderRoute: typeof BreakoutPropReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coming-soon': {
@@ -343,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyV20261012RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/swell-point': {
       id: '/swell-point'
       path: '/swell-point'
@@ -385,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnlockRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/video-sitemap.xml': {
+      id: '/video-sitemap.xml'
+      path: '/video-sitemap.xml'
+      fullPath: '/video-sitemap.xml'
+      preLoaderRoute: typeof VideoSitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vip': {
       id: '/vip'
       path: '/vip'
@@ -401,18 +461,21 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   BlogRoute: BlogRoute,
   BreakoutRoute: BreakoutRoute,
+  BreakoutPropReviewsRoute: BreakoutPropReviewsRoute,
   ComingSoonRoute: ComingSoonRoute,
   KleinRoute: KleinRoute,
   MerchRoute: MerchRoute,
   OffersRoute: OffersRoute,
   PrivacyRoute: PrivacyRoute,
   PrivacyV20261012Route: PrivacyV20261012Route,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SwellPointRoute: SwellPointRoute,
   TermsRoute: TermsRoute,
   TermsV20261012Route: TermsV20261012Route,
   TermsV20261015Route: TermsV20261015Route,
   ThankYouRoute: ThankYouRoute,
   UnlockRoute: UnlockRoute,
+  VideoSitemapDotxmlRoute: VideoSitemapDotxmlRoute,
   VipRoute: VipRoute,
 }
 export const routeTree = rootRouteImport
