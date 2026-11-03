@@ -26,9 +26,12 @@ export const BREAKOUT_REVIEWS_SEO = {
 export const BREAKOUT_REVIEWS_COPY = {
   // DRAFT intro written for Cassius to approve or replace with his own words.
   intro: [
-    "I trade on Breakout Prop and record what I do on the platform. These are my Breakout Prop review videos, in the order I'd suggest watching them: platform and app walkthroughs, how evaluations and withdrawals work, and real trades placed on Breakout.",
+    "I trade on Breakout Prop and record what I do on the platform. These are my Breakout Prop review videos, in the order I'd suggest watching them: platform and app walkthroughs, how evaluations and withdrawals work, and real trades placed on Breakout Prop.",
     "Each video has a short summary underneath, so you know what it covers before you press play.",
   ],
+  // Same disclaimer as /breakout, /klein and /K10US, plus "Not financial advice." (Cassius's request).
+  riskDisclaimer:
+    "This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms. Not financial advice.",
   // Cassius's exact wording.
   disclosure:
     "I’m a Breakout affiliate, and I may earn a commission when you use my code at checkout to get a discount.",

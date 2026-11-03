@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Clock, Copy, ExternalLink } from "lucide-react";
+import { Check, Clock, Copy, ExternalLink, Info } from "lucide-react";
 import logo from "@/assets/CassiusLogo.webp";
 import { YouTubeFacade } from "@/components/reviews/YouTubeFacade";
 import {
@@ -104,6 +104,27 @@ function BreakoutReviewsPage() {
     }
   };
 
+  // Risk disclaimer + affiliate disclosure kept together, shown at the top and bottom.
+  const disclosures = (
+    <aside
+      aria-label="Disclaimer and affiliate disclosure"
+      className="mx-auto max-w-3xl rounded-xl border border-white/10 border-l-2 border-l-[color:var(--color-gold)]/50 bg-white/[0.025] px-4 py-4 text-left text-xs leading-relaxed text-slate-400 sm:px-5 sm:text-sm"
+    >
+      <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[color:var(--color-gold)]/80">
+        <Info className="h-3.5 w-3.5" aria-hidden="true" />
+        Please read
+      </p>
+      <p>
+        <strong className="font-semibold text-slate-300">Disclaimer: </strong>
+        {BREAKOUT_REVIEWS_COPY.riskDisclaimer}
+      </p>
+      <p className="mt-2.5 border-t border-white/5 pt-2.5">
+        <strong className="font-semibold text-slate-300">Affiliate disclosure: </strong>
+        {BREAKOUT_REVIEWS_COPY.disclosure}
+      </p>
+    </aside>
+  );
+
   const affiliateBox = (
     <div className="flex flex-col items-center gap-4 rounded-2xl border border-[color:var(--color-gold)]/30 bg-white/[0.03] p-6 text-center sm:flex-row sm:justify-between sm:text-left">
       <div>
@@ -180,14 +201,8 @@ function BreakoutReviewsPage() {
           </div>
         </section>
 
-        {/* Affiliate disclosure (directly below the introduction) */}
-        <aside
-          aria-label="Affiliate disclosure"
-          className="mx-auto mt-6 max-w-3xl rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 text-left text-xs leading-relaxed text-slate-400 sm:text-sm"
-        >
-          <strong className="font-semibold text-slate-300">Affiliate disclosure: </strong>
-          {BREAKOUT_REVIEWS_COPY.disclosure}
-        </aside>
+        {/* Disclaimer + affiliate disclosure (directly below the introduction) */}
+        <div className="mt-6">{disclosures}</div>
 
         <div className="mx-auto mt-8 max-w-3xl">{affiliateBox}</div>
 
@@ -247,11 +262,13 @@ function BreakoutReviewsPage() {
           </h2>
           {affiliateBox}
         </section>
+
+        {/* Same disclaimer + affiliate disclosure again at the bottom */}
+        <div className="mt-10">{disclosures}</div>
       </main>
 
       <footer className="relative z-10 border-t border-white/5 px-4 py-6 text-center text-xs text-slate-400">
-        <p>Educational content only. Not financial advice.</p>
-        <p className="mt-2">
+        <p>
           © {new Date().getFullYear()} Cassius Cuvée ·{" "}
           <a href="/privacy" className="hover:text-slate-300">
             Privacy Policy
