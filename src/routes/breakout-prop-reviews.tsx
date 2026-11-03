@@ -129,7 +129,7 @@ function BreakoutReviewsPage() {
     <div className="flex flex-col items-center gap-4 rounded-2xl border border-[color:var(--color-gold)]/30 bg-white/[0.03] p-6 text-center sm:flex-row sm:justify-between sm:text-left">
       <div>
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[color:var(--color-gold)]">
-          Referral code
+          Discount code
         </p>
         <div className="mt-2 flex items-center justify-center gap-3 sm:justify-start">
           <span className="font-display text-3xl font-bold tracking-wider text-white">
@@ -139,7 +139,7 @@ function BreakoutReviewsPage() {
             type="button"
             onClick={copyCode}
             className="inline-flex items-center gap-1.5 rounded-md border border-white/15 px-2.5 py-1.5 text-xs text-slate-300 transition hover:border-white/30 hover:text-white"
-            aria-label={`Copy referral code ${BREAKOUT_AFFILIATE.code}`}
+            aria-label={`Copy discount code ${BREAKOUT_AFFILIATE.code}`}
           >
             {copied ? (
               <Check className="h-3.5 w-3.5" aria-hidden="true" />
@@ -204,7 +204,12 @@ function BreakoutReviewsPage() {
         {/* Disclaimer + affiliate disclosure (directly below the introduction) */}
         <div className="mt-6">{disclosures}</div>
 
-        <div className="mx-auto mt-8 max-w-3xl">{affiliateBox}</div>
+        <div className="mx-auto mt-8 max-w-3xl">
+          <p className="mb-3 text-center text-sm text-slate-300 sm:text-base">
+            {BREAKOUT_AFFILIATE.lead}
+          </p>
+          {affiliateBox}
+        </div>
 
         {/* Videos */}
         <section aria-labelledby="videos-title" className="mt-14">
@@ -258,7 +263,7 @@ function BreakoutReviewsPage() {
             id="code-title"
             className="mb-4 text-center font-display text-2xl font-bold uppercase text-white sm:text-3xl"
           >
-            Use code {BREAKOUT_AFFILIATE.code}
+            {BREAKOUT_AFFILIATE.bottomHeading}
           </h2>
           {affiliateBox}
         </section>
