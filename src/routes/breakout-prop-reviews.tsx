@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Copy, ExternalLink } from "lucide-react";
+import { Check, Clock, Copy, ExternalLink } from "lucide-react";
 import logo from "@/assets/CassiusLogo.webp";
 import { YouTubeFacade } from "@/components/reviews/YouTubeFacade";
 import {
@@ -11,6 +11,7 @@ import {
   BREAKOUT_REVIEWS_TRACK_KEY,
   BREAKOUT_REVIEWS_URL,
   BREAKOUT_REVIEW_VIDEOS,
+  formatDuration,
   isVideoComplete,
   youtubeEmbed,
   youtubeThumb,
@@ -199,15 +200,29 @@ function BreakoutReviewsPage() {
             Breakout review videos
           </h2>
           <ul className="mt-8 grid gap-10 md:grid-cols-2 md:gap-8">
-            {BREAKOUT_REVIEW_VIDEOS.map((v, i) => (
-              <li key={v.youtubeId || `placeholder-${i}`}>
-                <article className="flex h-full flex-col">
-                  <YouTubeFacade id={v.youtubeId} title={v.title} priority={i < 2} />
-                  <h3 className="mt-4 text-lg font-semibold leading-snug text-white">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{v.summary}</p>
-                </article>
-              </li>
-            ))}
+            {BREAKOUT_REVIEW_VIDEOS.map((v, i) => {
+              const length = formatDuration(v.duration);
+              return (
+                <li key={v.youtubeId || `placeholder-${i}`}>
+                  <article className="flex h-full flex-col">
+                    <YouTubeFacade id={v.youtubeId} title={v.title} priority={i < 2} />
+                    <h3 className="mt-4 text-lg font-semibold leading-snug text-white">
+                      {v.title}
+                    </h3>
+                    {length && (
+                      <p className="mt-1.5 flex items-center gap-1.5 font-mono text-xs text-purple-200">
+                        <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>
+                          <span className="sr-only">Video length: </span>
+                          {length}
+                        </span>
+                      </p>
+                    )}
+                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{v.summary}</p>
+                  </article>
+                </li>
+              );
+            })}
           </ul>
           <p className="mt-12 text-center">
             <a

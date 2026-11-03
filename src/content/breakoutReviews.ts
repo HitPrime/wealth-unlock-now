@@ -169,3 +169,20 @@ export function isVideoComplete(v: ReviewVideo) {
 export const youtubeThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 export const youtubeEmbed = (id: string) => `https://www.youtube.com/embed/${id}`;
 export const youtubeWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;
+
+// "PT1H2M3S" -> 3723
+export function isoDurationToSeconds(iso: string) {
+  const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso);
+  if (!m) return null;
+  return Number(m[1] ?? 0) * 3600 + Number(m[2] ?? 0) * 60 + Number(m[3] ?? 0);
+}
+
+// "PT18M33S" -> "18:33", "PT1H2M3S" -> "1:02:03"
+export function formatDuration(iso: string) {
+  const total = isoDurationToSeconds(iso);
+  if (!total) return null;
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = String(total % 60).padStart(2, "0");
+  return h ? `${h}:${String(m).padStart(2, "0")}:${s}` : `${m}:${s}`;
+}

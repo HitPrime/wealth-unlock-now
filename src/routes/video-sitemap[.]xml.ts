@@ -3,6 +3,7 @@ import {
   BREAKOUT_REVIEWS_URL,
   BREAKOUT_REVIEW_VIDEOS,
   isVideoComplete,
+  isoDurationToSeconds,
   youtubeEmbed,
   youtubeThumb,
 } from "@/content/breakoutReviews";
@@ -12,13 +13,6 @@ import {
 
 const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-// "PT1H2M3S" -> 3723
-function isoDurationToSeconds(iso: string) {
-  const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso);
-  if (!m) return null;
-  return Number(m[1] ?? 0) * 3600 + Number(m[2] ?? 0) * 60 + Number(m[3] ?? 0);
-}
 
 export const Route = createFileRoute("/video-sitemap.xml")({
   server: {
