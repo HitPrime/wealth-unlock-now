@@ -11,16 +11,19 @@ interface Stats {
     breakout: Record<string, number>;
     klein: Record<string, number>;
     kast: Record<string, number>;
+    breakoutReviews?: Record<string, number>;
   };
   views: {
     breakout: Record<string, number>;
     klein: Record<string, number>;
     kast: Record<string, number>;
+    breakoutReviews?: Record<string, number>;
   };
   countries: {
     breakout: Record<string, number>;
     klein: Record<string, number>;
     kast: Record<string, number>;
+    breakoutReviews?: Record<string, number>;
   };
 }
 
@@ -301,6 +304,14 @@ export function ClickStats() {
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
           countries={decodeCountries(safeStats.countries?.kast ?? {})}
+        />
+        <PageCard
+          name="Breakout Reviews (organic)"
+          views={toStatData(safeViews.breakoutReviews ?? {})}
+          clicks={toStatData(safeClicks.breakoutReviews ?? {})}
+          viewColor="rgba(139,92,246,0.8)"
+          clickColor="rgba(59,130,246,0.8)"
+          countries={decodeCountries(safeStats.countries?.breakoutReviews ?? {})}
         />
       </div>
     </div>

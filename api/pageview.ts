@@ -42,7 +42,7 @@ export default async function handler(req: Request) {
   const url = new URL(req.url);
   const page = url.searchParams.get("page") ?? "";
 
-  const allowed = ["breakout", "klein", "kast"];
+  const allowed = ["breakout", "klein", "kast", "breakout-reviews"];
   if (!allowed.includes(page)) {
     return new Response("Bad request", { status: 400 });
   }

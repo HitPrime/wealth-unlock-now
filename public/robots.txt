@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+# Click/visit counters: keep crawlers from following affiliate redirects or inflating counts.
+# (/api/feed stays open: the blog page loads its posts from it.)
+Disallow: /api/track
+Disallow: /api/pageview
+
+Sitemap: https://www.cassiuscuvee.com/sitemap.xml
+Sitemap: https://www.cassiuscuvee.com/video-sitemap.xml

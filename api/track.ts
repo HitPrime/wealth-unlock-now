@@ -7,6 +7,8 @@ const DESTINATIONS: Record<string, string> = {
   breakout: "https://www.breakoutprop.com/join/ggrf7w",
   klein: "https://kleinfunding.com/ref/13054",
   kast: "https://app.kast.xyz/referral/CASSIUS",
+  // Organic reviews page (/breakout-prop-reviews): same affiliate link, separate counter.
+  "breakout-reviews": "https://www.breakoutprop.com/join/ggrf7w",
 };
 
 // Pacific Time — automatically handles PDT (UTC-7, summer) and PST (UTC-8, winter)

@@ -187,6 +187,12 @@ function BreakoutPage() {
           }}>
             This page is for informational purposes only. Trading involves risk, including possible loss of capital, and results are not guaranteed. Terms and eligibility apply per the platform's official terms.
           </p>
+          <p style={{
+            color: "#64748b", fontSize: "11px", marginTop: "2px",
+            maxWidth: "640px", lineHeight: 1.6, textAlign: "center"
+          }}>
+            Affiliate disclosure: I’m a Breakout affiliate, and I may earn a commission when you use my code at checkout to get a discount.
+          </p>
         </motion.div>
 
         {/* Video */}

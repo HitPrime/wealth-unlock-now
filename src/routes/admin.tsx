@@ -162,7 +162,7 @@ function Admin() {
             </p>
             <h1 className="font-display text-3xl uppercase tracking-tight">Link Click Stats</h1>
             <p className="mt-2 text-sm text-[color:var(--color-muted-foreground)]">
-              Real-time visitors and clicks on Breakout, Klein, and Kast pages.
+              Real-time visitors and clicks on the Breakout, Klein, Kast and Breakout Reviews pages.
             </p>
           </div>
           <button

@@ -26,6 +26,7 @@ export default async function handler() {
     breakoutClicks, kleinClicks, kastClicks,
     breakoutViews, kleinViews, kastViews,
     breakoutCountries, kleinCountries, kastCountries,
+    reviewsClicks, reviewsViews, reviewsCountries,
   ] = await Promise.all([
     getHash("clicks:breakout"),
     getHash("clicks:klein"),
@@ -36,13 +37,17 @@ export default async function handler() {
     getHash("countries:breakout"),
     getHash("countries:klein"),
     getHash("countries:kast"),
+    // Organic /breakout-prop-reviews page (counter key "breakout-reviews")
+    getHash("clicks:breakout-reviews"),
+    getHash("views:breakout-reviews"),
+    getHash("countries:breakout-reviews"),
   ]);
 
   return new Response(
     JSON.stringify({
-      clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks },
-      views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews },
-      countries: { breakout: breakoutCountries, klein: kleinCountries, kast: kastCountries },
+      clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks, breakoutReviews: reviewsClicks },
+      views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews, breakoutReviews: reviewsViews },
+      countries: { breakout: breakoutCountries, klein: kleinCountries, kast: kastCountries, breakoutReviews: reviewsCountries },
     }),
     {
       status: 200,
