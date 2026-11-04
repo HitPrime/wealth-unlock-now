@@ -113,6 +113,7 @@ export function LeadMagnetForm() {
             required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            aria-label="First name"
             placeholder="First name"
             autoComplete="given-name"
           />
@@ -122,6 +123,7 @@ export function LeadMagnetForm() {
             required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            aria-label="Last name"
             placeholder="Last name"
             autoComplete="family-name"
           />
@@ -132,10 +134,12 @@ export function LeadMagnetForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          aria-label="Email address"
           placeholder="you@email.com"
           autoComplete="email"
         />
         <select
+          aria-label="Country"
           className={`${inputClass} appearance-none`}
           required
           value={country}

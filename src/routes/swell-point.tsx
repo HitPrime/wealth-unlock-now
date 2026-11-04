@@ -1,10 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SwellPointForm } from "@/components/SwellPointForm";
+import { pageHead } from "@/lib/seo";
 
 // Built as a route for now. It's designed to be lifted onto its own domain later, since other
 // affiliates will drive traffic to it. Keep it self-contained (no shared landing chrome).
 export const Route = createFileRoute("/swell-point")({
   component: SwellPoint,
+  head: () =>
+    pageHead({
+      path: "/swell-point",
+      title: "Swell Point Indicator for TradingView | Cassius Cuvée",
+      description:
+        "Swell Point is Cassius Cuvée's proprietary indicator for TradingView. Add it to your charts and read price action with a clearer framework. A tool for your own analysis, not financial advice.",
+    }),
 });
 
 const FEATURES = [

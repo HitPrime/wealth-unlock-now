@@ -1,4 +1,15 @@
 import { useEffect, useState } from "react";
+import { BREAKOUT_REVIEW_VIDEOS } from "@/content/breakoutReviews";
+
+// YouTube ID -> title, for the "Plays by video" list.
+const VIDEO_TITLES: Record<string, string> = Object.fromEntries(
+  BREAKOUT_REVIEW_VIDEOS.map((v) => [v.youtubeId, v.title]),
+);
+
+function totalToday(raw: Record<string, number> = {}) {
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+  return { total: raw["total"] ?? 0, today: raw[today] ?? 0 };
+}
 
 interface StatData {
   total: number;
@@ -25,7 +36,16 @@ interface Stats {
     kast: Record<string, number>;
     breakoutReviews?: Record<string, number>;
   };
+  events?: {
+    breakoutReviews?: {
+      videoPlays?: Record<string, number>;
+      codeCopies?: Record<string, number>;
+      playsByVideo?: Record<string, number>;
+    };
+  };
 }
+
+type Extra = { label: string; total: number; today: number };
 
 const FLAG_EMOJI: Record<string, string> = {
   US: "🇺🇸", GB: "🇬🇧", PK: "🇵🇰", CA: "🇨🇦", AU: "🇦🇺",
@@ -95,7 +115,7 @@ function MiniBar({ days, color }: { days: { date: string; count: number }[]; col
 }
 
 function PageCard({
-  name, views, clicks, viewColor, clickColor, countries,
+  name, views, clicks, viewColor, clickColor, countries, extras, ranked,
 }: {
   name: string;
   views: StatData;
@@ -103,6 +123,10 @@ function PageCard({
   viewColor: string;
   clickColor?: string;
   countries?: Record<string, number>;
+  /** Extra on-page event counters (e.g. video plays, code copies). */
+  extras?: Extra[];
+  /** Ranked list, e.g. plays per video. */
+  ranked?: { title: string; items: [string, number][] };
 }) {
   return (
     <div style={{
@@ -153,6 +177,18 @@ function PageCard({
         )}
       </div>
 
+      {extras && extras.length > 0 && (
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${extras.length}, 1fr)`, gap: "8px" }}>
+          {extras.map((x) => (
+            <div key={x.label} style={{ background: "rgba(16,185,129,0.08)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
+              <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>{x.label}</p>
+              <p style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>{x.total}</p>
+              <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)" }}>{x.today} today</p>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <div>
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "6px" }}>
@@ -169,6 +205,22 @@ function PageCard({
           </div>
         )}
       </div>
+
+      {ranked && ranked.items.length > 0 && (
+        <div>
+          <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "8px" }}>
+            {ranked.title}
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            {ranked.items.map(([label, count]) => (
+              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                <span style={{ fontSize: "12px", color: "#cbd5e1", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{label}</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", minWidth: "24px", textAlign: "right" }}>{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {countries && Object.keys(countries).length > 0 && (
         <div>
@@ -263,6 +315,7 @@ export function ClickStats() {
 
   const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {}, kast: {} };
   const safeViews = safeStats.views ?? { breakout: {}, klein: {}, kast: {} };
+  const reviewEvents = safeStats.events?.breakoutReviews ?? {};
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -312,6 +365,16 @@ export function ClickStats() {
           viewColor="rgba(139,92,246,0.8)"
           clickColor="rgba(59,130,246,0.8)"
           countries={decodeCountries(safeStats.countries?.breakoutReviews ?? {})}
+          extras={[
+            { label: "Video plays", ...totalToday(reviewEvents.videoPlays) },
+            { label: "Code copies", ...totalToday(reviewEvents.codeCopies) },
+          ]}
+          ranked={{
+            title: "Plays by video",
+            items: Object.entries(reviewEvents.playsByVideo ?? {})
+              .sort((a, b) => b[1] - a[1])
+              .map(([id, n]): [string, number] => [VIDEO_TITLES[id] ?? id, n]),
+          }}
         />
       </div>
     </div>

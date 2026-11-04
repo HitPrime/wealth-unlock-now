@@ -1,8 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { InterestForm } from "@/components/InterestForm";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/vip")({
   component: Vip,
+  head: () =>
+    pageHead({
+      path: "/vip",
+      title: "VIP Membership | Cassius Cuvée",
+      description:
+        "The Cassius Cuvée inner circle: live trade setups with the reasoning, Q&A access and direct access to Cassius. Mentorship and education, not signals to blindly copy.",
+    }),
 });
 
 const PERKS = [

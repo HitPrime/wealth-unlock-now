@@ -11,6 +11,7 @@ import {
   BREAKOUT_REVIEWS_TRACK_KEY,
   BREAKOUT_REVIEWS_URL,
   BREAKOUT_REVIEW_VIDEOS,
+  SITE_URL,
   formatDuration,
   isVideoComplete,
   youtubeEmbed,
@@ -23,21 +24,57 @@ import {
 
 const SEO = BREAKOUT_REVIEWS_SEO;
 
+// Counts video plays and code copies (api/event.ts). Fire-and-forget: a failed count
+// never blocks the video or the copy. keepalive lets it finish if the visitor leaves.
+function trackEvent(name: "video_play" | "code_copy", video?: string) {
+  const params = new URLSearchParams({ page: BREAKOUT_REVIEWS_TRACK_KEY, name });
+  if (video) params.set("video", video);
+  try {
+    fetch(`/api/event?${params}`, { keepalive: true }).catch(() => {});
+  } catch {
+    // fetch unavailable: skip counting
+  }
+}
+
 function videoJsonLd() {
   const videos = BREAKOUT_REVIEW_VIDEOS.filter(isVideoComplete);
   if (videos.length === 0) return null;
+  // Same @id as the Person/WebSite schema on the homepage, so search engines link them.
+  const person = { "@id": `${SITE_URL}/#cassius` };
   return {
     "@context": "https://schema.org",
-    "@graph": videos.map((v) => ({
-      "@type": "VideoObject",
-      name: v.title,
-      description: v.summary,
-      thumbnailUrl: [youtubeThumb(v.youtubeId)],
-      uploadDate: v.uploadDate,
-      duration: v.duration,
-      embedUrl: youtubeEmbed(v.youtubeId),
-      contentUrl: youtubeWatch(v.youtubeId),
-    })),
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${BREAKOUT_REVIEWS_URL}#webpage`,
+        url: BREAKOUT_REVIEWS_URL,
+        name: SEO.title,
+        description: SEO.description,
+        inLanguage: "en",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        author: person,
+        publisher: person,
+        primaryImageOfPage: { "@type": "ImageObject", url: SEO.ogImage },
+      },
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#cassius`,
+        name: "Cassius Cuvée",
+        url: `${SITE_URL}/`,
+        sameAs: ["https://www.youtube.com/@CassiusCuvee"],
+      },
+      ...videos.map((v) => ({
+        "@type": "VideoObject",
+        name: v.title,
+        description: v.summary,
+        thumbnailUrl: [youtubeThumb(v.youtubeId)],
+        uploadDate: v.uploadDate,
+        duration: v.duration,
+        embedUrl: youtubeEmbed(v.youtubeId),
+        contentUrl: youtubeWatch(v.youtubeId),
+        isPartOf: { "@id": `${BREAKOUT_REVIEWS_URL}#webpage` },
+      })),
+    ],
   };
 }
 
@@ -95,6 +132,7 @@ function BreakoutReviewsPage() {
   }, []);
 
   const copyCode = async () => {
+    trackEvent("code_copy");
     try {
       await navigator.clipboard.writeText(BREAKOUT_AFFILIATE.code);
       setCopied(true);
@@ -225,7 +263,12 @@ function BreakoutReviewsPage() {
               return (
                 <li key={v.youtubeId || `placeholder-${i}`}>
                   <article className="flex h-full flex-col">
-                    <YouTubeFacade id={v.youtubeId} title={v.title} priority={i < 2} />
+                    <YouTubeFacade
+                      id={v.youtubeId}
+                      title={v.title}
+                      priority={i < 2}
+                      onPlay={() => trackEvent("video_play", v.youtubeId)}
+                    />
                     <h3 className="mt-4 text-lg font-semibold leading-snug text-white">
                       {v.title}
                     </h3>

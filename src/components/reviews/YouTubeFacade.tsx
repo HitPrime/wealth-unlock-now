@@ -10,10 +10,13 @@ export function YouTubeFacade({
   id,
   title,
   priority = false,
+  onPlay,
 }: {
   id: string;
   title: string;
   priority?: boolean;
+  /** Called once when the visitor presses play (used for play counting). */
+  onPlay?: () => void;
 }) {
   const [playing, setPlaying] = useState(false);
 
@@ -43,7 +46,10 @@ export function YouTubeFacade({
   return (
     <button
       type="button"
-      onClick={() => setPlaying(true)}
+      onClick={() => {
+        setPlaying(true);
+        onPlay?.();
+      }}
       className="group relative block aspect-video w-full overflow-hidden rounded-xl bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold)]"
       aria-label={`Play video: ${title}`}
     >

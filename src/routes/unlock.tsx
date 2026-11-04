@@ -1,8 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LeadMagnetForm } from "@/components/lead-magnet/LeadMagnetForm";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/unlock")({
   component: Unlock,
+  head: () =>
+    pageHead({
+      path: "/unlock",
+      title: "Get the Free Trading Starter Kit | Cassius Cuvée",
+      description:
+        "Get the free Trading Starter Kit by email: the Trader's Blueprint, the Trading Commandments and Glossary, and the First Trade Walkthrough. No card required.",
+    }),
 });
 
 function Unlock() {

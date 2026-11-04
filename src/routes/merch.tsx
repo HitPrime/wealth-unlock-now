@@ -1,8 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { InterestForm } from "@/components/InterestForm";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/merch")({
   component: Merch,
+  head: () =>
+    pageHead({
+      path: "/merch",
+      title: "Merch | Cassius Cuvée",
+      description:
+        "Physical gear for the Cassius Cuvée community. Checkout opens soon. Join the list to get first dibs on the drop.",
+    }),
 });
 
 // Placeholder catalog. Swap in real products, images, and prices when they're ready.

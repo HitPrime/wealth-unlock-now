@@ -1,9 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ClickStats } from "@/components/ClickStats";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/admin")({
   component: Admin,
+  head: () =>
+    pageHead({
+      path: "/admin",
+      title: "Admin | Cassius Cuvée",
+      description: "Admin area.",
+      noindex: true,
+    }),
 });
 
 type AuthState = "checking" | "authed" | "login";
@@ -105,6 +113,7 @@ function Admin() {
               type="password"
               value={password}
               onChange={(e) => { setPassword(e.target.value); setError(""); }}
+              aria-label="Password"
               placeholder="Password"
               autoFocus
               disabled={busy}

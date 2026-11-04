@@ -1,18 +1,67 @@
 import fs from "fs";
 import path from "path";
+import { execFileSync } from "child_process";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const SITE_URL     = "https://www.cassiuscuvee.com";
+// Commit before this push (github.event.before). Used to spot legal text that changed
+// without a new "Last Updated" date. Empty or all zeros = no previous commit to compare.
+const BEFORE_SHA   = process.env.BEFORE_SHA || "";
+
+// Problems that must not pass silently. The workflow fails (red X + GitHub email)
+// when any are found, so a missed date never goes unnoticed.
+const problems = [];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function extractDate(filePath) {
-  const content = fs.readFileSync(filePath, "utf8");
+function extractDateFrom(content) {
   // Match "Last Updated:</strong> Month D, YYYY"
   const match = content.match(/Last Updated.*?>\s*([\w]+ \d+, \d+)/);
   return match ? match[1].trim() : null;
+}
+
+function extractDate(filePath) {
+  return extractDateFrom(fs.readFileSync(filePath, "utf8"));
+}
+
+// The visible legal text only (from Section 1 to the end, JSX tags removed), so edits to
+// SEO tags, styling or code don't count as a change to the terms themselves.
+function legalText(content) {
+  const i = content.indexOf('id="section-1"');
+  if (i < 0) return null;
+  return content
+    .slice(i)
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\{" "\}/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function previousVersion(filePath) {
+  if (!BEFORE_SHA || /^0+$/.test(BEFORE_SHA)) return null;
+  try {
+    return execFileSync("git", ["show", `${BEFORE_SHA}:${filePath}`], { encoding: "utf8" });
+  } catch {
+    return null; // file didn't exist before this push
+  }
+}
+
+// Fails the run if the legal text changed but "Last Updated" did not.
+function checkDateWasUpdated(filePath, label, currentDate) {
+  const before = previousVersion(filePath);
+  if (!before) return;
+  const now = fs.readFileSync(filePath, "utf8");
+  const textChanged = legalText(before) !== legalText(now);
+  if (textChanged && extractDateFrom(before) === currentDate) {
+    problems.push(
+      `${label}: the text changed but "Last Updated" is still "${currentDate}". ` +
+        `Change the date to today's date (e.g. "November 20, 2026") and push again, ` +
+        `otherwise no archive is made and forms keep recording the old version.`,
+    );
+  }
 }
 
 function dateToSlug(dateStr) {
@@ -78,27 +127,32 @@ async function updateSupabase(doc, versionDate, archiveUrl, liveUrl) {
     return;
   }
 
-  // Upsert into legal_versions table
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/legal_versions`, {
-    method: "POST",
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
-      "Content-Type": "application/json",
-      "Prefer": "resolution=merge-duplicates",
-    },
-    body: JSON.stringify({
-      document: doc,
-      version_date: versionDate,
-      archive_url: archiveUrl,
-      live_url: liveUrl,
-    }),
-  });
+  // Upsert into legal_versions table. A network error here must not stop the archive
+  // pages and api/legal-version.ts from being updated, so it is caught and logged.
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/legal_versions`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates",
+      },
+      body: JSON.stringify({
+        document: doc,
+        version_date: versionDate,
+        archive_url: archiveUrl,
+        live_url: liveUrl,
+      }),
+    });
 
-  if (res.ok) {
-    console.log(`Supabase updated for ${doc}: ${archiveUrl}`);
-  } else {
-    console.error(`Supabase error: ${await res.text()}`);
+    if (res.ok) {
+      console.log(`Supabase updated for ${doc}: ${archiveUrl}`);
+    } else {
+      console.error(`Supabase error: ${await res.text()}`);
+    }
+  } catch (err) {
+    console.error(`Supabase request failed for ${doc}: ${err.message}`);
   }
 }
 
@@ -125,6 +179,13 @@ async function main() {
   const termsFile = "src/routes/terms.tsx";
   if (fs.existsSync(termsFile)) {
     termsDate = extractDate(termsFile);
+    if (!termsDate || !dateToSlug(termsDate)) {
+      problems.push(
+        `Terms: could not read the "Last Updated" date. Write it exactly like "November 20, 2026" (month name, day, comma, year).`,
+      );
+    } else {
+      checkDateWasUpdated(termsFile, "Terms", termsDate);
+    }
     if (termsDate) {
       termsSlug = dateToSlug(termsDate);
       console.log(`Terms date: ${termsDate} → slug: ${termsSlug}`);
@@ -150,6 +211,13 @@ async function main() {
   const privacyFile = "src/routes/privacy.tsx";
   if (fs.existsSync(privacyFile)) {
     privacyDate = extractDate(privacyFile);
+    if (!privacyDate || !dateToSlug(privacyDate)) {
+      problems.push(
+        `Privacy: could not read the "Last Updated" date. Write it exactly like "November 20, 2026" (month name, day, comma, year).`,
+      );
+    } else {
+      checkDateWasUpdated(privacyFile, "Privacy", privacyDate);
+    }
     if (privacyDate) {
       privacySlug = dateToSlug(privacyDate);
       console.log(`Privacy date: ${privacyDate} → slug: ${privacySlug}`);
@@ -171,6 +239,14 @@ async function main() {
     }
   }
 
+  if (problems.length) {
+    console.error("\n❌ Legal pages need attention:\n- " + problems.join("\n- "));
+    // ::error:: shows the message on the GitHub Actions summary page.
+    for (const p of problems) console.log(`::error::${p}`);
+    process.exitCode = 1;
+    return;
+  }
+
   // Update legal-version.ts
   if (termsSlug && privacySlug) {
     updateLegalVersion(termsDate, termsSlug, privacyDate, privacySlug);
@@ -179,4 +255,7 @@ async function main() {
   console.log("Done.");
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});

@@ -82,7 +82,7 @@ function KastPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#07070c] text-slate-100 relative flex flex-col selection:bg-purple-900 selection:text-purple-100">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#07070c] text-slate-100 relative flex flex-col selection:bg-purple-900 selection:text-purple-100">
       {/* Background glows */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-80 z-0"
         style={{ background: "radial-gradient(circle at 50% -10%, rgba(139,92,246,0.25) 0%, rgba(88,28,135,0.12) 35%, rgba(7,7,12,0) 70%)" }}
@@ -189,7 +189,7 @@ function KastPage() {
                   </div>
                   <span className="font-mono text-lg font-bold text-purple-400/25">{step.number}</span>
                 </div>
-                <h3 className="text-sm font-bold text-white leading-snug">{step.title}</h3>
+                <h2 className="text-sm font-bold text-white leading-snug">{step.title}</h2>
                 <p className="text-slate-400 text-xs leading-relaxed">{step.description}</p>
               </motion.div>
             );

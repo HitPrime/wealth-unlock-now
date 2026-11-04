@@ -1,12 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/coming-soon")({
   component: ComingSoon,
+  head: () =>
+    pageHead({
+      path: "/coming-soon",
+      title: "Coming Soon | Cassius Cuvée",
+      description: "Something new from Cassius Cuvée is on the way.",
+      noindex: true,
+    }),
 });
 
 function ComingSoon() {
   return (
-    <div className="min-h-screen bg-[#07070c] flex flex-col items-center justify-center text-center px-4">
+    <div className="relative min-h-screen overflow-hidden bg-[#07070c] flex flex-col items-center justify-center text-center px-4">
       {/* Glow */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-purple-600/15 blur-[120px] rounded-full" />
 

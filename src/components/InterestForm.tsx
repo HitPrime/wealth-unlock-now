@@ -45,6 +45,7 @@ export function InterestForm({
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          aria-label="Email address"
           placeholder="you@email.com"
           autoComplete="email"
           className="flex-1 rounded-none border border-[color:var(--color-border)] bg-transparent px-4 py-3 text-base text-foreground placeholder:text-[color:var(--color-muted-foreground)] focus:outline-none focus:border-[color:var(--color-purple-400)]"

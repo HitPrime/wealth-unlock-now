@@ -1,7 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/thank-you")({
   component: ThankYou,
+  head: () =>
+    pageHead({
+      path: "/thank-you",
+      title: "Your Starter Kit Is on Its Way | Cassius Cuvée",
+      description: "Check your email for your free Trading Starter Kit download links.",
+      noindex: true,
+    }),
 });
 
 function ThankYou() {

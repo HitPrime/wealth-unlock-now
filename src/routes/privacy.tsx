@@ -7,14 +7,14 @@ export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => ({
     meta: [
-      { title: "Privacy Policy | CassiusCuvée" },
+      { title: "Privacy Policy | Cassius Cuvée" },
       {
         name: "description",
         content:
-          "Read the CassiusCuvée Privacy Policy to learn how we collect, use, protect, and manage personal information when you use our website, products, courses, community, and services.",
+          "Read the Cassius Cuvée Privacy Policy to learn how we collect, use, protect, and manage personal information when you use our website, products, courses, community, and services.",
       },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Privacy Policy | CassiusCuvée" },
+      { property: "og:title", content: "Privacy Policy | Cassius Cuvée" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cassiuscuvee.com/privacy" },
       { property: "og:site_name", content: "Cassius Cuvée" },

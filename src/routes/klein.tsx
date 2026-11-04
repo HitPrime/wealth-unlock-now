@@ -262,9 +262,9 @@ function KleinPage() {
                     {feature.number}
                   </span>
                 </div>
-                <h3 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#ffffff", lineHeight: 1.3 }}>
+                <h2 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#ffffff", lineHeight: 1.3 }}>
                   {feature.title}
-                </h3>
+                </h2>
                 <p style={{ color: "#94a3b8", fontSize: "0.75rem", lineHeight: 1.6 }}>
                   {feature.description}
                 </p>

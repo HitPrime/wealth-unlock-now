@@ -1,8 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { VALUE_LADDER } from "@/content/valueLadder";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/offers")({
   component: Offers,
+  head: () =>
+    pageHead({
+      path: "/offers",
+      title: "Everything Cassius Teaches, In Order | Cassius Cuvée",
+      description:
+        "Everything Cassius Cuvée teaches, in order. Start with the free Trading Starter Kit and go as far as you want. Education and tools, never a promise of results.",
+    }),
 });
 
 function Offers() {

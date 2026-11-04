@@ -48,6 +48,7 @@ export function SwellPointForm() {
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        aria-label="Email address"
         placeholder="you@email.com"
         autoComplete="email"
       />
@@ -57,6 +58,7 @@ export function SwellPointForm() {
         required
         value={tvUsername}
         onChange={(e) => setTvUsername(e.target.value)}
+        aria-label="TradingView username"
         placeholder="Your TradingView username"
       />
       <input
@@ -64,6 +66,7 @@ export function SwellPointForm() {
         type="text"
         value={referral}
         onChange={(e) => setReferral(e.target.value)}
+        aria-label="Referral code (optional)"
         placeholder="Referral code (optional — 5% off)"
       />
       {error && (

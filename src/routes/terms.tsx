@@ -7,17 +7,17 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms and Conditions | CassiusCuvee" },
+      { title: "Terms and Conditions | Cassius Cuvée" },
       {
         name: "description",
         content:
-          "Read the CassiusCuvee Terms and Conditions governing your use of our website, products, courses, community, and services.",
+          "Read the Cassius Cuvée Terms and Conditions governing your use of our website, products, courses, community, and services.",
       },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Terms and Conditions | CassiusCuvee" },
+      { property: "og:title", content: "Terms and Conditions | Cassius Cuvée" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cassiuscuvee.com/terms" },
-      { property: "og:site_name", content: "Cassius Cuvee" },
+      { property: "og:site_name", content: "Cassius Cuvée" },
     ],
     links: [
       { rel: "canonical", href: "https://www.cassiuscuvee.com/terms" },

@@ -27,6 +27,7 @@ export default async function handler() {
     breakoutViews, kleinViews, kastViews,
     breakoutCountries, kleinCountries, kastCountries,
     reviewsClicks, reviewsViews, reviewsCountries,
+    reviewsVideoPlays, reviewsCodeCopies, reviewsPlaysByVideo,
   ] = await Promise.all([
     getHash("clicks:breakout"),
     getHash("clicks:klein"),
@@ -41,6 +42,10 @@ export default async function handler() {
     getHash("clicks:breakout-reviews"),
     getHash("views:breakout-reviews"),
     getHash("countries:breakout-reviews"),
+    // On-page events from api/event.ts
+    getHash("events:breakout-reviews:video_play"),
+    getHash("events:breakout-reviews:code_copy"),
+    getHash("videoplays:breakout-reviews"),
   ]);
 
   return new Response(
@@ -48,6 +53,13 @@ export default async function handler() {
       clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks, breakoutReviews: reviewsClicks },
       views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews, breakoutReviews: reviewsViews },
       countries: { breakout: breakoutCountries, klein: kleinCountries, kast: kastCountries, breakoutReviews: reviewsCountries },
+      events: {
+        breakoutReviews: {
+          videoPlays: reviewsVideoPlays,
+          codeCopies: reviewsCodeCopies,
+          playsByVideo: reviewsPlaysByVideo,
+        },
+      },
     }),
     {
       status: 200,
