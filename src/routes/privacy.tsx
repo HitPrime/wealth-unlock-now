@@ -16,11 +16,11 @@ export const Route = createFileRoute("/privacy")({
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Privacy Policy | CassiusCuvée" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cassiuscuvee.com/privacy" },
+      { property: "og:url", content: "https://www.cassiuscuvee.com/privacy" },
       { property: "og:site_name", content: "Cassius Cuvée" },
     ],
     links: [
-      { rel: "canonical", href: "https://cassiuscuvee.com/privacy" },
+      { rel: "canonical", href: "https://www.cassiuscuvee.com/privacy" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),

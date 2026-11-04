@@ -20,7 +20,7 @@ export const Route = createFileRoute("/breakout")({
       { property: "og:title", content: "Learn About Breakout | Cassius Cuvée" },
       { property: "og:description", content: "An overview of Breakout — transparent rules, wide market access, and flexible evaluation paths." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cassiuscuvee.com/breakout" },
+      { property: "og:url", content: "https://www.cassiuscuvee.com/breakout" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: "https://www.cassiuscuvee.com/og/og-breakout.jpg" },
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/breakout")({
       { name: "twitter:description", content: "An overview of Breakout — transparent rules, wide market access, and flexible evaluation paths." },
     ],
     links: [
-      { rel: "canonical", href: "https://cassiuscuvee.com/breakout" },
+      { rel: "canonical", href: "https://www.cassiuscuvee.com/breakout" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),

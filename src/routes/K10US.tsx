@@ -24,7 +24,7 @@ export const Route = createFileRoute("/K10US")({
         content: "Sign up on Kast using Cassius referral code and get a 10 USD welcome bonus. 3 simple steps.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cassiuscuvee.com/K10US" },
+      { property: "og:url", content: "https://www.cassiuscuvee.com/K10US" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/K10US")({
       },
     ],
     links: [
-      { rel: "canonical", href: "https://cassiuscuvee.com/K10US" },
+      { rel: "canonical", href: "https://www.cassiuscuvee.com/K10US" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
     ],

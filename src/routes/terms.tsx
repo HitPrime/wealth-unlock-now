@@ -16,11 +16,11 @@ export const Route = createFileRoute("/terms")({
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Terms and Conditions | CassiusCuvee" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cassiuscuvee.com/terms" },
+      { property: "og:url", content: "https://www.cassiuscuvee.com/terms" },
       { property: "og:site_name", content: "Cassius Cuvee" },
     ],
     links: [
-      { rel: "canonical", href: "https://cassiuscuvee.com/terms" },
+      { rel: "canonical", href: "https://www.cassiuscuvee.com/terms" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),

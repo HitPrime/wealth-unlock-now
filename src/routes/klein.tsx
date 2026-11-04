@@ -20,7 +20,7 @@ export const Route = createFileRoute("/klein")({
       { property: "og:title", content: "Get 30% Off Klein Funding | Cassius Cuvée" },
       { property: "og:description", content: "Use code CASSIUS to get up to 30% off Klein Funding. Trade 750+ assets with transparent rules and flexible funding options." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cassiuscuvee.com/klein" },
+      { property: "og:url", content: "https://www.cassiuscuvee.com/klein" },
       { property: "og:site_name", content: "Cassius Cuvée" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: "https://www.cassiuscuvee.com/og/og-klein.jpg" },
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/klein")({
       { name: "twitter:description", content: "Use code CASSIUS to get up to 30% off Klein Funding. Trade 750+ assets with transparent rules and flexible funding options." },
     ],
     links: [
-      { rel: "canonical", href: "https://cassiuscuvee.com/klein" },
+      { rel: "canonical", href: "https://www.cassiuscuvee.com/klein" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
