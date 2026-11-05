@@ -5,7 +5,9 @@ on:
     paths:
       - 'src/routes/terms.tsx'
       - 'src/routes/privacy.tsx'
+    # main is the production branch (Vercel deploys it live); master kept as a fallback.
     branches:
+      - main
       - master
 
 jobs:
