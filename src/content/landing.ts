@@ -35,11 +35,33 @@ export const OUTCOMES = [
   "Finally know what you're looking at when you open a chart.",
 ];
 
-export const NAV_LINKS = [
-  { label: "Community", href: "#community" },
-  { label: "Mentorship", href: "#mindset" },
-  { label: "Press", href: "#press" },
-  { label: "FAQ", href: "#faq" },
+// Cassius's official profiles, sent by Cassius himself. Used only in the hidden
+// structured data (schema.org "sameAs"), not shown on the page.
+export const CASSIUS_SAME_AS = [
+  "https://www.youtube.com/@CassiusCuvee",
+  "https://x.com/cassiuscuvee",
+  "https://www.facebook.com/cassiuscuveetrading",
+  "https://www.facebook.com/cassius.cuvee/",
+  "https://www.linkedin.com/in/cassius-cuv%C3%A9e-92690322a",
+  "https://substack.com/@cassiuscuvee",
+  "https://www.kitco.com/author/cassius-cuv-e",
+];
+
+// Photo Cassius picked for the structured data (file: public/cassius-cuvee.jpg).
+export const CASSIUS_SCHEMA_IMAGE = "https://www.cassiuscuvee.com/cassius-cuvee.jpg";
+
+// Section links start with "/" so they also work from other pages (e.g. /blog):
+// they open the homepage and jump to the section. On the homepage they just scroll.
+// `external` links (the community portal) open in a new tab.
+export const NAV_LINKS: { label: string; href: string; external?: boolean }[] = [
+  {
+    label: "Community",
+    href: "https://clientclub.cassiuscuvee.com/communities/groups/cassius-cuvee/home",
+    external: true,
+  },
+  { label: "Mentorship", href: "/#mindset" },
+  { label: "Press", href: "/#press" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Blog", href: "/blog" },
 ];
 

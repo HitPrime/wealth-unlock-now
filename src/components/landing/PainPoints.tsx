@@ -51,8 +51,9 @@ function PainRow({
 }
 
 export function PainPoints() {
+  // overflow-hidden: rows slide in from off-screen; without it they widen the page on phones.
   return (
-    <section className="relative py-24 bg-[oklch(0.08_0.04_300)]">
+    <section className="relative overflow-hidden py-24 bg-[oklch(0.08_0.04_300)]">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeader
           eyebrow="Sound Familiar?"

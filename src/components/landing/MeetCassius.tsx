@@ -8,8 +8,9 @@ export function MeetCassius() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  // overflow-hidden: the columns slide in from the sides; without it they widen the page on phones.
   return (
-    <section className="relative py-24 bg-[oklch(0.08_0.04_300)]">
+    <section className="relative overflow-hidden py-24 bg-[oklch(0.08_0.04_300)]">
       <div
         ref={ref}
         className="mx-auto max-w-7xl px-6 grid lg:grid-cols-12 gap-12 items-center"

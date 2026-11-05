@@ -14,7 +14,12 @@ export function Footer() {
         </div>
         <nav className="flex flex-wrap gap-6 md:justify-center text-sm text-[color:var(--color-muted-foreground)]">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-foreground transition">
+            <a
+              key={l.href}
+              href={l.href}
+              {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="hover:text-foreground transition"
+            >
               {l.label}
             </a>
           ))}

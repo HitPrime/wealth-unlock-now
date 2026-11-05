@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Check, Clock, Copy, ExternalLink, Info } from "lucide-react";
 import logo from "@/assets/CassiusLogo.webp";
 import { YouTubeFacade } from "@/components/reviews/YouTubeFacade";
+import { CASSIUS_SAME_AS, CASSIUS_SCHEMA_IMAGE } from "@/content/landing";
 import {
   BREAKOUT_AFFILIATE,
   BREAKOUT_PLAYLIST,
@@ -61,7 +62,8 @@ function videoJsonLd() {
         "@id": `${SITE_URL}/#cassius`,
         name: "Cassius Cuvée",
         url: `${SITE_URL}/`,
-        sameAs: ["https://www.youtube.com/@CassiusCuvee"],
+        image: CASSIUS_SCHEMA_IMAGE,
+        sameAs: CASSIUS_SAME_AS,
       },
       ...videos.map((v) => ({
         "@type": "VideoObject",

@@ -9,12 +9,13 @@ import { Accolades } from "@/components/landing/Accolades";
 import { Faq } from "@/components/landing/Faq";
 import { FinalCta } from "@/components/landing/FinalCta";
 import { Footer } from "@/components/landing/Footer";
+import { CASSIUS_SAME_AS, CASSIUS_SCHEMA_IMAGE } from "@/content/landing";
 
 const SITE = "https://www.cassiuscuvee.com";
 
 // Structured data for search and AI engines: who Cassius is and what this site is.
-// Not visible on the page. Wording comes from the "Meet Cassius" section.
-// sameAs only lists profiles verified as his (YouTube channel via YouTube oEmbed).
+// Not visible on the page. Wording comes from the "Meet Cassius" section; photo picked by Cassius.
+// sameAs lists only his official profiles (sent by Cassius).
 const homeJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -26,7 +27,8 @@ const homeJsonLd = {
       jobTitle: "Trading educator",
       description:
         "Cassius Cuvée is a trading educator, YouTuber, and musical artist who explains trading in plain English for beginners.",
-      sameAs: ["https://www.youtube.com/@CassiusCuvee"],
+      image: CASSIUS_SCHEMA_IMAGE,
+      sameAs: CASSIUS_SAME_AS,
     },
     {
       "@type": "WebSite",
