@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { resetOnce, trackOnce, trackPageView } from "@/lib/track";
 import { Hero } from "@/components/landing/Hero";
 import { PressBar } from "@/components/landing/PressBar";
 import { PainPoints } from "@/components/landing/PainPoints";
@@ -50,7 +52,38 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const SCROLL_MARKS = [25, 50, 75, 100] as const;
+
+// Homepage visit + how far down people scroll (each mark counted once per visit).
+function useHomeTracking() {
+  useEffect(() => {
+    resetOnce("home");
+    trackPageView("home");
+
+    let ticking = false;
+    const check = () => {
+      ticking = false;
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      // +2px so "100%" still counts when the browser stops a pixel short of the bottom
+      const pct = ((window.scrollY + 2) / scrollable) * 100;
+      for (const mark of SCROLL_MARKS) {
+        if (pct >= mark) trackOnce("home", "scroll", { depth: String(mark) });
+      }
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+}
+
 function Index() {
+  useHomeTracking();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main>

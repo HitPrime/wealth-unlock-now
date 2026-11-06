@@ -28,7 +28,7 @@ export function FinalCta() {
             You get the Blueprint PDF, the Commandments poster, the Glossary, and the First Trade Walkthrough. It's free, and you don't need a card. Just enter your email and it's yours.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <StarterKitDialog trigger={<CtaButton />} />
+            <StarterKitDialog where="final" trigger={<CtaButton />} />
             <span className="text-xs text-[color:var(--color-muted-foreground)]">
               No card required.
             </span>

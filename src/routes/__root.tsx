@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "../components/CookieBanner";
+import { captureAttribution } from "../lib/attribution";
 
 // GPC: block advertising tags when Global Privacy Control is on
 if (typeof window !== "undefined" && (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true) {
@@ -155,6 +156,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Save UTMs / referrer / landing page from the URL the visitor arrived on, so forms
+  // can attach them to the GHL contact later.
+  useEffect(() => {
+    captureAttribution();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

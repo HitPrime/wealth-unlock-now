@@ -99,7 +99,7 @@ export function Testimonials() {
           Individual experiences. Not a guarantee of any outcome.
         </p>
 
-        <SectionCta note="Join them. Free." />
+        <SectionCta where="testimonials" note="Join them. Free." />
       </div>
     </section>
   );

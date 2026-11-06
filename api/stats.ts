@@ -28,6 +28,9 @@ export default async function handler() {
     breakoutCountries, kleinCountries, kastCountries,
     reviewsClicks, reviewsViews, reviewsCountries,
     reviewsVideoPlays, reviewsCodeCopies, reviewsPlaysByVideo,
+    homeViews, homeCtaClicks, homeCtaByPlace, homeFormStarts, homeSoundOn, homeVideoComplete,
+    homeScroll,
+    unlockViews, unlockStep1, unlockStep2, unlockAnswered,
   ] = await Promise.all([
     getHash("clicks:breakout"),
     getHash("clicks:klein"),
@@ -46,18 +49,47 @@ export default async function handler() {
     getHash("events:breakout-reviews:video_play"),
     getHash("events:breakout-reviews:code_copy"),
     getHash("videoplays:breakout-reviews"),
+    // Homepage funnel (api/pageview.ts + api/event.ts)
+    getHash("views:home"),
+    getHash("events:home:cta_click"),
+    getHash("ctaclicks:home"),
+    getHash("events:home:form_start"),
+    getHash("events:home:sound_on"),
+    getHash("events:home:video_complete"),
+    getHash("scroll:home"),
+    // /unlock form drop-off
+    getHash("views:unlock"),
+    getHash("events:unlock:step1_done"),
+    getHash("events:unlock:step2_done"),
+    getHash("answered:unlock"),
   ]);
 
   return new Response(
     JSON.stringify({
       clicks: { breakout: breakoutClicks, klein: kleinClicks, kast: kastClicks, breakoutReviews: reviewsClicks },
-      views: { breakout: breakoutViews, klein: kleinViews, kast: kastViews, breakoutReviews: reviewsViews },
+      views: {
+        breakout: breakoutViews, klein: kleinViews, kast: kastViews, breakoutReviews: reviewsViews,
+        home: homeViews, unlock: unlockViews,
+      },
       countries: { breakout: breakoutCountries, klein: kleinCountries, kast: kastCountries, breakoutReviews: reviewsCountries },
       events: {
         breakoutReviews: {
           videoPlays: reviewsVideoPlays,
           codeCopies: reviewsCodeCopies,
           playsByVideo: reviewsPlaysByVideo,
+        },
+        home: {
+          ctaClicks: homeCtaClicks,
+          ctaByPlace: homeCtaByPlace,
+          formStarts: homeFormStarts,
+          soundOn: homeSoundOn,
+          videoComplete: homeVideoComplete,
+          scroll: homeScroll,
+        },
+        unlock: {
+          step1: unlockStep1,
+          step2: unlockStep2,
+          answered: unlockAnswered,
         },
       },
     }),

@@ -41,13 +41,16 @@ CtaButton.displayName = "CtaButton";
 export function SectionCta({
   label,
   note = "Free · No card required",
+  where,
 }: {
   label?: string;
   note?: string;
+  /** Section name for click stats in /admin (see StarterKitDialog). */
+  where?: string;
 }) {
   return (
     <div className="mt-16 flex flex-col items-center gap-3">
-      <StarterKitDialog trigger={<CtaButton label={label} />} />
+      <StarterKitDialog where={where} trigger={<CtaButton label={label} />} />
       {note ? (
         <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-[color:var(--color-muted-foreground)]">
           {note}

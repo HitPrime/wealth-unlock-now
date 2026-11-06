@@ -2,6 +2,8 @@
 // the Cloudflare Workers target (the MCP SDK does not). Carries a private token, so it
 // must only ever execute on the server.
 
+import type { Attribution } from "./attribution";
+
 const GHL_API = "https://services.leadconnectorhq.com";
 const GHL_VERSION = "2021-07-28";
 const STARTER_KIT_TAG = "tradingkit";
@@ -47,6 +49,36 @@ async function ghlPost(
     throw new Error(`GHL ${path} failed: ${res.status} ${JSON.stringify(json).slice(0, 400)}`);
   }
   return json;
+}
+
+// Where the visitor came from (UTMs, referrer, landing page), already cleaned by claim.ts.
+type LeadAttribution = Attribution;
+
+// GHL's source field is plain text; keep it short so a long URL can never make the
+// contact save fail.
+const SOURCE_MAX = 255;
+
+// "Lead Magnet opt-in | source=meta, medium=paid, campaign=starter-kit | from: google.com | landing: /"
+// ("from" not "ref": Swell Point already uses "ref:" for the referral code.)
+export function sourceWithAttribution(base: string, attr?: LeadAttribution): string {
+  if (!attr) return base.slice(0, SOURCE_MAX);
+  const utm = (
+    [
+      ["source", attr.utm_source],
+      ["medium", attr.utm_medium],
+      ["campaign", attr.utm_campaign],
+      ["content", attr.utm_content],
+      ["term", attr.utm_term],
+    ] as const
+  )
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(", ");
+  const parts = [base];
+  if (utm) parts.push(utm);
+  if (attr.referrer) parts.push(`from: ${attr.referrer}`);
+  if (attr.landing_page) parts.push(`landing: ${attr.landing_page}`);
+  return parts.join(" | ").slice(0, SOURCE_MAX);
 }
 
 export interface ContactFields {
@@ -99,6 +131,7 @@ export async function captureLeadMagnet(lead: {
   lastName: string;
   email: string;
   country: string;
+  attribution?: LeadAttribution;
 }): Promise<{ contactId: string }> {
   const { token, locationId } = getCredentials();
   const contactId = await upsertContact(token, locationId, {
@@ -106,7 +139,7 @@ export async function captureLeadMagnet(lead: {
     lastName: lead.lastName,
     email: lead.email,
     country: lead.country,
-    source: "Lead Magnet opt-in",
+    source: sourceWithAttribution("Lead Magnet opt-in", lead.attribution),
   });
   await addTags(token, contactId, [STARTER_KIT_TAG]);
   return { contactId };
@@ -119,9 +152,16 @@ export async function addProfileTags(contactId: string, tags: string[]): Promise
 }
 
 // Waitlist capture for not-yet-purchasable offers (VIP, merch, Swell Point).
-export async function captureInterest(email: string, tag: string): Promise<void> {
+export async function captureInterest(
+  email: string,
+  tag: string,
+  attribution?: LeadAttribution,
+): Promise<void> {
   const { token, locationId } = getCredentials();
-  const contactId = await upsertContact(token, locationId, { email, source: `Interest: ${tag}` });
+  const contactId = await upsertContact(token, locationId, {
+    email,
+    source: sourceWithAttribution(`Interest: ${tag}`, attribution),
+  });
   await addTags(token, contactId, [tag]);
 }
 
@@ -131,13 +171,14 @@ export async function captureSwellPoint(input: {
   email: string;
   tradingViewUsername: string;
   referralCode?: string;
+  attribution?: LeadAttribution;
 }): Promise<void> {
   const { token, locationId } = getCredentials();
   const parts = ["Swell Point", `TV: ${input.tradingViewUsername}`];
   if (input.referralCode) parts.push(`ref: ${input.referralCode}`);
   const contactId = await upsertContact(token, locationId, {
     email: input.email,
-    source: parts.join(" | "),
+    source: sourceWithAttribution(parts.join(" | "), input.attribution),
   });
   await addTags(token, contactId, ["swellpoint-interest"]);
 }

@@ -64,7 +64,7 @@ export function Faq() {
             <FaqItem key={i} q={f.q} a={f.a} index={i} />
           ))}
         </Accordion>
-        <SectionCta note="Still have a question? Just start here." />
+        <SectionCta where="faq" note="Still have a question? Just start here." />
       </div>
     </section>
   );

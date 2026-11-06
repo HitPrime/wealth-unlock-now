@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { sanitizeAttribution, type Attribution as LeadAttribution } from "./attribution";
 
 const EMAIL_RE = /.+@.+\..+/;
 // Segment tags are generated from a fixed option list, so restrict to that shape as a guard.
@@ -29,6 +30,7 @@ export interface LeadCaptureInput {
   lastName: string;
   email: string;
   country: string;
+  attribution?: LeadAttribution;
 }
 
 // Lead Magnet Step 1: capture the contact immediately so a Step 2 drop-off is not lost.
@@ -41,7 +43,13 @@ export const captureLead = createServerFn({ method: "POST" })
     if (!firstName || !lastName) throw new Error("First and last name are required.");
     if (!EMAIL_RE.test(email)) throw new Error("A valid email is required.");
     if (!country) throw new Error("Country is required.");
-    return { firstName, lastName, email, country };
+    return {
+      firstName,
+      lastName,
+      email,
+      country,
+      attribution: sanitizeAttribution(input?.attribution),
+    };
   })
   .handler(async ({ data }) => {
     const { captureLeadMagnet } = await import("./ghl.server");
@@ -79,6 +87,7 @@ const INTEREST_TAGS: Record<string, string> = {
 export interface InterestInput {
   email: string;
   interest: string;
+  attribution?: LeadAttribution;
 }
 
 // Waitlist capture for offers that aren't purchasable yet.
@@ -88,11 +97,11 @@ export const captureInterest = createServerFn({ method: "POST" })
     const interest = input?.interest ?? "";
     if (!EMAIL_RE.test(email)) throw new Error("A valid email is required.");
     if (!INTEREST_TAGS[interest]) throw new Error("Unknown interest.");
-    return { email, interest };
+    return { email, interest, attribution: sanitizeAttribution(input?.attribution) };
   })
   .handler(async ({ data }) => {
     const { captureInterest: capture } = await import("./ghl.server");
-    await capture(data.email, INTEREST_TAGS[data.interest]);
+    await capture(data.email, INTEREST_TAGS[data.interest], data.attribution);
     return { ok: true as const };
   });
 
@@ -100,6 +109,7 @@ export interface SwellPointInput {
   email: string;
   tradingViewUsername: string;
   referralCode: string;
+  attribution?: LeadAttribution;
 }
 
 // Swell Point reservation (pre-Stripe): capture the buyer's email + TradingView username.
@@ -110,7 +120,12 @@ export const reserveSwellPoint = createServerFn({ method: "POST" })
     const referralCode = (input?.referralCode ?? "").trim().slice(0, 40);
     if (!EMAIL_RE.test(email)) throw new Error("A valid email is required.");
     if (!tradingViewUsername) throw new Error("Your TradingView username is required.");
-    return { email, tradingViewUsername, referralCode };
+    return {
+      email,
+      tradingViewUsername,
+      referralCode,
+      attribution: sanitizeAttribution(input?.attribution),
+    };
   })
   .handler(async ({ data }) => {
     const { captureSwellPoint } = await import("./ghl.server");

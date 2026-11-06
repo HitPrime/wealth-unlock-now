@@ -76,7 +76,7 @@ export function PainPoints() {
           </p>
 
           <div className="mt-10 flex justify-center">
-            <StarterKitDialog trigger={<CtaButton />} />
+            <StarterKitDialog where="pain" trigger={<CtaButton />} />
           </div>
         </div>
       </div>

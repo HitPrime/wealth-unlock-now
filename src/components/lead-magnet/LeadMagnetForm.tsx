@@ -3,6 +3,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { captureLead, saveTraderProfile } from "@/lib/claim";
 import { COUNTRIES } from "@/content/countries";
 import { TRADER_PROFILE, collectProfileTags } from "@/content/leadMagnet";
+import { getAttribution } from "@/lib/attribution";
+import { trackEvent, trackOnce } from "@/lib/track";
 
 const inputClass =
   "w-full rounded-none border border-[color:var(--color-border)] bg-transparent px-4 py-3 text-base text-foreground placeholder:text-[color:var(--color-muted-foreground)] focus:outline-none focus:border-[color:var(--color-purple-400)]";
@@ -60,10 +62,11 @@ export function LeadMagnetForm() {
     setError(null);
     try {
       const { contactId: id } = await captureLead({
-        data: { firstName, lastName, email, country },
+        data: { firstName, lastName, email, country, attribution: getAttribution() },
       });
       setContactId(id);
       setStep(2);
+      trackEvent("unlock", "step1_done");
     } catch {
       setError("Something went wrong. Please check your details and try again.");
     } finally {
@@ -71,10 +74,17 @@ export function LeadMagnetForm() {
     }
   };
 
-  const toggleSingle = (questionId: string, value: string) =>
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  // Drop-off: count the first time each question gets an answer (which question, never
+  // the answer itself), so /admin shows where people stop.
+  const markAnswered = (questionId: string) => trackOnce("unlock", "answered", { q: questionId });
 
-  const toggleMulti = (questionId: string, value: string) =>
+  const toggleSingle = (questionId: string, value: string) => {
+    markAnswered(questionId);
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  };
+
+  const toggleMulti = (questionId: string, value: string) => {
+    markAnswered(questionId);
     setAnswers((prev) => {
       const current = Array.isArray(prev[questionId]) ? (prev[questionId] as string[]) : [];
       const next = current.includes(value)
@@ -82,12 +92,14 @@ export function LeadMagnetForm() {
         : [...current, value];
       return { ...prev, [questionId]: next };
     });
+  };
 
   const handleStep2 = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
     setError(null);
+    trackEvent("unlock", "step2_done");
     try {
       // The contact + kit were already captured in Step 1. Enrich with segment tags,
       // but never block the kit on this call: land on the thank-you page regardless.

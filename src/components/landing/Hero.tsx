@@ -119,7 +119,7 @@ export function Hero() {
 
         <div className="max-w-2xl mx-auto text-center lg:mx-0 lg:text-left lg:col-start-1 lg:row-start-2 lg:self-start">
           <div style={enter("hero-rise", 0.6, 0.5, 12)} className="lg:mt-10">
-            <StarterKitDialog trigger={<CtaButton />} />
+            <StarterKitDialog where="hero" trigger={<CtaButton />} />
             <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-[color:var(--color-muted-foreground)]">
               Free Trading Starter Kit · No card required
             </p>

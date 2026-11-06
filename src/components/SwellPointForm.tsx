@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { reserveSwellPoint } from "@/lib/claim";
+import { getAttribution } from "@/lib/attribution";
 
 const inputClass =
   "w-full rounded-none border border-[color:var(--color-border)] bg-transparent px-4 py-3 text-base text-foreground placeholder:text-[color:var(--color-muted-foreground)] focus:outline-none focus:border-[color:var(--color-purple-400)]";
@@ -19,7 +20,12 @@ export function SwellPointForm() {
     setError(null);
     try {
       await reserveSwellPoint({
-        data: { email, tradingViewUsername: tvUsername, referralCode: referral },
+        data: {
+          email,
+          tradingViewUsername: tvUsername,
+          referralCode: referral,
+          attribution: getAttribution(),
+        },
       });
       setDone(true);
     } catch {

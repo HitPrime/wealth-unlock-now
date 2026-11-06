@@ -42,7 +42,7 @@ export default async function handler(req: Request) {
   const url = new URL(req.url);
   const page = url.searchParams.get("page") ?? "";
 
-  const allowed = ["breakout", "klein", "kast", "breakout-reviews"];
+  const allowed = ["breakout", "klein", "kast", "breakout-reviews", "home", "unlock"];
   if (!allowed.includes(page)) {
     return new Response("Bad request", { status: 400 });
   }
@@ -52,7 +52,9 @@ export default async function handler(req: Request) {
   // Store as "US|USA" so we can decode both code (for flag) and name
   const countryKey = `${countryCode}|${countryName}`;
 
-  redisIncrView(page, countryKey).catch(() => {});
+  // await before responding: on Vercel Edge, work left running after the response can be
+  // cut off, which silently loses counts (same fix as api/event.ts).
+  await redisIncrView(page, countryKey).catch(() => {});
 
   return new Response(JSON.stringify({ ok: true, country: countryName }), {
     status: 200,

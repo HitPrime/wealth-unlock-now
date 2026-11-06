@@ -64,7 +64,7 @@ export function Accolades() {
             </article>
           ))}
         </div>
-        <SectionCta note="Get the free Starter Kit." />
+        <SectionCta where="accolades" note="Get the free Starter Kit." />
       </div>
     </section>
   );

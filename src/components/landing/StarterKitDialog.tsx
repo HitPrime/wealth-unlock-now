@@ -8,9 +8,27 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import bundle from "@/assets/kit/bundle.png";
+import { withUtms } from "@/lib/attribution";
+import { trackEvent } from "@/lib/track";
 
-export function StarterKitDialog({ trigger }: { trigger: ReactNode }) {
+const FORM_ID = "2efo3PHbySqemxHI4h2x";
+const FORM_URL = `https://api.leadconnectorhq.com/widget/form/${FORM_ID}`;
+
+// Counts only on the homepage (the ad landing page); other pages that reuse the dialog
+// (e.g. /blog) are not part of the funnel stats.
+const onHomepage = () => typeof window !== "undefined" && window.location.pathname === "/";
+
+/**
+ * `where` names the button that opened it (hero, final, ...) so /admin can show which
+ * Starter Kit button gets clicked. Must be one of the names allowed in api/event.ts.
+ */
+export function StarterKitDialog({ trigger, where }: { trigger: ReactNode; where?: string }) {
   const [open, setOpen] = useState(false);
+  // Built on open (browser only) so the GHL form gets the visitor's UTMs and can save
+  // them into its hidden fields.
+  const [formSrc, setFormSrc] = useState(FORM_URL);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Load GHL form embed script once
@@ -22,15 +40,48 @@ export function StarterKitDialog({ trigger }: { trigger: ReactNode }) {
     document.body.appendChild(script);
   }, []);
 
+  // "Form started": the GHL form is a cross-site iframe, so we can't see its fields. When
+  // the visitor clicks into it, focus moves into the iframe and our window blurs; that is
+  // the signal. Counted once per opening.
+  useEffect(() => {
+    if (!open || !onHomepage()) return;
+    let counted = false;
+    const onBlur = () => {
+      // activeElement updates right after blur, so check on the next tick
+      setTimeout(() => {
+        if (!counted && iframeRef.current && document.activeElement === iframeRef.current) {
+          counted = true;
+          trackEvent("home", "form_start");
+        }
+      }, 0);
+    };
+    window.addEventListener("blur", onBlur);
+    return () => window.removeEventListener("blur", onBlur);
+  }, [open]);
+
   return (
     <Dialog
       open={open}
       onOpenChange={(o) => {
+        if (o) {
+          setFormSrc(withUtms(FORM_URL));
+          if (onHomepage()) trackEvent("home", "cta_click", { where: where ?? "other" });
+        }
         setOpen(o);
       }}
     >
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-md border border-[color:var(--color-purple-400)]/40 bg-[oklch(0.10_0.04_300)] rounded-none max-h-[90vh] overflow-y-auto scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <DialogContent
+        ref={contentRef}
+        // By default the dialog moves focus to its first focusable element, which is the
+        // GHL form iframe. That would count "form started" for everyone who only opened
+        // it, so keep focus on the dialog itself; the visitor clicks into the form.
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          contentRef.current?.focus({ preventScroll: true });
+        }}
+        className="outline-none sm:max-w-md border border-[color:var(--color-purple-400)]/40 bg-[oklch(0.10_0.04_300)] rounded-none max-h-[90vh] overflow-y-auto scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      >
         {/* Bundle image, bled to the top edges */}
         <div className="-mx-6 -mt-6 mb-1 overflow-hidden bg-[oklch(0.06_0.03_300)]">
           <img
@@ -63,7 +114,8 @@ export function StarterKitDialog({ trigger }: { trigger: ReactNode }) {
         `}</style>
         <div className="mt-1 mb-1">
           <iframe
-            src="https://api.leadconnectorhq.com/widget/form/2efo3PHbySqemxHI4h2x"
+            ref={iframeRef}
+            src={formSrc}
             style={{ width: "100%", height: "400px", border: "none", borderRadius: "8px" }}
             id="inline-2efo3PHbySqemxHI4h2x"
             data-layout="{'id':'INLINE'}"

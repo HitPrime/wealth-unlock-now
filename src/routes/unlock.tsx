@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LeadMagnetForm } from "@/components/lead-magnet/LeadMagnetForm";
 import { pageHead } from "@/lib/seo";
+import { useEffect } from "react";
+import { resetOnce, trackPageView } from "@/lib/track";
 
 export const Route = createFileRoute("/unlock")({
   component: Unlock,
@@ -14,6 +16,12 @@ export const Route = createFileRoute("/unlock")({
 });
 
 function Unlock() {
+  // Counts visits so /admin can compare them with Step 1 / Step 2 completions.
+  useEffect(() => {
+    resetOnce("unlock");
+    trackPageView("unlock");
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground px-6 py-16 sm:py-24">
       <div className="mx-auto w-full max-w-xl">

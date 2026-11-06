@@ -1,5 +1,20 @@
 import { useEffect, useState } from "react";
 import { BREAKOUT_REVIEW_VIDEOS } from "@/content/breakoutReviews";
+import { TRADER_PROFILE } from "@/content/leadMagnet";
+
+// Homepage Starter Kit button names (StarterKitDialog `where`) -> readable labels.
+const CTA_PLACE_LABELS: Record<string, string> = {
+  hero: "Hero (top of page)",
+  nav: "Top menu",
+  pain: "Sound Familiar section",
+  pillars: "Pillars section",
+  meet: "Meet Cassius section",
+  testimonials: "Testimonials section",
+  accolades: "Accolades section",
+  faq: "FAQ section",
+  final: "Final section (bottom)",
+  other: "Other",
+};
 
 // YouTube ID -> title, for the "Plays by video" list.
 const VIDEO_TITLES: Record<string, string> = Object.fromEntries(
@@ -29,6 +44,8 @@ interface Stats {
     klein: Record<string, number>;
     kast: Record<string, number>;
     breakoutReviews?: Record<string, number>;
+    home?: Record<string, number>;
+    unlock?: Record<string, number>;
   };
   countries: {
     breakout: Record<string, number>;
@@ -42,8 +59,23 @@ interface Stats {
       codeCopies?: Record<string, number>;
       playsByVideo?: Record<string, number>;
     };
+    home?: {
+      ctaClicks?: Record<string, number>;
+      ctaByPlace?: Record<string, number>;
+      formStarts?: Record<string, number>;
+      soundOn?: Record<string, number>;
+      videoComplete?: Record<string, number>;
+      scroll?: Record<string, number>;
+    };
+    unlock?: {
+      step1?: Record<string, number>;
+      step2?: Record<string, number>;
+      answered?: Record<string, number>;
+    };
   };
 }
+
+type Ranked = { title: string; items: [string, number][] };
 
 type Extra = { label: string; total: number; today: number };
 
@@ -125,9 +157,12 @@ function PageCard({
   countries?: Record<string, number>;
   /** Extra on-page event counters (e.g. video plays, code copies). */
   extras?: Extra[];
-  /** Ranked list, e.g. plays per video. */
-  ranked?: { title: string; items: [string, number][] };
+  /** Ranked list(s), e.g. plays per video. */
+  ranked?: Ranked | Ranked[];
 }) {
+  const rankedLists = (Array.isArray(ranked) ? ranked : ranked ? [ranked] : []).filter(
+    (r) => r.items.length > 0,
+  );
   return (
     <div style={{
       background: "rgba(14,12,24,0.9)",
@@ -178,7 +213,7 @@ function PageCard({
       </div>
 
       {extras && extras.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: `repeat(${extras.length}, 1fr)`, gap: "8px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: "8px" }}>
           {extras.map((x) => (
             <div key={x.label} style={{ background: "rgba(16,185,129,0.08)", borderRadius: "10px", padding: "12px", textAlign: "center" }}>
               <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "4px" }}>{x.label}</p>
@@ -206,13 +241,13 @@ function PageCard({
         )}
       </div>
 
-      {ranked && ranked.items.length > 0 && (
-        <div>
+      {rankedLists.map((list) => (
+        <div key={list.title}>
           <p style={{ color: "#64748b", fontSize: "10px", fontFamily: "var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "8px" }}>
-            {ranked.title}
+            {list.title}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            {ranked.items.map(([label, count]) => (
+            {list.items.map(([label, count]) => (
               <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
                 <span style={{ fontSize: "12px", color: "#cbd5e1", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{label}</span>
                 <span style={{ fontSize: "11px", color: "#94a3b8", minWidth: "24px", textAlign: "right" }}>{count}</span>
@@ -220,7 +255,7 @@ function PageCard({
             ))}
           </div>
         </div>
-      )}
+      ))}
 
       {countries && Object.keys(countries).length > 0 && (
         <div>
@@ -316,6 +351,8 @@ export function ClickStats() {
   const safeClicks = safeStats.clicks ?? { breakout: {}, klein: {}, kast: {} };
   const safeViews = safeStats.views ?? { breakout: {}, klein: {}, kast: {} };
   const reviewEvents = safeStats.events?.breakoutReviews ?? {};
+  const homeEvents = safeStats.events?.home ?? {};
+  const unlockEvents = safeStats.events?.unlock ?? {};
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -374,6 +411,48 @@ export function ClickStats() {
             items: Object.entries(reviewEvents.playsByVideo ?? {})
               .sort((a, b) => b[1] - a[1])
               .map(([id, n]): [string, number] => [VIDEO_TITLES[id] ?? id, n]),
+          }}
+        />
+        <PageCard
+          name="Homepage (funnel)"
+          views={toStatData(safeViews.home ?? {})}
+          viewColor="rgba(139,92,246,0.8)"
+          extras={[
+            { label: "Kit button clicks", ...totalToday(homeEvents.ctaClicks) },
+            { label: "Form started", ...totalToday(homeEvents.formStarts) },
+            { label: "Sound turned on", ...totalToday(homeEvents.soundOn) },
+            { label: "Video watched to end", ...totalToday(homeEvents.videoComplete) },
+          ]}
+          ranked={[
+            {
+              title: "Scrolled down at least (all time)",
+              items: ["25", "50", "75", "100"].map(
+                (d): [string, number] => [`${d}% of the page`, homeEvents.scroll?.[d] ?? 0],
+              ),
+            },
+            {
+              title: "Kit button clicks by place (all time)",
+              items: Object.entries(homeEvents.ctaByPlace ?? {})
+                .sort((a, b) => b[1] - a[1])
+                .map(([place, n]): [string, number] => [CTA_PLACE_LABELS[place] ?? place, n]),
+            },
+          ]}
+        />
+        <PageCard
+          name="/unlock form (drop-off)"
+          views={toStatData(safeViews.unlock ?? {})}
+          viewColor="rgba(139,92,246,0.8)"
+          extras={[
+            { label: "Step 1 done", ...totalToday(unlockEvents.step1) },
+            { label: "Step 2 done", ...totalToday(unlockEvents.step2) },
+          ]}
+          ranked={{
+            // Form order, not sorted: a big drop between two questions shows where people quit.
+            title: "Answered, question by question (all time)",
+            items: TRADER_PROFILE.map((q, i): [string, number] => [
+              `${i + 1}. ${q.label}`,
+              unlockEvents.answered?.[q.id] ?? 0,
+            ]),
           }}
         />
       </div>

@@ -71,7 +71,7 @@ export function MeetCassius() {
         </motion.div>
       </div>
       <div className="mx-auto max-w-7xl px-6">
-        <SectionCta note="Learn it the way Cassius teaches it." />
+        <SectionCta where="meet" note="Learn it the way Cassius teaches it." />
       </div>
     </section>
   );

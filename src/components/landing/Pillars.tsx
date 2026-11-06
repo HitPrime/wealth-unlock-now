@@ -58,7 +58,7 @@ export function Pillars() {
           })}
         </div>
 
-        <SectionCta note="All three pieces. Free." />
+        <SectionCta where="pillars" note="All three pieces. Free." />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { captureInterest } from "@/lib/claim";
+import { getAttribution } from "@/lib/attribution";
 
 // Reusable waitlist capture for offers that aren't purchasable yet (no Stripe).
 // Adds the email to GHL with a fixed interest tag.
@@ -21,7 +22,7 @@ export function InterestForm({
     setSubmitting(true);
     setError(null);
     try {
-      await captureInterest({ data: { email, interest } });
+      await captureInterest({ data: { email, interest, attribution: getAttribution() } });
       setDone(true);
     } catch {
       setError("Something went wrong. Try again in a moment.");

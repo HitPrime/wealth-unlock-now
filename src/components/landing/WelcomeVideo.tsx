@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { trackOnce } from "@/lib/track";
 
 export function WelcomeVideo({ className = "" }: { className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -20,7 +21,13 @@ export function WelcomeVideo({ className = "" }: { className?: string }) {
         muted
         controls
         playsInline
-        onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
+        // The video autoplays muted for everyone, so "played" says nothing. Count the real
+        // signals instead: the visitor turned sound on, and watched to the end.
+        onVolumeChange={(e) => {
+          setMuted(e.currentTarget.muted);
+          if (!e.currentTarget.muted) trackOnce("home", "sound_on");
+        }}
+        onEnded={() => trackOnce("home", "video_complete")}
         className="w-full block"
         style={{
           aspectRatio: "1686 / 1080",
