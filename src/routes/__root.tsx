@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "../components/CookieBanner";
-import { captureAttribution } from "../lib/attribution";
+import { captureAttribution, carryUtmsOnOutboundLinks } from "../lib/attribution";
 
 // GPC: block advertising tags when Global Privacy Control is on
 if (typeof window !== "undefined" && (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true) {
@@ -158,9 +158,11 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   // Save UTMs / referrer / landing page from the URL the visitor arrived on, so forms
-  // can attach them to the GHL contact later.
+  // can attach them to the GHL contact later, and pass the UTMs along on links to our
+  // other domains (clientclub., learn., getswellpoint.com).
   useEffect(() => {
     captureAttribution();
+    return carryUtmsOnOutboundLinks();
   }, []);
 
   return (

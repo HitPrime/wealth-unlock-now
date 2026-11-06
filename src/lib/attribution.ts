@@ -132,14 +132,51 @@ export function sanitizeAttribution(raw: unknown): Attribution | undefined {
   return Object.keys(out).length > 0 ? out : undefined;
 }
 
+// Our other sites (GHL pages). Browser storage doesn't carry over to another domain or
+// subdomain, so links to these get the saved UTMs added at click time.
+function isOurOtherSite(hostname: string): boolean {
+  if (hostname === window.location.hostname) return false;
+  return (
+    hostname.endsWith(".cassiuscuvee.com") ||
+    hostname === "getswellpoint.com" ||
+    hostname.endsWith(".getswellpoint.com")
+  );
+}
+
+// Call once (root layout). Any click on a link to clientclub. / learn. / getswellpoint.com
+// etc. gets the visitor's UTMs added to that link just before the browser follows it.
+// Covers normal, middle and right-click (open in new tab, copy link). Links that already
+// carry their own UTMs keep them. Returns a cleanup function.
+export function carryUtmsOnOutboundLinks(): () => void {
+  if (typeof window === "undefined") return () => {};
+  const onPointer = (e: Event) => {
+    try {
+      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a || !isOurOtherSite(a.hostname)) return;
+      const next = withUtms(a.href);
+      if (next !== a.href) a.href = next;
+    } catch {
+      // never block a click
+    }
+  };
+  const events = ["click", "auxclick", "contextmenu"] as const;
+  for (const ev of events) document.addEventListener(ev, onPointer, true);
+  return () => {
+    for (const ev of events) document.removeEventListener(ev, onPointer, true);
+  };
+}
+
 // Adds the saved UTMs to a URL (used for the GHL form iframe so its hidden fields fill).
 export function withUtms(url: string): string {
   const attr = getAttribution();
   try {
     const u = new URL(url);
+    // A link that already has its own UTMs (e.g. an email campaign link) is left as is,
+    // so two different campaigns never get mixed in one link.
+    if (UTM_KEYS.some((key) => u.searchParams.has(key))) return url;
     for (const key of UTM_KEYS) {
       const v = attr[key];
-      if (v && !u.searchParams.has(key)) u.searchParams.set(key, v);
+      if (v) u.searchParams.set(key, v);
     }
     return u.toString();
   } catch {
