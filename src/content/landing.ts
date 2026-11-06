@@ -40,6 +40,7 @@ export const OUTCOMES = [
 export const CASSIUS_SAME_AS = [
   "https://www.youtube.com/@CassiusCuvee",
   "https://x.com/cassiuscuvee",
+  "https://www.instagram.com/cassiuscuvee/",
   "https://www.facebook.com/cassiuscuveetrading",
   "https://www.facebook.com/cassius.cuvee/",
   "https://www.linkedin.com/in/cassius-cuv%C3%A9e-92690322a",
