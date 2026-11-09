@@ -133,7 +133,7 @@ export function sanitizeAttribution(raw: unknown): Attribution | undefined {
 }
 
 // Our other sites (GHL pages). Browser storage doesn't carry over to another domain or
-// subdomain, so links to these get the saved UTMs added at click time.
+// subdomain, so links to these carry the saved UTMs in the link itself.
 function isOurOtherSite(hostname: string): boolean {
   if (hostname === window.location.hostname) return false;
   return (
@@ -143,26 +143,52 @@ function isOurOtherSite(hostname: string): boolean {
   );
 }
 
-// Call once (root layout). Any click on a link to clientclub. / learn. / getswellpoint.com
-// etc. gets the visitor's UTMs added to that link just before the browser follows it.
-// Covers normal, middle and right-click (open in new tab, copy link). Links that already
+function decorate(a: HTMLAnchorElement): void {
+  try {
+    if (!isOurOtherSite(a.hostname)) return;
+    const next = withUtms(a.href);
+    if (next !== a.href) a.href = next;
+  } catch {
+    // never break a link
+  }
+}
+
+// Call once (root layout), after captureAttribution(). Links to clientclub. / learn. /
+// getswellpoint.com etc. get the visitor's UTMs written into the link right away, and so
+// do links that appear later (dialogs, other pages). Because the UTMs are in the link
+// itself, copy link, hover, long-press on phones and new tabs all carry them. As a
+// backup, a click also adds them in case the page re-rendered a link. Links that already
 // carry their own UTMs keep them. Returns a cleanup function.
 export function carryUtmsOnOutboundLinks(): () => void {
   if (typeof window === "undefined") return () => {};
+
+  const decorateAll = () =>
+    document.querySelectorAll<HTMLAnchorElement>("a[href]").forEach(decorate);
+  decorateAll();
+
+  // Re-check when new elements are added (watching added nodes only, not attribute
+  // changes, so our own href update can't trigger itself). Batched to one pass per frame.
+  let queued = false;
+  const observer = new MutationObserver(() => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      decorateAll();
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
   const onPointer = (e: Event) => {
-    try {
-      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!a || !isOurOtherSite(a.hostname)) return;
-      const next = withUtms(a.href);
-      if (next !== a.href) a.href = next;
-    } catch {
-      // never block a click
-    }
+    const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+    if (a) decorate(a);
   };
-  const events = ["click", "auxclick", "contextmenu"] as const;
-  for (const ev of events) document.addEventListener(ev, onPointer, true);
+  const events = ["click", "auxclick", "contextmenu", "touchstart"] as const;
+  for (const ev of events)
+    document.addEventListener(ev, onPointer, { capture: true, passive: true });
   return () => {
-    for (const ev of events) document.removeEventListener(ev, onPointer, true);
+    observer.disconnect();
+    for (const ev of events) document.removeEventListener(ev, onPointer, { capture: true });
   };
 }
 
