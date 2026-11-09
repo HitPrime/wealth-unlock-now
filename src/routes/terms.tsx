@@ -133,8 +133,8 @@ function TermsPage() {
 
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[oklch(0.10_0.04_300/0.6)] border-b border-[oklch(0.30_0.10_290/0.4)]">
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center">
-          <a href="/" aria-label="Cassius Cuvee - Home">
-            <img src={cassiusLogo} alt="Cassius Cuvee" className="h-9 w-auto" style={{ mixBlendMode: "lighten" }} />
+          <a href="/" aria-label="Cassius Cuvée - Home">
+            <img src={cassiusLogo} alt="Cassius Cuvée" className="h-9 w-auto" style={{ mixBlendMode: "lighten" }} />
           </a>
         </div>
       </header>
@@ -156,7 +156,7 @@ function TermsPage() {
               <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
-              Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvee and Swell Point
+              Operated by Bottle Poppin Productions LLC &middot; Brands: Cassius Cuvée and Swell Point
             </p>
             <div className="mt-5 h-px w-full bg-gradient-to-r from-[color:var(--color-purple-400)]/40 via-[color:var(--color-purple-400)]/15 to-transparent" />
           </header>
@@ -164,7 +164,7 @@ function TermsPage() {
           <TocMobile />
 
           <P>
-            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius Cuvee</strong> and <strong>Swell Point</strong> brands. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
+            These Terms and Conditions ("Terms") are a legal agreement between you and <strong>Bottle Poppin Productions LLC</strong> ("Company," "we," "us," or "our"), which operates the <strong>Cassius Cuvée</strong> and <strong>Swell Point</strong> brands. They govern your use of cassiuscuvee.com and its subdomains, and of our forms, emails, text messages, courses, digital products and community areas (together, the "Services"). Please read them carefully.
           </P>
 
           <H2 id="section-1">1. Acceptance of These Terms</H2>
@@ -218,7 +218,7 @@ function TermsPage() {
           <P>See our <a href="/privacy" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Privacy Policy</a> for how we collect and use your information for these purposes.</P>
 
           <H2 id="section-9">9. Intellectual Property and License</H2>
-          <P>All content in the Services, including courses, videos, text, templates, graphics, logos, trademarks and the Cassius Cuvee and Swell Point names, is owned by the Company or its licensors and is protected by intellectual property laws.</P>
+          <P>All content in the Services, including courses, videos, text, templates, graphics, logos, trademarks and the Cassius Cuvée and Swell Point names, is owned by the Company or its licensors and is protected by intellectual property laws.</P>
           <P>When you buy a product or access a member area, we give you a limited, personal, non-exclusive, non-transferable, revocable license to view and use that content for your own non-commercial purposes. You may <strong>not</strong>:</P>
           <UL>
             <li>copy, record, reproduce, distribute, resell, rent, sublicense or publicly display our content;</li>
@@ -245,7 +245,7 @@ function TermsPage() {
           <P>If you submit a testimonial, review, photo, video or other statement about us or our products (a "Testimonial") and check the consent box on our testimonial form, you agree to the following:</P>
           <UL>
             <li><strong>Honest experience.</strong> Your Testimonial reflects your genuine and honest experience and opinion.</li>
-            <li><strong>Permission to use.</strong> You give Bottle Poppin Productions LLC, which operates Cassius Cuvee and Swell Point, a non-exclusive, worldwide, royalty-free license to use, reproduce, publish, display and distribute your Testimonial, and your name, image, likeness and voice as they appear in it, on our websites, social media, advertising, emails and other marketing materials, in any media. This permission lasts until you withdraw it as described below.</li>
+            <li><strong>Permission to use.</strong> You give Bottle Poppin Productions LLC, which operates Cassius Cuvée and Swell Point, a non-exclusive, worldwide, royalty-free license to use, reproduce, publish, display and distribute your Testimonial, and your name, image, likeness and voice as they appear in it, on our websites, social media, advertising, emails and other marketing materials, in any media. This permission lasts until you withdraw it as described below.</li>
             <li><strong>Edits.</strong> We may edit your Testimonial for length, clarity or formatting, but we will not change its meaning.</li>
             <li><strong>No payment.</strong> Unless we have agreed otherwise in writing, you will not be paid for your Testimonial. If you received a free product, discount or other benefit connected to it, we may disclose that where the law requires.</li>
             <li><strong>Your confirmations.</strong> You are at least 18 years old; you have the right to give this permission, including the consent of anyone else who appears in your image or video; and your Testimonial is not unlawful, defamatory or in violation of anyone's rights.</li>
