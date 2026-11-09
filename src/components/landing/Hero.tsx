@@ -61,7 +61,7 @@ export function Hero() {
       />
       {/* Member portal login, pinned top-right */}
       <a
-        href="https://clientclub.cassiuscuvee.com/login"
+        href="https://clientclub.cassiuscuvee.com/communities/groups/cassius-cuvee/learning"
         style={enter("hero-rise", 0.6, 0.3, -8)}
         className="group absolute right-4 top-5 z-10 inline-flex items-center gap-2 overflow-hidden rounded-none bg-purple-gradient px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-white border border-[color:var(--color-gold)]/30 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[color:var(--color-gold)]/70 hover:shadow-glow active:translate-y-0 sm:right-8 sm:top-8 sm:px-6 sm:py-3 sm:text-sm"
       >
