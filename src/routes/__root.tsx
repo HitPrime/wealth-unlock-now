@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "../components/CookieBanner";
 import { captureAttribution, carryUtmsOnOutboundLinks } from "../lib/attribution";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // GPC: block advertising tags when Global Privacy Control is on
 if (typeof window !== "undefined" && (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true) {
@@ -170,6 +172,9 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieBanner />
+      {/* Vercel Web Analytics + Speed Insights (cookieless; free on the Hobby plan). */}
+      <Analytics />
+      <SpeedInsights />
     </QueryClientProvider>
   );
 }
