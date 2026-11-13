@@ -18,6 +18,9 @@ async function signToken(secret: string): Promise<string> {
 
 const MAX_FAILS = 5;
 const LOCK_SECONDS = 15 * 60;
+// Atomic "count this attempt": INCR, and on the first attempt of a window set its expiry.
+const COUNT_ATTEMPT =
+  "local n = redis.call('INCR', KEYS[1]) if n == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end return n";
 
 function clientIp(req: Request): string {
   const fwd = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -79,12 +82,15 @@ export default async function handler(req: Request) {
     });
   }
 
-  // Lockout: after MAX_FAILS wrong passwords from one IP, refuse logins from that IP for
-  // LOCK_SECONDS (counted in Upstash Redis). If Redis is unreachable we don't lock anyone
-  // out, the 500 ms delay below still slows guessing.
+  // Lockout: at most MAX_FAILS attempts per IP per LOCK_SECONDS window (counted in Upstash
+  // Redis); a correct password clears the count. Each attempt is counted BEFORE the password
+  // is checked, in one atomic script that also sets the expiry, so firing many requests at
+  // once can't slip past the limit and the key can never be left without an expiry. If
+  // Redis is unreachable we don't lock anyone out; the 500 ms delay still slows guessing.
   const ip = clientIp(req);
   const failKey = `adminfail:${ip}`;
-  if ((await redis(["get", failKey])) >= MAX_FAILS) {
+  const attempts = await redis(["eval", COUNT_ATTEMPT, 1, failKey, LOCK_SECONDS]);
+  if (attempts > MAX_FAILS) {
     return new Response(
       JSON.stringify({ ok: false, error: "Too many attempts. Try again in 15 minutes." }),
       { status: 429, headers: { "Content-Type": "application/json", "Retry-After": String(LOCK_SECONDS) } },
@@ -92,8 +98,6 @@ export default async function handler(req: Request) {
   }
 
   if (body.password !== ADMIN_PASSWORD) {
-    // Count the failure; the window starts at the first failure and resets after LOCK_SECONDS.
-    if ((await redis(["incr", failKey])) === 1) await redis(["expire", failKey, LOCK_SECONDS]);
     // Deliberate delay to slow brute force
     await new Promise(r => setTimeout(r, 500));
     return new Response(JSON.stringify({ ok: false, error: "Incorrect password" }), {
