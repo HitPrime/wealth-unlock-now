@@ -4,8 +4,10 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -44,7 +46,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -158,6 +160,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // Route pattern of the current page (e.g. "/", "/blog"), so Speed Insights groups
+  // scores per page instead of showing everything as "Unknown".
+  const routeId = useRouterState({ select: (s) => s.matches[s.matches.length - 1]?.routeId });
 
   // Save UTMs / referrer / landing page from the URL the visitor arrived on, so forms
   // can attach them to the GHL contact later, and pass the UTMs along on links to our
@@ -174,7 +179,7 @@ function RootComponent() {
       <CookieBanner />
       {/* Vercel Web Analytics + Speed Insights (cookieless; free on the Hobby plan). */}
       <Analytics />
-      <SpeedInsights />
+      <SpeedInsights route={routeId === "__root__" ? undefined : routeId} />
     </QueryClientProvider>
   );
 }
