@@ -34,7 +34,15 @@ async function verifyToken(token: string, secret: string): Promise<boolean> {
 }
 
 export default async function handler(req: Request) {
-  const ADMIN_SECRET = process.env.ADMIN_SECRET ?? process.env.ADMIN_PASSWORD ?? "fallback";
+  // No secret configured: never accept a token (a guessable fallback would let anyone
+  // sign their own admin cookie).
+  const ADMIN_SECRET = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD || "";
+  if (!ADMIN_SECRET) {
+    return new Response(JSON.stringify({ ok: false }), {
+      status: 401,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
+  }
 
   // Read cookie from request
   const cookieHeader = req.headers.get("cookie") ?? "";

@@ -22,7 +22,7 @@ export default async function handler(req: Request) {
   }
 
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-  const ADMIN_SECRET = process.env.ADMIN_SECRET ?? process.env.ADMIN_PASSWORD ?? "fallback";
+  const ADMIN_SECRET = process.env.ADMIN_SECRET || ADMIN_PASSWORD || "";
 
   if (!ADMIN_PASSWORD) {
     return new Response(JSON.stringify({ ok: false, error: "Not configured" }), {

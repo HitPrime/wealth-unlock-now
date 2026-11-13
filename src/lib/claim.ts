@@ -156,7 +156,7 @@ export interface AdminAddInput {
   tags: string;
 }
 
-// Admin: add one contact to GHL. NOTE: currently unauthenticated by request.
+// Admin: add one contact to GHL. Only for someone logged in to /admin.
 export const adminAddContact = createServerFn({ method: "POST" })
   .validator((input: AdminAddInput) => {
     const email = input?.email?.trim().toLowerCase() ?? "";
@@ -169,6 +169,8 @@ export const adminAddContact = createServerFn({ method: "POST" })
     };
   })
   .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    await requireAdmin();
     const { adminUpsertContact } = await import("./ghl.server");
     await adminUpsertContact({
       email: data.email,
@@ -184,13 +186,15 @@ export interface AdminBulkInput {
   tag: string;
 }
 
-// Admin: bulk-push a pasted list of emails to GHL (max 100 per run).
+// Admin: bulk-push a pasted list of emails to GHL (max 100 per run). Logged-in admin only.
 export const adminBulkAddContacts = createServerFn({ method: "POST" })
   .validator((input: AdminBulkInput) => ({
     emails: input?.emails ?? "",
     tag: (input?.tag ?? "").trim().toLowerCase().slice(0, 40),
   }))
   .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    await requireAdmin();
     const emails = parseEmails(data.emails);
     const tags = data.tag ? [data.tag] : [];
     const { adminUpsertContact } = await import("./ghl.server");

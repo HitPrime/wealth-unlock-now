@@ -57,7 +57,32 @@ export default async function handler(req: Request) {
   catch { return new Response("Invalid body", { status: 400 }); }
 
   if (!body.name || !body.email || !body.consentText) {
-    return new Response("Missing required fields", { status: 400 });
+    return new Response("Missing required fields", { status: 400, headers: CORS });
+  }
+
+  // Public endpoint: accept only sane shapes and sizes so it can't be used to dump junk
+  // or huge payloads into Supabase/Redis. Limits are generous for real testimonials.
+  const str = (v: unknown, max: number) => typeof v === "string" && v.trim().length > 0 && v.length <= max;
+  const optStr = (v: unknown, max: number) => v == null || (typeof v === "string" && v.length <= max);
+  // Numbers may arrive as numbers or numeric strings ("5", "12.3"), depending on the form.
+  const optNum = (v: unknown, min: number, max: number) => {
+    if (v == null || v === "") return true;
+    if (typeof v !== "number" && typeof v !== "string") return false;
+    const n = Number(v);
+    return Number.isFinite(n) && n >= min && n <= max;
+  };
+  const valid =
+    str(body.name, 120) &&
+    str(body.email, 254) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(body.email)) &&
+    str(body.consentText, 3000) &&
+    optStr(body.testimonial, 5000) &&
+    optNum(body.rating, 1, 5) &&
+    optStr(body.fileName, 300) &&
+    optStr(body.fileType, 100) &&
+    optNum(body.fileSizeMB, 0, 100) &&
+    (body.consentedAt == null || typeof body.consentedAt === "number" || optStr(body.consentedAt, 40));
+  if (!valid) {
+    return new Response("Invalid fields", { status: 400, headers: CORS });
   }
 
   // Fetch current legal version at time of submission

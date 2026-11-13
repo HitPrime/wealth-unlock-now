@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const COOKIE_KEY = "cc_cookie_consent";
 const EXPIRY_DAYS = 365;
@@ -35,6 +35,27 @@ export function CookieBanner() {
     }
   }, []);
 
+  // While the banner is open, add matching empty space at the bottom of the page so the
+  // visitor can scroll the last content (e.g. a form's submit button on a short page)
+  // above the banner instead of it being stuck underneath. Removed when it closes.
+  const bannerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!visible || !el) return;
+    const body = document.body;
+    const previous = body.style.paddingBottom;
+    const update = () => {
+      body.style.paddingBottom = `${Math.ceil(el.getBoundingClientRect().height) + 40}px`;
+    };
+    update();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    ro?.observe(el);
+    return () => {
+      ro?.disconnect();
+      body.style.paddingBottom = previous;
+    };
+  }, [visible]);
+
   const handle = (val: "accepted" | "declined") => {
     storeConsent(val);
     setVisible(false);
@@ -55,6 +76,7 @@ export function CookieBanner() {
       `}</style>
 
       <div
+        ref={bannerRef}
         className="cc-banner"
         role="dialog"
         aria-label="Cookie preferences"
