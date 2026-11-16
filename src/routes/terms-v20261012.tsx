@@ -262,6 +262,7 @@ function TermsPageV20261012() {
           <PV1>If you have questions about these Terms, please contact:</PV1>
           <p className="text-foreground/75 leading-[1.75] mb-1"><strong>Bottle Poppin Productions LLC</strong></p>
           <PV1>Email: <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a></PV1>
+          <PV1>For privacy requests: <a href="mailto:Cassiuscuvee@gmail.com" className="text-[color:var(--color-purple-400)] hover:text-foreground underline underline-offset-2 transition-colors">Cassiuscuvee@gmail.com</a></PV1>
 
           <div className="mt-10 pt-6 border-t border-[color:var(--color-border)]">
             <a href="#top" className="text-sm text-[color:var(--color-purple-400)] hover:text-foreground transition-colors">Back to top</a>

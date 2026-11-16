@@ -21,11 +21,11 @@ import { Route as MerchRouteImport } from './routes/merch'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrivacyV20261012RouteImport } from './routes/privacy-v20261012'
+import { Route as PrivacyV20261116RouteImport } from './routes/privacy-v20261116'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SwellPointRouteImport } from './routes/swell-point'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TermsV20261012RouteImport } from './routes/terms-v20261012'
-import { Route as TermsV20261015RouteImport } from './routes/terms-v20261015'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as VideoSitemapDotxmlRouteImport } from './routes/video-sitemap[.]xml'
@@ -91,6 +91,11 @@ const PrivacyV20261012Route = PrivacyV20261012RouteImport.update({
   path: '/privacy-v20261012',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyV20261116Route = PrivacyV20261116RouteImport.update({
+  id: '/privacy-v20261116',
+  path: '/privacy-v20261116',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -109,11 +114,6 @@ const TermsRoute = TermsRouteImport.update({
 const TermsV20261012Route = TermsV20261012RouteImport.update({
   id: '/terms-v20261012',
   path: '/terms-v20261012',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsV20261015Route = TermsV20261015RouteImport.update({
-  id: '/terms-v20261015',
-  path: '/terms-v20261015',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ThankYouRoute = ThankYouRouteImport.update({
@@ -150,11 +150,11 @@ export interface FileRoutesByFullPath {
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/privacy-v20261116': typeof PrivacyV20261116Route
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
-  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
@@ -173,11 +173,11 @@ export interface FileRoutesByTo {
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/privacy-v20261116': typeof PrivacyV20261116Route
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
-  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
@@ -197,11 +197,11 @@ export interface FileRoutesById {
   '/offers': typeof OffersRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-v20261012': typeof PrivacyV20261012Route
+  '/privacy-v20261116': typeof PrivacyV20261116Route
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/swell-point': typeof SwellPointRoute
   '/terms': typeof TermsRoute
   '/terms-v20261012': typeof TermsV20261012Route
-  '/terms-v20261015': typeof TermsV20261015Route
   '/thank-you': typeof ThankYouRoute
   '/unlock': typeof UnlockRoute
   '/video-sitemap.xml': typeof VideoSitemapDotxmlRoute
@@ -222,11 +222,11 @@ export interface FileRouteTypes {
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/privacy-v20261116'
     | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
-    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/video-sitemap.xml'
@@ -245,11 +245,11 @@ export interface FileRouteTypes {
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/privacy-v20261116'
     | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
-    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/video-sitemap.xml'
@@ -268,11 +268,11 @@ export interface FileRouteTypes {
     | '/offers'
     | '/privacy'
     | '/privacy-v20261012'
+    | '/privacy-v20261116'
     | '/sitemap.xml'
     | '/swell-point'
     | '/terms'
     | '/terms-v20261012'
-    | '/terms-v20261015'
     | '/thank-you'
     | '/unlock'
     | '/video-sitemap.xml'
@@ -292,11 +292,11 @@ export interface RootRouteChildren {
   OffersRoute: typeof OffersRoute
   PrivacyRoute: typeof PrivacyRoute
   PrivacyV20261012Route: typeof PrivacyV20261012Route
+  PrivacyV20261116Route: typeof PrivacyV20261116Route
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SwellPointRoute: typeof SwellPointRoute
   TermsRoute: typeof TermsRoute
   TermsV20261012Route: typeof TermsV20261012Route
-  TermsV20261015Route: typeof TermsV20261015Route
   ThankYouRoute: typeof ThankYouRoute
   UnlockRoute: typeof UnlockRoute
   VideoSitemapDotxmlRoute: typeof VideoSitemapDotxmlRoute
@@ -389,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyV20261012RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-v20261116': {
+      id: '/privacy-v20261116'
+      path: '/privacy-v20261116'
+      fullPath: '/privacy-v20261116'
+      preLoaderRoute: typeof PrivacyV20261116RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -415,13 +422,6 @@ declare module '@tanstack/react-router' {
       path: '/terms-v20261012'
       fullPath: '/terms-v20261012'
       preLoaderRoute: typeof TermsV20261012RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms-v20261015': {
-      id: '/terms-v20261015'
-      path: '/terms-v20261015'
-      fullPath: '/terms-v20261015'
-      preLoaderRoute: typeof TermsV20261015RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/thank-you': {
@@ -468,11 +468,11 @@ const rootRouteChildren: RootRouteChildren = {
   OffersRoute: OffersRoute,
   PrivacyRoute: PrivacyRoute,
   PrivacyV20261012Route: PrivacyV20261012Route,
+  PrivacyV20261116Route: PrivacyV20261116Route,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SwellPointRoute: SwellPointRoute,
   TermsRoute: TermsRoute,
   TermsV20261012Route: TermsV20261012Route,
-  TermsV20261015Route: TermsV20261015Route,
   ThankYouRoute: ThankYouRoute,
   UnlockRoute: UnlockRoute,
   VideoSitemapDotxmlRoute: VideoSitemapDotxmlRoute,
