@@ -16,6 +16,21 @@ async function signToken(secret: string): Promise<string> {
   return `${payload}.${hex}`;
 }
 
+// Constant-time compare: hash both sides, then check every byte, so the response time
+// doesn't reveal how much of a guessed password was right (timing attack).
+async function sameText(a: string, b: string): Promise<boolean> {
+  const enc = new TextEncoder();
+  const [x, y] = await Promise.all([
+    crypto.subtle.digest("SHA-256", enc.encode(a)),
+    crypto.subtle.digest("SHA-256", enc.encode(b)),
+  ]);
+  const u = new Uint8Array(x);
+  const v = new Uint8Array(y);
+  let diff = 0;
+  for (let i = 0; i < u.length; i++) diff |= u[i] ^ v[i];
+  return diff === 0;
+}
+
 const MAX_FAILS = 5;
 const LOCK_SECONDS = 15 * 60;
 // Atomic "count this attempt": INCR, and on the first attempt of a window set its expiry.
@@ -97,7 +112,7 @@ export default async function handler(req: Request) {
     );
   }
 
-  if (body.password !== ADMIN_PASSWORD) {
+  if (!(await sameText(typeof body.password === "string" ? body.password : "", ADMIN_PASSWORD))) {
     // Deliberate delay to slow brute force
     await new Promise(r => setTimeout(r, 500));
     return new Response(JSON.stringify({ ok: false, error: "Incorrect password" }), {

@@ -1,7 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { sanitizeAttribution, type Attribution as LeadAttribution } from "./attribution";
 
-const EMAIL_RE = /.+@.+\..+/;
+// Email check that stays fast on any input: length is capped first (254 = max email
+// length), and the pattern has no overlapping parts, so it can't backtrack (ReDoS).
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+const EMAIL_RE = { test: (email: string) => email.length <= 254 && EMAIL_PATTERN.test(email) };
 // Segment tags are generated from a fixed option list, so restrict to that shape as a guard.
 const TAG_RE = /^[a-z0-9-]+$/;
 
