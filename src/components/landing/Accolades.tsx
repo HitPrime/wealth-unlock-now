@@ -1,6 +1,7 @@
 import { PRESS } from "@/content/landing";
 import { SectionHeader } from "./WhoFor";
 import { SectionCta } from "./Cta";
+import { YouTubeFacade } from "@/components/reviews/YouTubeFacade";
 import wsjImg from "@/assets/press/appearances/wsj.jpg";
 import cnbcImg from "@/assets/press/appearances/cnbc.jpg";
 
@@ -25,15 +26,12 @@ export function Accolades() {
             >
               {p.short === "Squawk on the Street" ? (
                 <div className="relative aspect-[16/9] overflow-hidden">
-                  <iframe
-                    src="https://www.youtube-nocookie.com/embed/dUv_GldZFns?start=29&end=40&autoplay=0&rel=0&modestbranding=1"
+                  {/* Click-to-load: YouTube's player only loads after the visitor presses play. */}
+                  <YouTubeFacade
+                    id="dUv_GldZFns"
                     title="Squawk on the Street"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="h-full w-full"
-                    style={{ border: "none" }}
+                    params="start=29&end=40&modestbranding=1"
+                    rounded=""
                   />
                 </div>
               ) : (

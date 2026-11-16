@@ -31,14 +31,15 @@ export function StarterKitDialog({ trigger, where }: { trigger: ReactNode; where
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load GHL form embed script once
-    if (document.getElementById("ghl-form-script")) return;
+    // Load GHL form embed script once, and only when the visitor opens the form, so no
+    // third-party script runs for visitors who never open it.
+    if (!open || document.getElementById("ghl-form-script")) return;
     const script = document.createElement("script");
     script.id = "ghl-form-script";
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
     document.body.appendChild(script);
-  }, []);
+  }, [open]);
 
   // "Form started": the GHL form is a cross-site iframe, so we can't see its fields. When
   // the visitor clicks into it, focus moves into the iframe and our window blurs; that is

@@ -10,11 +10,17 @@ export function YouTubeFacade({
   id,
   title,
   priority = false,
+  params = "",
+  rounded = "rounded-xl",
   onPlay,
 }: {
   id: string;
   title: string;
   priority?: boolean;
+  /** Extra player options, e.g. "start=29&end=40". */
+  params?: string;
+  /** Corner rounding class; pass "" when the parent card already clips the corners. */
+  rounded?: string;
   /** Called once when the visitor presses play (used for play counting). */
   onPlay?: () => void;
 }) {
@@ -30,10 +36,10 @@ export function YouTubeFacade({
 
   if (playing) {
     return (
-      <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
+      <div className={`aspect-video w-full overflow-hidden ${rounded} bg-black`}>
         <iframe
           className="h-full w-full"
-          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0${params ? `&${params}` : ""}`}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
@@ -50,7 +56,7 @@ export function YouTubeFacade({
         setPlaying(true);
         onPlay?.();
       }}
-      className="group relative block aspect-video w-full overflow-hidden rounded-xl bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold)]"
+      className={`group relative block aspect-video w-full overflow-hidden ${rounded} bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold)]`}
       aria-label={`Play video: ${title}`}
     >
       <img

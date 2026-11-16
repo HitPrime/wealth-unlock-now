@@ -72,7 +72,7 @@ export const TRADER_PROFILE: ProfileQuestion[] = [
     label: "Age range",
     type: "single",
     options: [
-      { value: "u21", label: "Under 21", tag: "age-under-21" },
+      { value: "u21", label: "18 to 21", tag: "age-under-21" }, // tag kept so existing GHL filters still match
       { value: "21-30", label: "21 to 30", tag: "age-21-30" },
       { value: "31-40", label: "31 to 40", tag: "age-31-40" },
       { value: "41-50", label: "41 to 50", tag: "age-41-50" },
