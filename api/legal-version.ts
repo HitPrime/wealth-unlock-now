@@ -7,7 +7,7 @@ const CURRENT_VERSION = {
   terms_url:           "https://www.cassiuscuvee.com/terms",
   terms_archive_url:   "https://www.cassiuscuvee.com/terms-v20261012",
   privacy_url:         "https://www.cassiuscuvee.com/privacy",
-  privacy_archive_url: "https://www.cassiuscuvee.com/privacy-v20261012",
+  privacy_archive_url: "https://www.cassiuscuvee.com/privacy-v20261116",
 };
 // ───────────────────────────────────────────────────────────────────────────
 
