@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "../components/CookieBanner";
 import { captureAttribution, carryUtmsOnOutboundLinks } from "../lib/attribution";
+import { startClarityWhenConsented } from "../lib/clarity";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -169,7 +170,13 @@ function RootComponent() {
   // other domains (clientclub., learn., getswellpoint.com).
   useEffect(() => {
     captureAttribution();
-    return carryUtmsOnOutboundLinks();
+    const stopLinks = carryUtmsOnOutboundLinks();
+    // Microsoft Clarity: only after "Accept All" on the cookie banner (see lib/clarity.ts).
+    const stopClarity = startClarityWhenConsented();
+    return () => {
+      stopLinks();
+      stopClarity();
+    };
   }, []);
 
   return (

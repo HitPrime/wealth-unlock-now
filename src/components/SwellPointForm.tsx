@@ -47,7 +47,7 @@ export function SwellPointForm() {
   }
 
   return (
-    <form onSubmit={submit} className="space-y-3">
+    <form data-clarity-mask="true" onSubmit={submit} className="space-y-3">
       <input
         className={inputClass}
         type="email"

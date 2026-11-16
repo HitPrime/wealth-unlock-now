@@ -114,7 +114,7 @@ export function LeadMagnetForm() {
 
   if (step === 1) {
     return (
-      <form onSubmit={handleStep1} className="space-y-4">
+      <form data-clarity-mask="true" onSubmit={handleStep1} className="space-y-4">
         <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-[color:var(--color-purple-200)]">
           Step 1 of 2 · Required to unlock
         </p>
@@ -188,7 +188,7 @@ export function LeadMagnetForm() {
   }
 
   return (
-    <form onSubmit={handleStep2} className="space-y-8">
+    <form data-clarity-mask="true" onSubmit={handleStep2} className="space-y-8">
       <div>
         <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-[color:var(--color-purple-200)]">
           Step 2 of 2 · Your trader profile

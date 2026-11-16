@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { CONSENT_EVENT } from "../lib/clarity";
 
 const COOKIE_KEY = "cc_cookie_consent";
 const EXPIRY_DAYS = 365;
@@ -59,6 +60,8 @@ export function CookieBanner() {
   const handle = (val: "accepted" | "declined") => {
     storeConsent(val);
     setVisible(false);
+    // Let non-essential tools (Microsoft Clarity) start right away after "Accept All".
+    window.dispatchEvent(new Event(CONSENT_EVENT));
   };
 
   if (!visible) return null;
@@ -134,7 +137,9 @@ export function CookieBanner() {
           lineHeight: "1.6",
           marginBottom: "14px",
         }}>
-          We use cookies for analytics, advertising, and to remember your preferences.{" "}
+          We use essential cookies to run this site. With your OK, we also use non-essential
+          cookies for analytics (including Microsoft Clarity heatmaps and session recordings,
+          with form inputs hidden), advertising, and to remember your preferences.{" "}
           <a
             href="/privacy"
             target="_blank"

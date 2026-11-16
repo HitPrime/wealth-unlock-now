@@ -171,7 +171,7 @@ function PrivacyPage() {
             <p className="text-sm text-foreground/60">
               <strong className="text-foreground/75">Effective Date:</strong> October 6, 2026
               {" · "}
-              <strong className="text-foreground/75">Last Updated:</strong> October 12, 2026
+              <strong className="text-foreground/75">Last Updated:</strong> November 16, 2026
             </p>
             <p className="text-sm text-foreground/55 mt-1">
               Operated by Bottle Poppin Productions LLC · Brands: Cassius Cuvée and Swell Point
@@ -284,7 +284,8 @@ function PrivacyPage() {
                   ["Pinterest", "Pinterest Tag – advertising.", "policy.pinterest.com/privacy-policy"],
                   ["Reddit", "Reddit Pixel – advertising.", "reddit.com/policies/privacy-policy"],
                   ["YouTube (Google)", "Video player embedded on our homepage; it may set cookies and collect usage data when the page loads.", "policies.google.com/privacy"],
-                  ["Vercel", "Website hosting; has access to server logs, including IP addresses.", "vercel.com/legal/privacy-policy"],
+                  ["Vercel", "Website hosting, plus cookieless Web Analytics and Speed Insights (pages viewed, referring site, country, device type and page load speed, in aggregate); has access to server logs, including IP addresses.", "vercel.com/legal/privacy-policy"],
+                  ["Microsoft (Clarity)", "Heatmaps and session recordings that show how visitors use our website (clicks, scrolling, page navigation). Loaded only if you accept non-essential cookies. Everything typed into or selected in our forms is masked and never recorded.", "privacy.microsoft.com/privacystatement"],
                   ["Cloudflare", "Content delivery and file storage (CDN / R2) for website assets.", "cloudflare.com/privacypolicy"],
                   ["Discord", "Community platform, if you join our Discord server.", "discord.com/privacy"],
                 ].map(([service, role, url]) => (
@@ -320,7 +321,7 @@ function PrivacyPage() {
               <tbody>
                 {[
                   ["Essential", "Needed for the Sites to work, such as security, forms and checkout. Set by us and our hosting and platform providers.", "GoHighLevel, Vercel, Cloudflare", "Session to 24 months"],
-                  ["Analytics", "Help us understand how visitors use the Sites.", "Google Analytics", "Session to 24 months"],
+                  ["Analytics", "Help us understand how visitors use the Sites. Microsoft Clarity loads only after you accept non-essential cookies, and form inputs are masked in its recordings.", "Google Analytics, Microsoft Clarity", "Session to 24 months"],
                   ["Advertising", "Measure ad performance and show relevant ads on other platforms.", "Meta, Google Ads, TikTok, Pinterest, Reddit", "Session to 24 months"],
                   ["Functional", "Remember your preferences and enable embedded content such as videos.", "YouTube", "Session to 24 months"],
                 ].map(([cat, purpose, examples, duration]) => (
@@ -334,6 +335,8 @@ function PrivacyPage() {
               </tbody>
             </table>
           </div>
+
+          <P>Vercel Web Analytics and Speed Insights do not use cookies and do not identify individual visitors; they report aggregate visit and performance data only.</P>
 
           <H3>How to manage cookies</H3>
           <UL>

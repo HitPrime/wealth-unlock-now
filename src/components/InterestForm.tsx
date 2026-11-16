@@ -39,7 +39,7 @@ export function InterestForm({
   }
 
   return (
-    <form onSubmit={submit} className="space-y-2">
+    <form data-clarity-mask="true" onSubmit={submit} className="space-y-2">
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"
