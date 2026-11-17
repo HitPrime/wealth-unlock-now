@@ -56,6 +56,16 @@ export default async function handler(req: Request) {
   try { body = await req.json(); }
   catch { return new Response("Invalid body", { status: 400 }); }
 
+  // Spam trap (honeypot): both testimonial forms have a hidden "website" field that real
+  // visitors never see. Bots fill every field, so if it has a value we answer "ok" (so the
+  // bot thinks it worked) but save nothing.
+  if (typeof body.website === "string" && body.website.trim() !== "") {
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { ...CORS, "Content-Type": "application/json" },
+    });
+  }
+
   if (!body.name || !body.email || !body.consentText) {
     return new Response("Missing required fields", { status: 400, headers: CORS });
   }
@@ -71,6 +81,14 @@ export default async function handler(req: Request) {
     const n = Number(v);
     return Number.isFinite(n) && n >= min && n <= max;
   };
+  // The video form sends the size as text like "12.34 MB".
+  const sizeMB = typeof body.fileSizeMB === "string" ? body.fileSizeMB.replace(/\s*MB$/i, "") : body.fileSizeMB;
+  // Video link must point at our own Supabase video bucket (the form uploads there first).
+  const VIDEO_PREFIX = `${SUPABASE_URL}/storage/v1/object/public/testimonial-videos/`;
+  const videoUrlOk =
+    body.videoUrl == null ||
+    (typeof body.videoUrl === "string" && body.videoUrl.length <= 500 &&
+      body.videoUrl.startsWith(VIDEO_PREFIX) && !body.videoUrl.includes(".."));
   const valid =
     str(body.name, 120) &&
     str(body.email, 254) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(body.email)) &&
@@ -79,7 +97,8 @@ export default async function handler(req: Request) {
     optNum(body.rating, 1, 5) &&
     optStr(body.fileName, 300) &&
     optStr(body.fileType, 100) &&
-    optNum(body.fileSizeMB, 0, 100) &&
+    optNum(sizeMB, 0, 100) &&
+    videoUrlOk &&
     (body.consentedAt == null || typeof body.consentedAt === "number" || optStr(body.consentedAt, 40));
   if (!valid) {
     return new Response("Invalid fields", { status: 400, headers: CORS });
@@ -88,7 +107,7 @@ export default async function handler(req: Request) {
   // Fetch current legal version at time of submission
   const legalVersion = await getCurrentLegalVersion();
 
-  const isVideo = !!(body.fileName || body.fileType);
+  const isVideo = !!(body.fileName || body.fileType || body.videoUrl);
   const redisKey = isVideo ? "testimonials:video" : "testimonials:text";
 
   const record = {
@@ -100,6 +119,7 @@ export default async function handler(req: Request) {
     file_name:           body.fileName            ?? null,
     file_type:           body.fileType            ?? null,
     file_size_mb:        body.fileSizeMB          ?? null,
+    ...(isVideo ? { video_url: body.videoUrl ?? null } : {}),
     consent_text:        body.consentText,
     // Legal version at time of submission — fetched live from /api/legal-version
     terms_version:       legalVersion.terms_version,
@@ -109,8 +129,16 @@ export default async function handler(req: Request) {
   };
 
   // Save to Supabase
+  // The testimonial and consent record must be saved; if not, tell the form so the visitor
+  // can try again instead of seeing a false "thank you".
   try { await saveToSupabase(record); }
-  catch (err) { console.error("Supabase save failed:", err); }
+  catch (err) {
+    console.error("Supabase save failed:", err);
+    return new Response(JSON.stringify({ ok: false }), {
+      status: 502,
+      headers: { ...CORS, "Content-Type": "application/json" },
+    });
+  }
 
   // Save to Upstash (backup)
   try { await saveToUpstash(redisKey, JSON.stringify(record)); }
